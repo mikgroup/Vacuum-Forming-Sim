@@ -3,8 +3,8 @@
 
 #include "mesh_import.h"
 #include "../collision/mesh.h"
-#include <embree2/rtcore.h>
-#include <embree2/rtcore_ray.h>
+#include <embree3/rtcore.h>
+#include <embree3/rtcore_ray.h>
 
 #include "CGL/vector3D.h"
 
@@ -93,11 +93,16 @@ void import_mesh(Mesh &mesh, string filename) {
 
 
 	// Loading tris and verts into Embree scene
-	unsigned int geomID = rtcNewTriangleMesh2(mesh.scene, RTC_GEOMETRY_STATIC, mesh.faces.size(), mesh.verts.size(), 1);
+	unsigned int geomID;
+ RTCGeometry geom_0 = rtcNewGeometry (mesh.device, RTC_GEOMETRY_TYPE_TRIANGLE); // EMBREE_FIXME: check if geometry gets properly committed
+ rtcSetGeometryBuildQuality(geom_0,RTC_BUILD_QUALITY_MEDIUM);
+ rtcSetGeometryTimeStepCount(geom_0,1);
+ geomID = rtcAttachGeometry(mesh.scene,geom_0);
+ rtcReleaseGeometry(geom_0);
 
 	mesh.embree_geomID = geomID;
 	
-	Vertex *vertices = (Vertex *) rtcMapBuffer(mesh.scene, geomID, RTC_VERTEX_BUFFER);
+	Vertex *vertices = (Vertex *) rtcSetNewGeometryBuffer(geom_0,RTC_BUFFER_TYPE_VERTEX,0,RTC_FORMAT_FLOAT3,4*sizeof(float),mesh.verts.size());
 	int i = 0;
 	for (vector<Vertex *>::iterator it = mesh.verts.begin(); it != mesh.verts.end(); it++) {
 		vertices[i].x = (*it)->x;	
@@ -105,9 +110,9 @@ void import_mesh(Mesh &mesh, string filename) {
 		vertices[i].z = (*it)->z;
 		i++;
 	}
-	rtcUnmapBuffer(mesh.scene, geomID, RTC_VERTEX_BUFFER);
+	
 
-	Face *faces = (Face *) rtcMapBuffer(mesh.scene, geomID, RTC_INDEX_BUFFER);
+	Face *faces = (Face *) rtcSetNewGeometryBuffer(geom_0,RTC_BUFFER_TYPE_INDEX,0,RTC_FORMAT_UINT3,3*sizeof(int),mesh.faces.size());
 	i = 0;
 	for (vector<Face *>::iterator it = mesh.faces.begin(); it != mesh.faces.end(); it++) {
 		faces[i].v0 = (*it)->v0;
@@ -115,7 +120,7 @@ void import_mesh(Mesh &mesh, string filename) {
 		faces[i].v2 = (*it)->v2;
 		i++;
 	}
-	rtcUnmapBuffer(mesh.scene, geomID, RTC_INDEX_BUFFER);
+	
 }
 
 } // namespace Misc

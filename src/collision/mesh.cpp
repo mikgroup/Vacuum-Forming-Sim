@@ -8,39 +8,53 @@
 #include "../misc/mesh_import.h"
 #include "mesh.h"
 
-#include <embree2/rtcore.h>
-#include <embree2/rtcore_ray.h>
+#include <embree3/rtcore.h>
+#include <embree3/rtcore_ray.h>
 
 using namespace nanogui;
 using namespace CGL;
 
-static void fill_array(float *f, Vector3D vec) {
-	f[0] = vec.x;
-	f[1] = vec.y;
-	f[2] = vec.z;
+static void buildRay(RTCRay r, Vector3D org, Vector3D dir) {
+	r.org_x = org.x;
+	r.org_y = org.y;
+	r.org_z = org.z;
+
+	r.dir_x = dir.x;
+	r.dir_y = dir.y;
+	r.dir_z = dir.z;
 }
 
 void Mesh::collide(PointMass &pm) {
 	if (pm.stuck)
 		return;
 
-	RTCRay ray;
-	fill_array(ray.org, pm.last_position_no_vel);
+	RTCRayHit ray; // EMBREE_FIXME: use RTCRay for occlusion rays
+ 	ray.ray.flags = 0;
 	Vector3D sub = pm.last_position_no_vel - pm.last_position; // this seems wrong
 	Vector3D sub_norm = Vector3D(sub);
 	sub_norm.normalize();
-	fill_array(ray.dir, sub_norm);
-	ray.tnear = 0;
-	ray.tfar = 1.5 * sub.norm(); // extending the ray causes less artifacts
-	ray.geomID = RTC_INVALID_GEOMETRY_ID;
-	ray.primID = RTC_INVALID_GEOMETRY_ID;
-	ray.mask = -1;
-	ray.time = 0;
+	
+	buildRay(ray.ray, pm.last_position_no_vel, sub_norm);
+	
+	ray.ray.tnear = 0;
+	ray.ray.tfar = 1.5 * sub.norm(); // extending the ray causes less artifacts
+	ray.hit.geomID = RTC_INVALID_GEOMETRY_ID;
+	ray.hit.primID = RTC_INVALID_GEOMETRY_ID;
+	ray.ray.mask = -1;
+	ray.ray.time = 0;
 
-	double tfar_old = ray.tfar;
-	rtcIntersect(scene, ray);
-	if (ray.geomID == embree_geomID) {
-		pm.position = pm.last_position_no_vel + sub_norm * ray.tfar;
+	double tfar_old = ray.ray.tfar;
+	{
+  	RTCIntersectContext context;
+  	rtcInitIntersectContext(&context);
+  	rtcIntersect1(scene,&context,&ray);
+  	ray.hit.Ng_x = -ray.hit.Ng_x; // EMBREE_FIXME: only correct for triangles,quads, and subdivision surfaces
+  	ray.hit.Ng_y = -ray.hit.Ng_y;
+  	ray.hit.Ng_z = -ray.hit.Ng_z;
+ 	}
+	
+	if (ray.hit.geomID == embree_geomID) {
+		pm.position = pm.last_position_no_vel + sub_norm * ray.ray.tfar;
 		pm.pinned = false;
 		pm.stuck = true;
 		if (platen) {

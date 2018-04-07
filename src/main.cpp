@@ -6,8 +6,8 @@
 #include <stdlib.h>
 #include <unistd.h>
 #include <unordered_set>
-#include <embree2/rtcore.h>
-#include <embree2/rtcore_ray.h>
+#include <embree3/rtcore.h>
+#include <embree3/rtcore_ray.h>
 
 #include "CGL/CGL.h"
 #include "collision/plane.h"
@@ -150,7 +150,7 @@ void incompleteObjectError(const char *object, const char *attribute) {
   exit(-1);
 }
 
-void loadObjectsFromFile(string filename, Cloth *cloth, ClothParameters *cp, vector<CollisionObject *>* objects, vector<int> *mesh_inds, RTCScene *scene) {
+void loadObjectsFromFile(string filename, Cloth *cloth, ClothParameters *cp, vector<CollisionObject *>* objects, vector<int> *mesh_inds, RTCScene *scene, RTCDevice *device) {
   // Read JSON from file
   ifstream i(filename);
   json j;
@@ -482,7 +482,7 @@ void loadObjectsFromFile(string filename, Cloth *cloth, ClothParameters *cp, vec
 				} else {
 					platen = false;
 				}
-				Mesh *m = new Mesh(mesh_filename, translate, rotations, scale, *scene, platen);
+				Mesh *m = new Mesh(mesh_filename, translate, rotations, scale, *scene, *device, platen);
 				mesh_inds->push_back(objects->size());
 				objects->push_back(m);
 			}
@@ -500,23 +500,25 @@ int main(int argc, char **argv) {
 
 	// Init Embree
 	RTCDevice device = rtcNewDevice(NULL);
-	RTCScene scene = rtcDeviceNewScene(device, RTC_SCENE_STATIC | RTC_SCENE_HIGH_QUALITY | RTC_SCENE_ROBUST, RTC_INTERSECT1);
+	RTCScene scene = rtcNewScene(device);
+  // rtcSetSceneFlags(scene,RTC_BUILD_QUALITY_MEDIUM | RTC_BUILD_QUALITY_HIGH | RTC_SCENE_FLAG_ROBUST); // EMBREE_FIXME: set proper scene flags
+  // rtcSetSceneBuildQuality(scene,RTC_BUILD_QUALITY_MEDIUM | RTC_BUILD_QUALITY_HIGH | RTC_SCENE_FLAG_ROBUST); // EMBREE_FIXME: set proper build quality
 
   if (argc == 1) { // No arguments, default initialization
     string default_file_name = "../scene/pinned2.json";
-    loadObjectsFromFile(default_file_name, &cloth, &cp, &objects, &mesh_inds, &scene);
+    loadObjectsFromFile(default_file_name, &cloth, &cp, &objects, &mesh_inds, &scene, &device);
   } else {
     int c;
 
     while ((c = getopt (argc, argv, "f:")) != -1) {
       switch (c) {
         case 'f':
-          loadObjectsFromFile(optarg, &cloth, &cp, &objects, &mesh_inds, &scene);
+          loadObjectsFromFile(optarg, &cloth, &cp, &objects, &mesh_inds, &scene, &device);
           break;
         default:
           usageError(argv[0]);
-					rtcDeleteScene(scene);
-					rtcDeleteDevice(device);
+					rtcReleaseScene(scene);
+					rtcReleaseDevice (device);
       }
     }
   }
@@ -568,7 +570,7 @@ int main(int argc, char **argv) {
     app->drawContents();
 	
 		if (!first) {
-			rtcCommit(scene);
+			rtcCommitScene(scene);
 			first = false;
 		}
 
@@ -583,8 +585,8 @@ int main(int argc, char **argv) {
     }
   }
 	
-	rtcDeleteScene(scene);
-	rtcDeleteDevice(device);
+	rtcReleaseScene(scene);
+	rtcReleaseDevice (device);
 
   return 0;
 }

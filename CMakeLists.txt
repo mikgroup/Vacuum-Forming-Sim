@@ -145,7 +145,7 @@ endif(WIN32)
 # Embree
 #------------
 add_subdirectory(ext/embree2)
-find_package(embree 2.0 REQUIRED)
+find_package(embree 3.0 REQUIRED)
 
 include_directories(${EMBREE_INCLUDE_DIRS})
 
