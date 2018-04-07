@@ -48,7 +48,7 @@ struct Face {
 struct Mesh : public CollisionObject {
 public:
 	Mesh(string filename, const Vector3D &trans, vector<tuple<double, Vector3D>> rotations, double scale, RTCScene &scene, RTCDevice &device, bool platen)
-		: filename(filename), trans(trans), rotations(rotations), scale(scale), scene(scene), platen(platen) {}
+		: filename(filename), trans(trans), rotations(rotations), scale(scale), scene(scene), device(device), platen(platen) {}
 
 	void render(GLShader &shader);
 	void collide(PointMass &pm);

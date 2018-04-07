@@ -94,11 +94,11 @@ void import_mesh(Mesh &mesh, string filename) {
 
 	// Loading tris and verts into Embree scene
 	unsigned int geomID;
- RTCGeometry geom_0 = rtcNewGeometry (mesh.device, RTC_GEOMETRY_TYPE_TRIANGLE); // EMBREE_FIXME: check if geometry gets properly committed
- rtcSetGeometryBuildQuality(geom_0,RTC_BUILD_QUALITY_MEDIUM);
- rtcSetGeometryTimeStepCount(geom_0,1);
- geomID = rtcAttachGeometry(mesh.scene,geom_0);
- rtcReleaseGeometry(geom_0);
+ 	RTCGeometry geom_0 = rtcNewGeometry (mesh.device, RTC_GEOMETRY_TYPE_TRIANGLE); // EMBREE_FIXME: check if geometry gets properly committed
+ 	rtcSetGeometryBuildQuality(geom_0,RTC_BUILD_QUALITY_MEDIUM);
+ 	rtcSetGeometryTimeStepCount(geom_0,1);
+ 	geomID = rtcAttachGeometry(mesh.scene, geom_0);
+ 	//rtcReleaseGeometry(geom_0);
 
 	mesh.embree_geomID = geomID;
 	
@@ -120,6 +120,8 @@ void import_mesh(Mesh &mesh, string filename) {
 		faces[i].v2 = (*it)->v2;
 		i++;
 	}
+
+	rtcCommitGeometry(geom_0);
 	
 }
 

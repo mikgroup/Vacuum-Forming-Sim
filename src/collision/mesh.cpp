@@ -14,14 +14,14 @@
 using namespace nanogui;
 using namespace CGL;
 
-static void buildRay(RTCRay r, Vector3D org, Vector3D dir) {
-	r.org_x = org.x;
-	r.org_y = org.y;
-	r.org_z = org.z;
+static void buildRay(RTCRay *r, Vector3D org, Vector3D dir) {
+	r->org_x = org.x;
+	r->org_y = org.y;
+	r->org_z = org.z;
 
-	r.dir_x = dir.x;
-	r.dir_y = dir.y;
-	r.dir_z = dir.z;
+	r->dir_x = dir.x;
+	r->dir_y = dir.y;
+	r->dir_z = dir.z;
 }
 
 void Mesh::collide(PointMass &pm) {
@@ -34,7 +34,7 @@ void Mesh::collide(PointMass &pm) {
 	Vector3D sub_norm = Vector3D(sub);
 	sub_norm.normalize();
 	
-	buildRay(ray.ray, pm.last_position_no_vel, sub_norm);
+	buildRay(&ray.ray, pm.last_position_no_vel, sub_norm);
 	
 	ray.ray.tnear = 0;
 	ray.ray.tfar = 1.5 * sub.norm(); // extending the ray causes less artifacts
@@ -69,6 +69,7 @@ void Mesh::render(GLShader &shader) {
 		Misc::import_mesh(*this, filename);
 		initialized = true;
 	}
+
 	Misc::draw_mesh(*this, shader);
 }
 

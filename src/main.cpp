@@ -499,9 +499,10 @@ int main(int argc, char **argv) {
 	vector<int> mesh_inds;
 
 	// Init Embree
-	RTCDevice device = rtcNewDevice(NULL);
+	RTCDevice device = rtcNewDevice("");
 	RTCScene scene = rtcNewScene(device);
-  // rtcSetSceneFlags(scene,RTC_BUILD_QUALITY_MEDIUM | RTC_BUILD_QUALITY_HIGH | RTC_SCENE_FLAG_ROBUST); // EMBREE_FIXME: set proper scene flags
+  
+	// rtcSetSceneFlags(scene,RTC_BUILD_QUALITY_MEDIUM | RTC_BUILD_QUALITY_HIGH | RTC_SCENE_FLAG_ROBUST); // EMBREE_FIXME: set proper scene flags
   // rtcSetSceneBuildQuality(scene,RTC_BUILD_QUALITY_MEDIUM | RTC_BUILD_QUALITY_HIGH | RTC_SCENE_FLAG_ROBUST); // EMBREE_FIXME: set proper build quality
 
   if (argc == 1) { // No arguments, default initialization
@@ -568,7 +569,6 @@ int main(int argc, char **argv) {
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
     app->drawContents();
-	
 		if (!first) {
 			rtcCommitScene(scene);
 			first = false;
