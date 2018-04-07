@@ -1,0 +1,3 @@
+[submodule "ext/embree2"]
+	path = ext/embree2
+	url = https://github.com/embree/embree.git/
