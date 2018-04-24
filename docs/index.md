@@ -6,10 +6,10 @@
 
 We have pivoted! Our project proposal is now out of date. Please see our milestone for new goals and progress.
 
-<a href="proposal.html">Proposal</a>
+[Proposal](proposal.md)
 
 ## Milestone
 
-<a href="milestone.html">Milestone</a>
+[Milestone](milestone.md)
 
 
