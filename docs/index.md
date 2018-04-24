@@ -3,8 +3,10 @@
 *Karthik Gopalan, Rachel Lee, James Lin*
 
 ## Proposal
+
 We have pivoted! Our project proposal is now out of date. Please see our milestone for new goals and progress.
-<a href="proposal.md">Milestone</a>
+
+<a href="proposal.md">Proposal</a>
 
 ## Milestone
 
