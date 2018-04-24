@@ -14,6 +14,8 @@
     </embed>
 </object>
 
+<a href="284_milestone_paper.pdf">Download PDF</a>
+
 ## Slides
 
 <a href="284_milestone_slides.pptx">Download Slides</a>
