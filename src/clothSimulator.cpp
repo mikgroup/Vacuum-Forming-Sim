@@ -34,7 +34,7 @@ ClothSimulator::ClothSimulator(Screen *screen) {
 	imageShader.initFromFiles("Image", "../shaders/camera.vert",
 														"../shaders/image.frag");
 	
-	const char* pngFile = "/Users/karthikgopalan/Documents/Projects/ThermoCoil/proj4_clothsim/build/tex.png";
+	const char* pngFile = "../storage/tex.png";
 
 	textureId = makeTex(pngFile);
 
