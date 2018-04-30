@@ -18,7 +18,7 @@
 using namespace nanogui;
 using namespace std;
 
-static GLuint makeTex(const char* path);
+static GLuint makeTex(string path);
 
 ClothSimulator::ClothSimulator(Screen *screen) {
   this->screen = screen;
@@ -34,9 +34,6 @@ ClothSimulator::ClothSimulator(Screen *screen) {
 	imageShader.initFromFiles("Image", "../shaders/camera.vert",
 														"../shaders/image.frag");
 	
-	const char* pngFile = "../storage/tex.png";
-
-	textureId = makeTex(pngFile);
 
   shaders.push_back(wireframeShader);
   shaders.push_back(normalShader);
@@ -87,6 +84,8 @@ void ClothSimulator::init() {
   for (auto &pm : cloth->point_masses) {
     avg_pm_position += pm.position / cloth->point_masses.size();
   }
+	
+	textureId = makeTex(cloth->texture);
 
   CGL::Vector3D target(avg_pm_position.x, avg_pm_position.y / 2,
                        avg_pm_position.z);
@@ -256,7 +255,7 @@ void ClothSimulator::drawNormals(GLShader &shader) {
 
 
 static double u3, v3;
-static GLuint makeTex(const char* path) {
+static GLuint makeTex(string path) {
 	std::vector<unsigned char> image;
 	unsigned width, height;
   int error = lodepng::decode(image, width, height, path);
@@ -716,28 +715,6 @@ void ClothSimulator::initGUI(Screen *screen) {
     });
   }
 
-//	new Label(window, "Vacuum", "sans-bold");
-//	
-//	{
-//		Widget *panel = new Widget(window);
-//		panel-> setLayout(new BoxLayout(Orientation::Horizontal, Alignment::Middle, 0, 5));
-//		Slider *slider = new Slider(panel);
-//		slider->setValue(0);
-//		slider->setFixedWidth(105);
-//
-//		TextBox *value = new TextBox(panel);
-//		value->setFixedWidth(75);
-//		value->setValue(to_string(0));
-//		value->setFontSize(14);
-//
-//		slider->setCallback([value](float val) {
-//			value->setValue(std::to_string(val));
-//		});
-//		slider->setFinalCallback([&](float value) {
-//			cloth->vacuum_force = (double) value * 20000;
-//		});
-//	}
-
   // Gravity
 
   new Label(window, "Gravity", "sans-bold");
@@ -836,19 +813,35 @@ void ClothSimulator::initGUI(Screen *screen) {
 		});
 		
 		Slider *slider_scale = new Slider(panel);
-		slider_scale->setValue(0);
+		slider_scale->setValue(0.5);
 		slider_scale->setFixedWidth(105);
 
 		TextBox *value_scale = new TextBox(panel);
 		value_scale->setFixedWidth(75);
-		value_scale->setValue(to_string(0));
+		value_scale->setValue(to_string(0.5));
 		value_scale->setFontSize(14);
 
 		slider_scale->setCallback([value_scale](float val) {
-			value_scale->setValue(std::to_string(val));
+			value_scale->setValue(std::to_string(2 - val * 2));
 		});
 		slider_scale->setFinalCallback([&](float value) {
 			cloth->scale_uvs(value * 2.0);
+		});
+
+		Slider *slider_rotate = new Slider(panel);
+		slider_rotate->setValue(0);
+		slider_rotate->setFixedWidth(105);
+
+		TextBox *value_rotate = new TextBox(panel);
+		value_rotate->setFixedWidth(75);
+		value_rotate->setValue(to_string(0));
+		value_rotate->setFontSize(14);
+
+		slider_rotate->setCallback([value_rotate](float val) {
+			value_rotate->setValue(std::to_string(val));
+		});
+		slider_rotate->setFinalCallback([&](float value) {
+			cloth->rotate_uvs(value * 2 * PI);
 		});
   }
 

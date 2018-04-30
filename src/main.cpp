@@ -176,6 +176,7 @@ void loadObjectsFromFile(string filename, Cloth *cloth, ClothParameters *cp, vec
       double width, height;
       int num_width_points, num_height_points;
       float thickness;
+			string texture;
       e_orientation orientation;
       vector<vector<int>> pinned;
 			Vector3D velocity;
@@ -216,6 +217,13 @@ void loadObjectsFromFile(string filename, Cloth *cloth, ClothParameters *cp, vec
         thickness = *it_thickness;
       } else {
         incompleteObjectError("cloth", "thickness");
+      }
+
+      auto it_texture = object.find("texture");
+      if (it_texture != object.end()) {
+        texture = *it_texture;
+      } else {
+				texture = "../storage/tex.png";
       }
 
       auto it_orientation = object.find("orientation");
@@ -299,6 +307,7 @@ void loadObjectsFromFile(string filename, Cloth *cloth, ClothParameters *cp, vec
       cloth->num_width_points = num_width_points;
       cloth->num_height_points = num_height_points;
       cloth->thickness = thickness;
+			cloth->texture = texture;
       cloth->orientation = orientation;
       cloth->pinned = pinned;
 			cloth->velocity = velocity;

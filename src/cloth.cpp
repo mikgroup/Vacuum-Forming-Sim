@@ -165,10 +165,38 @@ typename std::enable_if<!std::numeric_limits<T>::is_integer, bool>::type
            || std::abs(x-y) < std::numeric_limits<T>::min();
 }
 
+Vector2D Cloth::translate_uvs_to_center() {
+	Vector2D center;	
+	for (int i = 0; i < point_masses.size(); i++) {
+		center += point_masses[i].uv;
+	}
+
+	center /= point_masses.size();
+
+	translate_uvs(-center.x, -center.y);
+
+	return center;
+}
+
+void Cloth::rotate_uvs(double theta) {
+	Vector2D center = translate_uvs_to_center();
+
+	for (int i = 0; i < point_masses.size(); i++) {
+		point_masses[i].uv.x = point_masses[i].uv.x * cos(theta) - point_masses[i].uv.y * sin(theta);;
+		point_masses[i].uv.y = point_masses[i].uv.y * cos(theta) + point_masses[i].uv.x * sin(theta);;
+	}
+
+	translate_uvs(center.x, center.y);
+}
+
 void Cloth::scale_uvs(double scale) {
+	Vector2D center = translate_uvs_to_center();
+
 	for (int i = 0; i < point_masses.size(); i++) {
 		point_masses[i].uv *= scale;
 	}
+
+	translate_uvs(center.x, center.y);
 }
 
 void Cloth::translate_uvs(double x, double y) {	
@@ -201,22 +229,23 @@ void Cloth::remap_uvs() {
 		f >> point_masses[i].uv.x >> point_masses[i].uv.y;
 	}
 
+
+	
+
 	Vector2D new_diag = point_masses[0].uv - point_masses[point_masses.size() - 1].uv;
 	Vector2D start_diag = point_masses[0].start_uv - point_masses[point_masses.size() - 1].start_uv;
 
+	double angle = atan2(new_diag.y, new_diag.x) - atan2(start_diag.y, start_diag.x);
+	rotate_uvs(angle);
+
+
 	double scale = start_diag.norm() / new_diag.norm();
-/*
-	for (int i = 0; i < point_masses.size(); i++) {
-		point_masses[i].uv *= scale;
-	}
-*/
-/*
+	scale_uvs(scale);
+
+	// Initial translate to bring new uvs to old corner
 	Vector2D translate = point_masses[0].start_uv - point_masses[0].uv;
+	translate_uvs(translate.x, translate.y);
 	
-	for (int i = 0; i < point_masses.size(); i++) {
-		point_masses[i].uv += translate;
-	}
-*/
 	f.close();
 }
 

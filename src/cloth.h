@@ -59,6 +59,7 @@ struct Cloth {
   void buildClothMesh();
 	void remap_uvs();
 	void translate_uvs(double x, double y);
+	void rotate_uvs(double theta);
 	void scale_uvs(double scale);
 
   void build_spatial_map();
@@ -71,6 +72,7 @@ struct Cloth {
   int num_width_points;
   int num_height_points;
   double thickness;
+	string texture;
   e_orientation orientation;
 	Vector3D velocity;
 	double velocity_delay;
@@ -85,6 +87,9 @@ struct Cloth {
 
   // Spatial hashing
   unordered_map<float, vector<PointMass *> *> map;
+
+	private:
+	Vector2D translate_uvs_to_center();
 };
 
 #endif /* CLOTH_H */
