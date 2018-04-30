@@ -480,7 +480,7 @@ void SVGParser::parseTexTri( XMLElement* xml, TexTri* ttri ) {
 
   stringstream points (xml->Attribute( "points" ));
 
-  float x, y;
+  double x, y;
   points >> x >> y; ttri->p0_svg = Vector2D(x,y);
   points >> x >> y; ttri->p1_svg = Vector2D(x,y);
   points >> x >> y; ttri->p2_svg = Vector2D(x,y);

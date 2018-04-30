@@ -6,6 +6,7 @@
 #include <queue>
 #include <unordered_set>
 #include <CGL/quaternion.h>
+#include <iomanip>
 
 #include "cloth.h"
 #include "collision/plane.h"
@@ -612,19 +613,7 @@ void Cloth::write_to_file(const char *filename) {
 
 void Cloth::write_to_svg(string filename, string pngname) {
 
-	// Find max position and compute rescaling factor
-	// IMPORTANT: we assume the first/smallest point is always (0, 0)
-	/*double maxValue = 0;
-	for (int i = 0; i < clothMesh->triangles.size(); i++) {
-		Triangle *tri = clothMesh->triangles[i];
-		maxValue = max(maxValue, (double)tri->pm1->start_position.x);
-		maxValue = max(maxValue, (double)tri->pm2->start_position.x);
-		maxValue = max(maxValue, (double)tri->pm3->start_position.x);
-		maxValue = max(maxValue, (double)tri->pm1->start_position.z);
-		maxValue = max(maxValue, (double)tri->pm2->start_position.z);
-		maxValue = max(maxValue, (double)tri->pm3->start_position.z);
-	}*/
-
+	// Rescale width and height to a fixed standard to give proj1
 	double rescale = width > height ? 512.0 / width : 512.0 / height;
 	double newWidth = width * rescale;
 	double newHeight = height * rescale;
@@ -643,18 +632,34 @@ void Cloth::write_to_svg(string filename, string pngname) {
   for (int i = 0; i < clothMesh->triangles.size(); i++) {
   	Triangle *tri = clothMesh->triangles[i];
 
+  	/*if (tri->pm1->uv.x > 1 || tri->pm1->uv.y > 1
+  		  || tri->pm2->uv.x > 1 || tri->pm2->uv.y > 1
+  		  || tri->pm3->uv.x > 1 || tri->pm3->uv.y > 1)
+  		continue;*/
+
   	// UV coordinates
   	f << "<textri texid=\"map\" uvs=\"";
-  	f << fmod(tri->pm1->uv.x, 1) << " " << fmod(tri->pm1->uv.y, 1) << " ";
-  	f << fmod(tri->pm2->uv.x, 1) << " " << fmod(tri->pm2->uv.y, 1) << " ";
-  	f << fmod(tri->pm3->uv.x, 1) << " " << fmod(tri->pm3->uv.y, 1) << "\" ";
+  	f << setprecision(15) << tri->pm1->uv.x - floor(tri->pm1->uv.x) << " ";
+  	f << setprecision(15) << tri->pm1->uv.y - floor(tri->pm1->uv.y) << " ";
+  	f << setprecision(15) << tri->pm2->uv.x - floor(tri->pm2->uv.x) << " ";
+  	f << setprecision(15) << tri->pm2->uv.y - floor(tri->pm2->uv.y) << " ";
+  	f << setprecision(15) << tri->pm3->uv.x - floor(tri->pm3->uv.x) << " ";
+  	f << setprecision(15) << tri->pm3->uv.y - floor(tri->pm3->uv.y) << "\" ";
+
+  	/*f << setprecision(15) << tri->pm1->uv.x << " " << setprecision(15) << tri->pm1->uv.y << " ";
+  	f << setprecision(15) << tri->pm2->uv.x << " " << setprecision(15) << tri->pm2->uv.y << " ";
+  	f << setprecision(15) << tri->pm3->uv.x << " " << setprecision(15) << tri->pm3->uv.y << "\" ";*/
 
   	// Points (removing the y as we assume the cloth/plastic starts off perfectly horizontal)
   	f << "points=\"";
-  	f << rescale * tri->pm1->start_position.x << " " << rescale * tri->pm1->start_position.z << " ";
-  	f << rescale * tri->pm2->start_position.x << " " << rescale * tri->pm2->start_position.z << " ";
-  	f << rescale * tri->pm3->start_position.x << " " << rescale * tri->pm3->start_position.z << "\"/>" << endl;
+  	f << setprecision(15) << rescale * tri->pm1->start_position.x << " ";
+  	f << setprecision(15) << rescale * tri->pm1->start_position.z << " ";
+  	f << setprecision(15) << rescale * tri->pm2->start_position.x << " ";
+  	f << setprecision(15) << rescale * tri->pm2->start_position.z << " ";
+  	f << setprecision(15) << rescale * tri->pm3->start_position.x << " ";
+  	f << setprecision(15) << rescale * tri->pm3->start_position.z << "\"/>" << endl;
   }
+
   f << "</svg>" << endl;
 
 	f.close();
