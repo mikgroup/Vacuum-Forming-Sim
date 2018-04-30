@@ -71,6 +71,7 @@ void Cloth::buildGrid() {
 			PointMass pm_new(pos, is_pinned);
 			pm_new.uv = Vector2D(pos.x / height, pos.z / width);
 			pm_new.start_uv = Vector2D(pm_new.uv);
+			pm_new.index = ind;
 
 			point_masses.push_back(pm_new);
 
@@ -164,218 +165,273 @@ typename std::enable_if<!std::numeric_limits<T>::is_integer, bool>::type
            || std::abs(x-y) < std::numeric_limits<T>::min();
 }
 
-void Cloth::remap_uvs() {
-	// do the first one
-
-	int middle = index(num_height_points / 2, num_width_points / 2, num_width_points);
-	
-	PointMass p_mid = point_masses[middle];
-	
-	PointMass *pm1 = p_mid.halfedge->triangle->pm1;
-	PointMass *pm2 = p_mid.halfedge->triangle->pm2;
-	PointMass *pm3 = p_mid.halfedge->triangle->pm3;
-
-	pm1->uv = pm1->start_uv; // keep the first point stationary
-	// second point is scaled along edge of uv between pm2 and pm1. Proportional
-	// to ratio of final to start
-	pm2->uv = ((pm2->position - pm1->position).norm() / (pm2->start_position - pm1->start_position).norm()) * (pm2->start_uv - pm1->start_uv) + pm1->start_uv;
-	long double angle_uv_new_1, angle_uv_new_2;
-	angle_uv_new_1 = acos(dot((pm2->position - pm1->position).unit(), (pm3->position - pm1->position).unit()));
-	angle_uv_new_2 = acos(dot((pm1->position - pm2->position).unit(), (pm3->position - pm2->position).unit()));
-
-	long double scale = (pm2->uv - pm1->uv).norm() * sin(angle_uv_new_1) / sin(M_PI - angle_uv_new_1 - angle_uv_new_2);
-	cout << "scale: " << scale << endl;
-	long double theta = -angle_uv_new_2;
-	cout << "theta: " << theta << endl;
-	
-//	Eigen::Matrix<long double, 2, 2> rot;
-//	Eigen::Matrix<long double, 2, 1>
-//	rot << cos(theta), -sin(theta), sin(theta), cos(theta);
-
-	Vector2D dir = Vector2D(dot(Vector2D(cos(theta), -sin(theta)), (pm1->uv - pm2->uv).unit()), dot(Vector2D(sin(theta), cos(theta)), (pm1->uv - pm2->uv).unit()));
-
-	cout << "dir: " << dir << endl;
-	cout << "scale * dir: " << scale * dir << endl;
-	cout << "pm2->uv: " << pm2->uv << endl;
-	cout << "scale * dir + pm2->uv: " << scale * dir + pm2->uv << endl;
-
-	pm3->uv =  scale * dir + pm2->uv;
-
-	cout << acos(dot((pm3->uv - pm1->uv).unit(), (pm2->uv - pm3->uv).unit())) << endl;
-	cout << acos(dot((pm3->position - pm1->position).unit(), (pm2->position - pm3->position).unit())) << endl;
-
-	cout << pm1->uv << pm2->uv << pm3->uv << endl;
-	cout << pm1->start_uv << pm2->start_uv << pm3->start_uv << endl;
-	cout << pm1->position << pm2->position << pm3->position << endl;
-	cout << pm1->start_position << pm2->start_position << pm3->start_position << endl;
-
-
-	// Breadth first search of neighbors with update
-	unordered_set<Triangle *> visited;
-	Triangle *init_tri = p_mid.halfedge->triangle;
-
-	visited.insert(init_tri);
-	
-	queue<Triangle *> queue;
-	// push on initial tri
-	queue.push(init_tri);
-
-	
-	int count = 0;
-
-	while(!queue.empty()) {
-		Triangle *curr_tri = queue.front();
-		Vector3D p1 = curr_tri->halfedge->pm->position;
-		Vector3D p2 = curr_tri->halfedge->next->pm->position;
-		Vector3D p3 = curr_tri->halfedge->next->next->pm->position;
-		
-		Vector3D n1 = cross(p2 - p1, p3 - p1).unit();
-		queue.pop();
-
-		Halfedge *start = curr_tri->halfedge;
-		Halfedge *h = start;
-
-		int c = 1;
-		do {
-			assert(h->next->next->next == h);
-			if (h->twin == nullptr) {
-				h = h->next;
-				continue;
-			}
-
-
-			Triangle *neighbor_tri = h->twin->triangle;
-			Eigen::Matrix<long double, 2, 3> A = uv_transform(curr_tri);
-			
-
-			if (visited.find(neighbor_tri) == visited.end()) { // not visited
-				visited.insert(neighbor_tri);
-				queue.push(neighbor_tri);
-
-				if (!almost_equal(h->twin->next->next->pm->uv.x, h->twin->next->next->pm->start_uv.x,2) || !almost_equal(h->twin->next->next->pm->uv.y, h->twin->next->next->pm->start_uv.y,2)) {
-					//cout << "start uv: " << h->twin->next->next->pm->start_uv << " , curr uv: " << h->twin->next->next->pm->uv << endl;
-				}
-
-
-				// make quaternion from axis angle
-				p1 = h->pm->position;
-				p2 = h->next->pm->position;
-				p3 = h->next->next->pm->position;
-				Vector3D p4 = h->twin->next->next->pm->position;
-
-
-				Vector3D n2 = cross(p2 - p1, p4 - p1).unit();
-
-				// Rotate unknown coordinate to be in the plane of the triangle
-				Quaternion quat;
-
-				long double angle = PI - acos(dot(n1,n2));
-				if (isnan(angle))
-					angle = 0;
-
-				quat.from_axis_angle(p2 - p1, angle);
-				
-				Vector3D p4_prime = quat.rotatedVector(p4 - p1) + p1;
-
-				//Check if actually in plane, otherwise rotate the other direction
-				bool print = false;
-				Vector3D n2_prime = cross(p2 - p1, p4_prime - p1).unit();
-
-				if (!almost_equal(abs(dot(n1, n2_prime)), 1.0l, 2)) {
-					quat.from_axis_angle(p2 - p1, -angle);
-					p4_prime = quat.rotatedVector(p4 - p1) + p1;
-					//cout << "wrong angle 1" << endl;
-
-					n2_prime = cross(p2 - p1, p4_prime - p1).unit();
-				}
-				
-				if (!almost_equal(abs(dot(n1,n2_prime)), 1.0l, 2)) {
-					quat.from_axis_angle(p2 - p1, PI - angle);
-					p4_prime = quat.rotatedVector(p4 - p1) + p1;
-					cout << "wrong angle 2" << endl;
-					n2_prime = cross(p2 - p1, p4_prime - p1).unit();
-					
-					if (!almost_equal(abs(dot(n1,n2_prime)), 1.0l, 2)) {
-						cout << "still not correct angle" << endl;
-						print = true;
-					}
-				}
-
-
-				// Now we have a p4_prime that is in the plane of the known triangle
-				// use A matrix to compute uv
-				Eigen::Matrix<long double, 3, 1> p4_prime_eigen;
-				p4_prime_eigen << p4_prime.x, p4_prime.y, p4_prime.z;
-				Eigen::Matrix<long double, 2, 1> uv_new_eigen = A * p4_prime_eigen;
-				h->twin->next->next->pm->uv = Vector2D(uv_new_eigen(0), uv_new_eigen(1));
-				Vector2D b4(uv_new_eigen(0), uv_new_eigen(1));
-
-				Vector2D b1 = h->pm->uv;
-				Vector2D b2 = h->next->pm->uv;
-				Vector2D b3 = h->next->next->pm->uv;
-				long double tri_area_ratio = cross(p4_prime - p1, p2 - p1).norm() / cross(p3 - p1, p2 - p1).norm();
-				long double uv_area_ratio = abs(cross(b4 - b1, b2 - b1)) / abs(cross(b3 - b1, b2 - b1));
-
-				if (abs(acos(dot((p1 - p4_prime).unit(), (p2-p4_prime).unit())) - acos(dot((b1 - b4).unit(), (b2-b4).unit()))) > 0.00001l) {
-					print = true;
-				}
-				
-				if (print) {
-				//if (!almost_equal(tri_area_ratio, uv_area_ratio,5)) {
-					//cout << "x1 " << p1 << endl;
-					//cout << "x2 " << p2 << endl;
-					//cout << "x3 " << h->next->next->pm->position << endl;
-
-
-					//cout << "b1 " << h->pm->uv << endl;
-					//cout << "b2 " << h->next->pm->uv << endl;
-					//cout << "b3 " << h->next->next->pm->uv << endl;
-
-					//cout << "x4 " << h->twin->next->next->pm->position << endl;
-					//cout << "x4'" << p4_prime << endl;
-
-					cout << "x1 = [" << p1.x << ", " << p1.y << ", " << p1.z << "];" << endl;
-					cout << "x2 = [" << p2.x << ", " << p2.y << ", " << p2.z << "];" << endl;
-					cout << "x3 = [" << p3.x << ", " << p3.y << ", " << p3.z << "];" << endl;
-					cout << "x4 = [" << p4.x << ", " << p4.y << ", " << p4.z << "];" << endl;
-					cout << "b1 = [" << b1.x << ", " << b1.y << "];" << endl;
-					cout << "b2 = [" << b2.x << ", " << b2.y << "];" << endl;
-					cout << "b3 = [" << b3.x << ", " << b3.y << "];" << endl;
-
-					cout << "x4'" << p4_prime << endl;
-					cout << "n1 " << n1 << endl;
-					cout << "n2 " << n2 << endl;
-					cout << "n2_prime " << n2_prime << endl;
-					cout << "quat " << quat << endl;
-					cout << "angle " << angle << endl;
-
-					cout << cross(b2 - b1, b4 - b1) << endl;
-					cout << cross(b2 - b1, b3 - b1) << endl;
-
-
-					cout << "uv " << h->twin->next->next->pm->uv << endl;
-					cout << "A_matrix: " << endl;
-					cout << A << endl;
-
-					cout << "tri area ratio: " <<  tri_area_ratio << endl;
-					cout << "uv  area ratio: " << uv_area_ratio << endl;
-					cout << " " << endl;
-				}
-				long double area_uv1 = cross(b2 - b1, b3 - b1);
-				long double area_uv2 = cross(b2 - b1, b4 - b1);
-
-				//cout << (signbit(area_uv1) != signbit(area_uv2) ? "good" : "bad") << endl;
-
-				//cout << b1.x << ", " << b1.y << ", " << b2.x << ", " << b2.y << ", " << b3.x << ", " << b3.y << endl;
-
-
-			}
-			h = h->next;
-			c++;
-		} while (h != start);  
-		count++;
+void Cloth::scale_uvs(double scale) {
+	for (int i = 0; i < point_masses.size(); i++) {
+		point_masses[i].uv *= scale;
 	}
 }
+
+void Cloth::translate_uvs(double x, double y) {	
+	Vector2D translate(x,y);
+	
+	for (int i = 0; i < point_masses.size(); i++) {
+		point_masses[i].uv += translate;
+	}
+}
+
+void Cloth::remap_uvs() {
+//	ifstream f("result.off");
+//
+//	std::string format;
+//	f >> format;
+//
+//	int num_verts, num_tris, num_edges;
+//	f >> num_verts >> num_tris >> num_edges;
+//	cout << num_verts << endl;
+//	for (int i = num_verts - 1; i >= 0; i--) {
+//		int zero;
+//		f >> point_masses[i].uv.x >> point_masses[i].uv.y >> zero;
+//	}
+//
+//	f.close();
+	
+	ifstream f("result2.off");
+
+	for (int i = 0; i < point_masses.size(); i++) {
+		f >> point_masses[i].uv.x >> point_masses[i].uv.y;
+	}
+
+	Vector2D new_diag = point_masses[0].uv - point_masses[point_masses.size() - 1].uv;
+	Vector2D start_diag = point_masses[0].start_uv - point_masses[point_masses.size() - 1].start_uv;
+
+	double scale = start_diag.norm() / new_diag.norm();
+/*
+	for (int i = 0; i < point_masses.size(); i++) {
+		point_masses[i].uv *= scale;
+	}
+*/
+/*
+	Vector2D translate = point_masses[0].start_uv - point_masses[0].uv;
+	
+	for (int i = 0; i < point_masses.size(); i++) {
+		point_masses[i].uv += translate;
+	}
+*/
+	f.close();
+}
+
+//void Cloth::remap_uvs() {
+//	// do the first one
+//
+//	int middle = index(num_height_points / 2, num_width_points / 2, num_width_points);
+//	
+//	PointMass p_mid = point_masses[middle];
+//	
+//	PointMass *pm1 = p_mid.halfedge->triangle->pm1;
+//	PointMass *pm2 = p_mid.halfedge->triangle->pm2;
+//	PointMass *pm3 = p_mid.halfedge->triangle->pm3;
+//
+//	pm1->uv = pm1->start_uv; // keep the first point stationary
+//	// second point is scaled along edge of uv between pm2 and pm1. Proportional
+//	// to ratio of final to start
+//	pm2->uv = ((pm2->position - pm1->position).norm() / (pm2->start_position - pm1->start_position).norm()) * (pm2->start_uv - pm1->start_uv) + pm1->start_uv;
+//	long double angle_uv_new_1, angle_uv_new_2;
+//	angle_uv_new_1 = acos(dot((pm2->position - pm1->position).unit(), (pm3->position - pm1->position).unit()));
+//	angle_uv_new_2 = acos(dot((pm1->position - pm2->position).unit(), (pm3->position - pm2->position).unit()));
+//
+//	long double scale = (pm2->uv - pm1->uv).norm() * sin(angle_uv_new_1) / sin(M_PI - angle_uv_new_1 - angle_uv_new_2);
+//	cout << "scale: " << scale << endl;
+//	long double theta = -angle_uv_new_2;
+//	cout << "theta: " << theta << endl;
+//	
+////	Eigen::Matrix<long double, 2, 2> rot;
+////	Eigen::Matrix<long double, 2, 1>
+////	rot << cos(theta), -sin(theta), sin(theta), cos(theta);
+//
+//	Vector2D dir = Vector2D(dot(Vector2D(cos(theta), -sin(theta)), (pm1->uv - pm2->uv).unit()), dot(Vector2D(sin(theta), cos(theta)), (pm1->uv - pm2->uv).unit()));
+//
+//	cout << "dir: " << dir << endl;
+//	cout << "scale * dir: " << scale * dir << endl;
+//	cout << "pm2->uv: " << pm2->uv << endl;
+//	cout << "scale * dir + pm2->uv: " << scale * dir + pm2->uv << endl;
+//
+//	pm3->uv =  scale * dir + pm2->uv;
+//
+//	cout << acos(dot((pm3->uv - pm1->uv).unit(), (pm2->uv - pm3->uv).unit())) << endl;
+//	cout << acos(dot((pm3->position - pm1->position).unit(), (pm2->position - pm3->position).unit())) << endl;
+//
+//	cout << pm1->uv << pm2->uv << pm3->uv << endl;
+//	cout << pm1->start_uv << pm2->start_uv << pm3->start_uv << endl;
+//	cout << pm1->position << pm2->position << pm3->position << endl;
+//	cout << pm1->start_position << pm2->start_position << pm3->start_position << endl;
+//
+//
+//	// Breadth first search of neighbors with update
+//	unordered_set<Triangle *> visited;
+//	Triangle *init_tri = p_mid.halfedge->triangle;
+//
+//	visited.insert(init_tri);
+//	
+//	queue<Triangle *> queue;
+//	// push on initial tri
+//	queue.push(init_tri);
+//
+//	
+//	int count = 0;
+//
+//	while(!queue.empty()) {
+//		Triangle *curr_tri = queue.front();
+//		Vector3D p1 = curr_tri->halfedge->pm->position;
+//		Vector3D p2 = curr_tri->halfedge->next->pm->position;
+//		Vector3D p3 = curr_tri->halfedge->next->next->pm->position;
+//		
+//		Vector3D n1 = cross(p2 - p1, p3 - p1).unit();
+//		queue.pop();
+//
+//		Halfedge *start = curr_tri->halfedge;
+//		Halfedge *h = start;
+//
+//		int c = 1;
+//		do {
+//			assert(h->next->next->next == h);
+//			if (h->twin == nullptr) {
+//				h = h->next;
+//				continue;
+//			}
+//
+//
+//			Triangle *neighbor_tri = h->twin->triangle;
+//			Eigen::Matrix<long double, 2, 3> A = uv_transform(curr_tri);
+//			
+//
+//			if (visited.find(neighbor_tri) == visited.end()) { // not visited
+//				visited.insert(neighbor_tri);
+//				queue.push(neighbor_tri);
+//
+//				if (!almost_equal(h->twin->next->next->pm->uv.x, h->twin->next->next->pm->start_uv.x,2) || !almost_equal(h->twin->next->next->pm->uv.y, h->twin->next->next->pm->start_uv.y,2)) {
+//					//cout << "start uv: " << h->twin->next->next->pm->start_uv << " , curr uv: " << h->twin->next->next->pm->uv << endl;
+//				}
+//
+//
+//				// make quaternion from axis angle
+//				p1 = h->pm->position;
+//				p2 = h->next->pm->position;
+//				p3 = h->next->next->pm->position;
+//				Vector3D p4 = h->twin->next->next->pm->position;
+//
+//
+//				Vector3D n2 = cross(p2 - p1, p4 - p1).unit();
+//
+//				// Rotate unknown coordinate to be in the plane of the triangle
+//				Quaternion quat;
+//
+//				long double angle = PI - acos(dot(n1,n2));
+//				if (isnan(angle))
+//					angle = 0;
+//
+//				quat.from_axis_angle(p2 - p1, angle);
+//				
+//				Vector3D p4_prime = quat.rotatedVector(p4 - p1) + p1;
+//
+//				//Check if actually in plane, otherwise rotate the other direction
+//				bool print = false;
+//				Vector3D n2_prime = cross(p2 - p1, p4_prime - p1).unit();
+//
+//				if (!almost_equal(abs(dot(n1, n2_prime)), 1.0l, 2)) {
+//					quat.from_axis_angle(p2 - p1, -angle);
+//					p4_prime = quat.rotatedVector(p4 - p1) + p1;
+//					//cout << "wrong angle 1" << endl;
+//
+//					n2_prime = cross(p2 - p1, p4_prime - p1).unit();
+//				}
+//				
+//				if (!almost_equal(abs(dot(n1,n2_prime)), 1.0l, 2)) {
+//					quat.from_axis_angle(p2 - p1, PI - angle);
+//					p4_prime = quat.rotatedVector(p4 - p1) + p1;
+//					cout << "wrong angle 2" << endl;
+//					n2_prime = cross(p2 - p1, p4_prime - p1).unit();
+//					
+//					if (!almost_equal(abs(dot(n1,n2_prime)), 1.0l, 2)) {
+//						cout << "still not correct angle" << endl;
+//						print = true;
+//					}
+//				}
+//
+//
+//				// Now we have a p4_prime that is in the plane of the known triangle
+//				// use A matrix to compute uv
+//				Eigen::Matrix<long double, 3, 1> p4_prime_eigen;
+//				p4_prime_eigen << p4_prime.x, p4_prime.y, p4_prime.z;
+//				Eigen::Matrix<long double, 2, 1> uv_new_eigen = A * p4_prime_eigen;
+//				h->twin->next->next->pm->uv = Vector2D(uv_new_eigen(0), uv_new_eigen(1));
+//				Vector2D b4(uv_new_eigen(0), uv_new_eigen(1));
+//
+//				Vector2D b1 = h->pm->uv;
+//				Vector2D b2 = h->next->pm->uv;
+//				Vector2D b3 = h->next->next->pm->uv;
+//				long double tri_area_ratio = cross(p4_prime - p1, p2 - p1).norm() / cross(p3 - p1, p2 - p1).norm();
+//				long double uv_area_ratio = abs(cross(b4 - b1, b2 - b1)) / abs(cross(b3 - b1, b2 - b1));
+//
+//				if (abs(acos(dot((p1 - p4_prime).unit(), (p2-p4_prime).unit())) - acos(dot((b1 - b4).unit(), (b2-b4).unit()))) > 0.00001l) {
+//					print = true;
+//				}
+//				
+//				if (print) {
+//				//if (!almost_equal(tri_area_ratio, uv_area_ratio,5)) {
+//					//cout << "x1 " << p1 << endl;
+//					//cout << "x2 " << p2 << endl;
+//					//cout << "x3 " << h->next->next->pm->position << endl;
+//
+//
+//					//cout << "b1 " << h->pm->uv << endl;
+//					//cout << "b2 " << h->next->pm->uv << endl;
+//					//cout << "b3 " << h->next->next->pm->uv << endl;
+//
+//					//cout << "x4 " << h->twin->next->next->pm->position << endl;
+//					//cout << "x4'" << p4_prime << endl;
+//
+//					cout << "x1 = [" << p1.x << ", " << p1.y << ", " << p1.z << "];" << endl;
+//					cout << "x2 = [" << p2.x << ", " << p2.y << ", " << p2.z << "];" << endl;
+//					cout << "x3 = [" << p3.x << ", " << p3.y << ", " << p3.z << "];" << endl;
+//					cout << "x4 = [" << p4.x << ", " << p4.y << ", " << p4.z << "];" << endl;
+//					cout << "b1 = [" << b1.x << ", " << b1.y << "];" << endl;
+//					cout << "b2 = [" << b2.x << ", " << b2.y << "];" << endl;
+//					cout << "b3 = [" << b3.x << ", " << b3.y << "];" << endl;
+//
+//					cout << "x4'" << p4_prime << endl;
+//					cout << "n1 " << n1 << endl;
+//					cout << "n2 " << n2 << endl;
+//					cout << "n2_prime " << n2_prime << endl;
+//					cout << "quat " << quat << endl;
+//					cout << "angle " << angle << endl;
+//
+//					cout << cross(b2 - b1, b4 - b1) << endl;
+//					cout << cross(b2 - b1, b3 - b1) << endl;
+//
+//
+//					cout << "uv " << h->twin->next->next->pm->uv << endl;
+//					cout << "A_matrix: " << endl;
+//					cout << A << endl;
+//
+//					cout << "tri area ratio: " <<  tri_area_ratio << endl;
+//					cout << "uv  area ratio: " << uv_area_ratio << endl;
+//					cout << " " << endl;
+//				}
+//				long double area_uv1 = cross(b2 - b1, b3 - b1);
+//				long double area_uv2 = cross(b2 - b1, b4 - b1);
+//
+//				//cout << (signbit(area_uv1) != signbit(area_uv2) ? "good" : "bad") << endl;
+//
+//				//cout << b1.x << ", " << b1.y << ", " << b2.x << ", " << b2.y << ", " << b3.x << ", " << b3.y << endl;
+//
+//
+//			}
+//			h = h->next;
+//			c++;
+//		} while (h != start);  
+//		count++;
+//	}
+//}
 
 
 void Cloth::simulate(double frames_per_sec, double simulation_steps, ClothParameters *cp,
@@ -531,13 +587,24 @@ float Cloth::hash_position(Vector3D pos) {
 void Cloth::write_to_file(const char *filename) {
 	ofstream f(filename);
 
-	f << "# " << num_width_points << ", " << num_height_points << endl;
+//	f << "# " << num_width_points << ", " << num_height_points << endl;
+//
+//	for (int x = 0; x < num_height_points; x++) {
+//		for (int y = 0; y < num_width_points; y++) {
+//			int ind = index(x, y, num_width_points);
+//			f << point_masses[ind].position.x << "," << point_masses[ind].position.z << "," << point_masses[ind].position.y << endl;
+//		}
+//	}
 
-	for (int x = 0; x < num_height_points; x++) {
-		for (int y = 0; y < num_width_points; y++) {
-			int ind = index(x, y, num_width_points);
-			f << point_masses[ind].position.x << "," << point_masses[ind].position.z << "," << point_masses[ind].position.y << endl;
-		}
+	f << "OFF" << endl;
+	f << num_width_points * num_height_points << " " << clothMesh->triangles.size() << " " << "0" << endl;
+
+	for (int ind = 0; ind < point_masses.size(); ind++) {
+			f << point_masses[ind].position.x << " " << point_masses[ind].position.z << " " << point_masses[ind].position.y << endl;
+	}
+
+	for (auto tri : clothMesh->triangles) {
+		f << 3 << " " << tri->pm1->index << " " << tri->pm2->index << " " << tri->pm3->index << endl;	
 	}
 
 	f.close();

@@ -19,5 +19,3 @@
 ## Slides
 
 <a href="284_milestone_slides.pptx">Download Slides</a>
-
-

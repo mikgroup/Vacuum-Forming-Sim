@@ -122,6 +122,9 @@ void ClothSimulator::drawContents() {
 
     for (int i = 0; i < simulation_steps; i++) {
       cloth->simulate(frames_per_sec, simulation_steps, cp, external_accelerations, collision_objects);
+  		for (CollisionObject *co : *collision_objects) {
+   			co->update(frames_per_sec, simulation_steps);
+  		}
     }
   }
 
@@ -322,9 +325,13 @@ void ClothSimulator::drawImage(GLShader &shader) {
     normals.col(i * 3 + 1) << n2.x, n2.y, n2.z;
     normals.col(i * 3 + 2) << n3.x, n3.y, n3.z;
 
-		uvs.col(i * 3) << 		fmod(tri->pm1->uv.x,1), fmod(tri->pm1->uv.y,1);
-		uvs.col(i * 3 + 1) << fmod(tri->pm2->uv.x,1), fmod(tri->pm2->uv.y,1);
-		uvs.col(i * 3 + 2) << fmod(tri->pm3->uv.x,1), fmod(tri->pm3->uv.y,1);
+//		uvs.col(i * 3) 		 <<	fmod(tri->pm1->uv.x,1), fmod(tri->pm1->uv.y,1);
+//		uvs.col(i * 3 + 1) << fmod(tri->pm2->uv.x,1), fmod(tri->pm2->uv.y,1);
+//		uvs.col(i * 3 + 2) << fmod(tri->pm3->uv.x,1), fmod(tri->pm3->uv.y,1);
+		
+		uvs.col(i * 3) 		 <<	tri->pm1->uv.x, tri->pm1->uv.y;
+		uvs.col(i * 3 + 1) << tri->pm2->uv.x, tri->pm2->uv.y;
+		uvs.col(i * 3 + 2) << tri->pm3->uv.x, tri->pm3->uv.y;
   }
 
   Vector3D cp = camera.position();
@@ -336,6 +343,9 @@ void ClothSimulator::drawImage(GLShader &shader) {
   shader.uploadAttrib("in_position", positions);
   shader.uploadAttrib("in_normal", normals);
 	shader.uploadAttrib("vert_tex_coord", uvs);
+  
+  shader.setUniform("eye", Vector3f(cp.x, cp.y, cp.z));
+  //shader.setUniform("light", Vector3f(0.5, 2, 2));
 
   shader.drawArray(GL_TRIANGLES, 0, num_tris * 3);
 }
@@ -542,7 +552,8 @@ bool ClothSimulator::keyCallbackEvent(int key, int scancode, int action,
 			break;
 		case 'w':
 		case 'W': // Write to file
-			cloth->write_to_file("cloth.out");
+			cloth->write_to_file("cloth.off");
+			//system("./arap cloth.off");
 			cloth->remap_uvs();
 			break;
 		}
@@ -698,27 +709,27 @@ void ClothSimulator::initGUI(Screen *screen) {
     });
   }
 
-	new Label(window, "Vacuum", "sans-bold");
-	
-	{
-		Widget *panel = new Widget(window);
-		panel-> setLayout(new BoxLayout(Orientation::Horizontal, Alignment::Middle, 0, 5));
-		Slider *slider = new Slider(panel);
-		slider->setValue(0);
-		slider->setFixedWidth(105);
-
-		TextBox *value = new TextBox(panel);
-		value->setFixedWidth(75);
-		value->setValue(to_string(0));
-		value->setFontSize(14);
-
-		slider->setCallback([value](float val) {
-			value->setValue(std::to_string(val));
-		});
-		slider->setFinalCallback([&](float value) {
-			cloth->vacuum_force = (double) value * 20000;
-		});
-	}
+//	new Label(window, "Vacuum", "sans-bold");
+//	
+//	{
+//		Widget *panel = new Widget(window);
+//		panel-> setLayout(new BoxLayout(Orientation::Horizontal, Alignment::Middle, 0, 5));
+//		Slider *slider = new Slider(panel);
+//		slider->setValue(0);
+//		slider->setFixedWidth(105);
+//
+//		TextBox *value = new TextBox(panel);
+//		value->setFixedWidth(75);
+//		value->setValue(to_string(0));
+//		value->setFontSize(14);
+//
+//		slider->setCallback([value](float val) {
+//			value->setValue(std::to_string(val));
+//		});
+//		slider->setFinalCallback([&](float value) {
+//			cloth->vacuum_force = (double) value * 20000;
+//		});
+//	}
 
   // Gravity
 
@@ -776,6 +787,62 @@ void ClothSimulator::initGUI(Screen *screen) {
 		cb->setSelectedIndex(activeShader);
     cb->setCallback(
         [this, screen](int idx) { activeShader = static_cast<e_shader>(idx); });
+
+		Widget *panel = new Widget(window);
+    GridLayout *layout =
+        new GridLayout(Orientation::Horizontal, 2, Alignment::Middle, 5, 5);
+    layout->setColAlignment({Alignment::Maximum, Alignment::Fill});
+    layout->setSpacing(0, 10);
+    panel->setLayout(layout);
+				
+		Slider *slider_trans_x = new Slider(panel);
+		slider_trans_x->setValue(0);
+		slider_trans_x->setFixedWidth(105);
+
+		TextBox *value_x = new TextBox(panel);
+		value_x->setFixedWidth(75);
+		value_x->setValue(to_string(0));
+		value_x->setFontSize(14);
+
+		slider_trans_x->setCallback([value_x](float val) {
+			value_x->setValue(std::to_string(val));
+		});
+		slider_trans_x->setFinalCallback([&](float value) {
+			cloth->translate_uvs(value, 0);
+		});
+
+
+		Slider *slider_trans_y = new Slider(panel);
+		slider_trans_y->setValue(0);
+		slider_trans_y->setFixedWidth(105);
+
+		TextBox *value_y = new TextBox(panel);
+		value_y->setFixedWidth(75);
+		value_y->setValue(to_string(0));
+		value_y->setFontSize(14);
+
+		slider_trans_y->setCallback([value_y](float val) {
+			value_y->setValue(std::to_string(val));
+		});
+		slider_trans_y->setFinalCallback([&](float value) {
+			cloth->translate_uvs(0, value);
+		});
+		
+		Slider *slider_scale = new Slider(panel);
+		slider_scale->setValue(0);
+		slider_scale->setFixedWidth(105);
+
+		TextBox *value_scale = new TextBox(panel);
+		value_scale->setFixedWidth(75);
+		value_scale->setValue(to_string(0));
+		value_scale->setFontSize(14);
+
+		slider_scale->setCallback([value_scale](float val) {
+			value_scale->setValue(std::to_string(val));
+		});
+		slider_scale->setFinalCallback([&](float value) {
+			cloth->scale_uvs(value * 2.0);
+		});
   }
 
   new Label(window, "Color", "sans-bold");

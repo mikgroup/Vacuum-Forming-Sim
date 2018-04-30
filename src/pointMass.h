@@ -30,6 +30,8 @@ struct PointMass {
   Vector3D start_position;
 	bool hit_platen = false;
 
+	int index = 0;
+
   // dynamic values
   Vector3D position;
   Vector3D last_position;

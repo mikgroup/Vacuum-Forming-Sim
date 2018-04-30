@@ -47,11 +47,13 @@ struct Face {
 
 struct Mesh : public CollisionObject {
 public:
-	Mesh(string filename, const Vector3D &trans, vector<tuple<double, Vector3D>> rotations, double scale, RTCScene &scene, RTCDevice &device, bool platen)
-		: filename(filename), trans(trans), rotations(rotations), scale(scale), scene(scene), device(device), platen(platen) {}
+	Mesh(string filename, const Vector3D &trans, vector<tuple<double, Vector3D>> rotations, double scale, RTCScene &scene, RTCDevice &device, bool platen, Vector3D velocity, double velocity_delay)
+		: filename(filename), trans(trans), rotations(rotations), scale(scale), scene(scene), device(device), platen(platen), velocity(velocity), velocity_delay(velocity_delay) {}
 
 	void render(GLShader &shader);
 	void collide(PointMass &pm);
+	void update(double frames_per_sec, double simulation_steps);
+
 	void add(Vertex *v);
 	void add(Face *t);
 	int num_faces();
@@ -66,6 +68,8 @@ public:
 	vector<Vertex *> verts;
 	vector<Face *> faces;
 
+	bool platen = false;
+
 	string filename;
 	Vector3D trans;
 	vector<tuple<double, Vector3D>> rotations;
@@ -75,8 +79,10 @@ public:
 	RTCDevice device;
 	Vector3D center = Vector3D();
 	Vector3D cloth_center;
-	bool platen;
 	unsigned int embree_geomID;
+
+	Vector3D velocity;
+	double velocity_delay;
 };
 
 #endif /* COLLISION_OBJECT_MESH_H */

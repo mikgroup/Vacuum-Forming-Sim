@@ -73,6 +73,14 @@ void Mesh::render(GLShader &shader) {
 	Misc::draw_mesh(*this, shader);
 }
 
+void Mesh::update(double frames_per_sec, double simulation_steps) {
+	double delta_t = 1.0 / frames_per_sec / simulation_steps;
+	Vector3D step = velocity * delta_t;
+	translate(step, true);
+}
+
+// Extra helper functions below
+
 void Mesh::add(Vertex *v) {
 	verts.push_back(v);
 }

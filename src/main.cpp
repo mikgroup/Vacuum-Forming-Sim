@@ -417,6 +417,8 @@ void loadObjectsFromFile(string filename, Cloth *cloth, ClothParameters *cp, vec
       objects->push_back(p);
     } else if (key == MESH) {
 			Vector3D translate;
+			Vector3D velocity;
+			double velocity_delay;
 			double scale;
 			string mesh_filename;
 
@@ -438,6 +440,31 @@ void loadObjectsFromFile(string filename, Cloth *cloth, ClothParameters *cp, vec
 					scale = *it_scale;
 				} else {
 					scale = 1;
+				}
+
+
+				auto it_motion = ob.find("motion");
+				if (it_motion != ob.end()) {
+					cout << "found velocity" << endl;
+					json vel_object = *it_motion;
+					auto it_velocity = vel_object.find("velocity");
+					if (it_velocity != vel_object.end()) {
+						vector<double> vel = *it_velocity;
+						velocity = Vector3D(vel[0], vel[1], vel[2]);
+	
+						auto it_delay = vel_object.find("delay");
+						if (it_delay != vel_object.end()) {
+							velocity_delay = *it_delay;
+						} else {
+							velocity_delay = 0;
+						}
+					} else {
+						velocity = Vector3D(0,0,0);
+						velocity_delay = 0;
+					}
+				} else {
+					velocity = Vector3D(0,0,0);
+					velocity_delay = 0;
 				}
 
 				auto it_rot = ob.find("rotate");
@@ -482,7 +509,8 @@ void loadObjectsFromFile(string filename, Cloth *cloth, ClothParameters *cp, vec
 				} else {
 					platen = false;
 				}
-				Mesh *m = new Mesh(mesh_filename, translate, rotations, scale, *scene, *device, platen);
+				
+				Mesh *m = new Mesh(mesh_filename, translate, rotations, scale, *scene, *device, platen, velocity, velocity_delay);
 				mesh_inds->push_back(objects->size());
 				objects->push_back(m);
 			}

@@ -35,6 +35,7 @@ if(APPLE)
       set(CMAKE_BUILD_TYPE Debug)
       set(CLANG_CXX_FLAGS "${CLANG_CXX_FLAGS} -g")
     else(BUILD_DEBUG)
+			set(CMAKE_BUILD_TYPE Release)
       set(CLANG_CXX_FLAGS "${CLANG_CXX_FLAGS} -O3")
       set(CLANG_CXX_FLAGS "${CLANG_CXX_FLAGS} -funroll-loops")
       set(CLANG_CXX_FLAGS "${CLANG_CXX_FLAGS} -Wno-narrowing")
@@ -54,6 +55,7 @@ if(APPLE)
       set(CMAKE_BUILD_TYPE Debug)
       set(GCC_CXX_FLAGS "${GCC_CXX_FLAGS} -g")
     else(BUILD_DEBUG)
+			set(CMAKE_BUILD_TYPE Release)
       set(GCC_CXX_FLAGS "${GCC_CXX_FLAGS} -O3")
       set(GCC_CXX_FLAGS "${GCC_CXX_FLAGS} -fopenmp")
     endif(BUILD_DEBUG)
@@ -98,6 +100,7 @@ if(LINUX)
         set(CMAKE_BUILD_TYPE Debug)
         set(GCC_CXX_FLAGS "${GCC_CXX_FLAGS} -g")
     else(BUILD_DEBUG)
+				set(CMAKE_BUILD_TYPE Release)
         set(GCC_CXX_FLAGS "${GCC_CXX_FLAGS} -O3")
         set(GCC_CXX_FLAGS "${GCC_CXX_FLAGS} -fopenmp")
     endif(BUILD_DEBUG)
@@ -120,6 +123,7 @@ if(WIN32)
     if(BUILD_DEBUG)
         set(CMAKE_BUILD_TYPE Debug)
     else(BUILD_DEBUG)
+			set(CMAKE_BUILD_TYPE Release)
     endif(BUILD_DEBUG)
 
     set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} ${MSVC_CXX_FLAGS}")
@@ -133,6 +137,7 @@ if(WIN32)
     if(BUILD_DEBUG)
         set(CMAKE_BUILD_TYPE Debug)
     else(BUILD_DEBUG)
+			set(CMAKE_BUILD_TYPE Release)
     endif(BUILD_DEBUG)
 
     set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} ${MSVC_CXX_FLAGS}")
@@ -140,6 +145,14 @@ if(WIN32)
   endif(MINGW)
 
 endif(WIN32)
+
+#-------------
+# CGAL
+#------------
+#add_subdirectory(ext/cgal)
+#set(CGAL_HAS_THREADS TRUE)
+#find_package(CGAL REQUIRED COMPONENTS Core) # If the dependency is required, use REQUIRED option - if it's not found CMake will issue an error
+#include( ${CGAL_USE_FILE} )
 
 #-------------
 # Embree

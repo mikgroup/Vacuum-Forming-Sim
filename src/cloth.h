@@ -57,6 +57,8 @@ struct Cloth {
 	void write_to_file(const char *filename);
   void buildClothMesh();
 	void remap_uvs();
+	void translate_uvs(double x, double y);
+	void scale_uvs(double scale);
 
   void build_spatial_map();
   void self_collide(PointMass &pm, double simulation_steps);

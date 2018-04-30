@@ -15,6 +15,7 @@ public:
 
   void render(GLShader &shader);
   void collide(PointMass &pm);
+	void update(double frames_per_sec, double simulation_steps);
 
 private:
   Vector3D origin;
