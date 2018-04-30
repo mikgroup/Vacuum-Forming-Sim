@@ -59,7 +59,7 @@ private:
   // OpenGL attributes
 
   enum e_shader { WIREFRAME = 0, NORMALS = 1, PHONG = 2, IMAGE = 3 };
-  e_shader activeShader = NORMALS;
+  e_shader activeShader = IMAGE;
 
   vector<GLShader> shaders;
 

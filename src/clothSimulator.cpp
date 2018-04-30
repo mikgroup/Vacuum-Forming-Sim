@@ -324,9 +324,9 @@ void ClothSimulator::drawImage(GLShader &shader) {
     normals.col(i * 3 + 1) << n2.x, n2.y, n2.z;
     normals.col(i * 3 + 2) << n3.x, n3.y, n3.z;
 
-//		uvs.col(i * 3) 		 <<	fmod(tri->pm1->uv.x,1), fmod(tri->pm1->uv.y,1);
-//		uvs.col(i * 3 + 1) << fmod(tri->pm2->uv.x,1), fmod(tri->pm2->uv.y,1);
-//		uvs.col(i * 3 + 2) << fmod(tri->pm3->uv.x,1), fmod(tri->pm3->uv.y,1);
+		//uvs.col(i * 3) 		 <<	tri->pm1->uv.x - floor(tri->pm1->uv.x), tri->pm1->uv.y - floor(tri->pm1->uv.y);
+		//uvs.col(i * 3 + 1) << tri->pm2->uv.x - floor(tri->pm2->uv.x), tri->pm2->uv.y - floor(tri->pm2->uv.y);
+		//uvs.col(i * 3 + 2) << tri->pm3->uv.x - floor(tri->pm3->uv.x), tri->pm3->uv.y - floor(tri->pm3->uv.y);
 		
 		uvs.col(i * 3) 		 <<	tri->pm1->uv.x, tri->pm1->uv.y;
 		uvs.col(i * 3 + 1) << tri->pm2->uv.x, tri->pm2->uv.y;
