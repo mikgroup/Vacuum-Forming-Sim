@@ -556,6 +556,13 @@ bool ClothSimulator::keyCallbackEvent(int key, int scancode, int action,
 			system("./arap cloth.off");
 			cloth->remap_uvs();
 			break;
+    case 's':
+    case 'S':
+      string svgFile = "test_svg.svg";
+      cloth->write_to_svg(svgFile, "../storage/tex.png");
+      system(("../ext/proj1/build/draw " + svgFile).c_str());
+      cout << "Saved svg as " << svgFile << ".\n";
+      break;
 		}
   }
 

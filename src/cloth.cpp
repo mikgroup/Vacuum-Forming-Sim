@@ -610,6 +610,56 @@ void Cloth::write_to_file(const char *filename) {
 	f.close();
 }
 
+void Cloth::write_to_svg(string filename, string pngname) {
+
+	// Find max position and compute rescaling factor
+	// IMPORTANT: we assume the first/smallest point is always (0, 0)
+	/*double maxValue = 0;
+	for (int i = 0; i < clothMesh->triangles.size(); i++) {
+		Triangle *tri = clothMesh->triangles[i];
+		maxValue = max(maxValue, (double)tri->pm1->start_position.x);
+		maxValue = max(maxValue, (double)tri->pm2->start_position.x);
+		maxValue = max(maxValue, (double)tri->pm3->start_position.x);
+		maxValue = max(maxValue, (double)tri->pm1->start_position.z);
+		maxValue = max(maxValue, (double)tri->pm2->start_position.z);
+		maxValue = max(maxValue, (double)tri->pm3->start_position.z);
+	}*/
+
+	double rescale = width > height ? 512.0 / width : 512.0 / height;
+	double newWidth = width * rescale;
+	double newHeight = height * rescale;
+
+	ofstream f(filename);
+
+	// Header text
+	f << "<?xml version=\"1.0\" encoding=\"utf-8\"?>" << endl;
+	f << "<!DOCTYPE svg PUBLIC \"-//W3C//DTD SVG 1.1//EN\" \"http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd\">" << endl;
+	f << "<svg version=\"1.1\" id=\"Layer_1\" xmlns=\"http://www.w3.org/2000/svg\" xmlns:xlink=\"http://www.w3.org/1999/xlink\" " <<
+	      "x=\"0px\" y=\"0px\" width=\"" << newHeight << "px\" height=\"" << newWidth << "px\" viewBox=\"0 0 " << newHeight <<
+	      " " << newWidth << "\" enable-background=\"new 0 0 " << newHeight << " " <<  newWidth <<"\" " << "xml:space=\"preserve\">" << endl;
+  f << "<texture filename=\"" << pngname << "\" texid=\"map\"/>" << endl;
+
+  // Iterate through all triangles
+  for (int i = 0; i < clothMesh->triangles.size(); i++) {
+  	Triangle *tri = clothMesh->triangles[i];
+
+  	// UV coordinates
+  	f << "<textri texid=\"map\" uvs=\"";
+  	f << fmod(tri->pm1->uv.x, 1) << " " << fmod(tri->pm1->uv.y, 1) << " ";
+  	f << fmod(tri->pm2->uv.x, 1) << " " << fmod(tri->pm2->uv.y, 1) << " ";
+  	f << fmod(tri->pm3->uv.x, 1) << " " << fmod(tri->pm3->uv.y, 1) << "\" ";
+
+  	// Points (removing the y as we assume the cloth/plastic starts off perfectly horizontal)
+  	f << "points=\"";
+  	f << rescale * tri->pm1->start_position.x << " " << rescale * tri->pm1->start_position.z << " ";
+  	f << rescale * tri->pm2->start_position.x << " " << rescale * tri->pm2->start_position.z << " ";
+  	f << rescale * tri->pm3->start_position.x << " " << rescale * tri->pm3->start_position.z << "\"/>" << endl;
+  }
+  f << "</svg>" << endl;
+
+	f.close();
+}
+
 
 void Cloth::reset() {
   PointMass *pm = &point_masses[0];
