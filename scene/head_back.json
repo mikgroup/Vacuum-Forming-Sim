@@ -19,7 +19,7 @@
  "cloth": {
     "damping": 0.03,
     "density": 15,
-    "ks": 10000.0,
+    "ks": 100.0,
     "enable_structural": true,
     "enable_shearing": true,
     "enable_bending": true,

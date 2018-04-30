@@ -553,7 +553,7 @@ bool ClothSimulator::keyCallbackEvent(int key, int scancode, int action,
 		case 'w':
 		case 'W': // Write to file
 			cloth->write_to_file("cloth.off");
-			//system("./arap cloth.off");
+			system("./arap cloth.off");
 			cloth->remap_uvs();
 			break;
 		}
