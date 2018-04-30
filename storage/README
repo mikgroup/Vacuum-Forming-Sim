@@ -2,7 +2,8 @@ Copy files arap.cpp and CMakeLists.txt to:
 
 ext/cgal/Surface_mesh_parameterization/examples/Surface_mesh_parameterization/
 
-then run 
+then go to that directory and run:
+
 cmake -DCGAL_DIR="../../../" .
 make
 
