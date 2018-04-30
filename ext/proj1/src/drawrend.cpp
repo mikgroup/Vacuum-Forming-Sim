@@ -33,7 +33,7 @@ void DrawRend::init() {
     view_init();
   }
   current_svg = 0;
-  psm = P_NEAREST;
+  psm = P_LINEAR;
   lsm = L_ZERO;
 
 }

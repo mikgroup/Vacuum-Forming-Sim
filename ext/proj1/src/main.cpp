@@ -129,13 +129,15 @@ int main( int argc, char** argv ) {
   Viewer viewer = Viewer();
 
   // set renderer
-  viewer.set_renderer(&app);
+  //viewer.set_renderer(&app);
 
   // init viewer
-  viewer.init();
+  //viewer.init();
 
   // start viewer
-  viewer.start();
+  //viewer.start();
+
+  app.write_screenshot();
 
   exit(EXIT_SUCCESS);
 
