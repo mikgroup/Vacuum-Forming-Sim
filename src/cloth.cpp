@@ -617,6 +617,7 @@ void Cloth::write_to_svg(string filename, string pngname) {
 	double rescale = width > height ? 512.0 / width : 512.0 / height;
 	double newWidth = width * rescale;
 	double newHeight = height * rescale;
+	int precision = 5;
 
 	ofstream f(filename);
 
@@ -639,25 +640,28 @@ void Cloth::write_to_svg(string filename, string pngname) {
 
   	// UV coordinates
   	f << "<textri texid=\"map\" uvs=\"";
-  	f << setprecision(15) << tri->pm1->uv.x - floor(tri->pm1->uv.x) << " ";
-  	f << setprecision(15) << tri->pm1->uv.y - floor(tri->pm1->uv.y) << " ";
-  	f << setprecision(15) << tri->pm2->uv.x - floor(tri->pm2->uv.x) << " ";
-  	f << setprecision(15) << tri->pm2->uv.y - floor(tri->pm2->uv.y) << " ";
-  	f << setprecision(15) << tri->pm3->uv.x - floor(tri->pm3->uv.x) << " ";
-  	f << setprecision(15) << tri->pm3->uv.y - floor(tri->pm3->uv.y) << "\" ";
 
-  	/*f << setprecision(15) << tri->pm1->uv.x << " " << setprecision(15) << tri->pm1->uv.y << " ";
-  	f << setprecision(15) << tri->pm2->uv.x << " " << setprecision(15) << tri->pm2->uv.y << " ";
-  	f << setprecision(15) << tri->pm3->uv.x << " " << setprecision(15) << tri->pm3->uv.y << "\" ";*/
+  	// With wrap-around
+  	/*f << setprecision(precision) << tri->pm1->uv.x - floor(tri->pm1->uv.x) << " ";
+  	f << setprecision(precision) << tri->pm1->uv.y - floor(tri->pm1->uv.y) << " ";
+  	f << setprecision(precision) << tri->pm2->uv.x - floor(tri->pm2->uv.x) << " ";
+  	f << setprecision(precision) << tri->pm2->uv.y - floor(tri->pm2->uv.y) << " ";
+  	f << setprecision(precision) << tri->pm3->uv.x - floor(tri->pm3->uv.x) << " ";
+  	f << setprecision(precision) << tri->pm3->uv.y - floor(tri->pm3->uv.y) << "\" ";*/
+
+		// Without wrap-around
+  	f << setprecision(precision) << tri->pm1->uv.x << " " << setprecision(precision) << tri->pm1->uv.y << " ";
+  	f << setprecision(precision) << tri->pm2->uv.x << " " << setprecision(precision) << tri->pm2->uv.y << " ";
+  	f << setprecision(precision) << tri->pm3->uv.x << " " << setprecision(precision) << tri->pm3->uv.y << "\" ";
 
   	// Points (removing the y as we assume the cloth/plastic starts off perfectly horizontal)
   	f << "points=\"";
-  	f << setprecision(15) << rescale * tri->pm1->start_position.x << " ";
-  	f << setprecision(15) << rescale * tri->pm1->start_position.z << " ";
-  	f << setprecision(15) << rescale * tri->pm2->start_position.x << " ";
-  	f << setprecision(15) << rescale * tri->pm2->start_position.z << " ";
-  	f << setprecision(15) << rescale * tri->pm3->start_position.x << " ";
-  	f << setprecision(15) << rescale * tri->pm3->start_position.z << "\"/>" << endl;
+  	f << setprecision(precision) << rescale * tri->pm1->start_position.x << " ";
+  	f << setprecision(precision) << rescale * tri->pm1->start_position.z << " ";
+  	f << setprecision(precision) << rescale * tri->pm2->start_position.x << " ";
+  	f << setprecision(precision) << rescale * tri->pm2->start_position.z << " ";
+  	f << setprecision(precision) << rescale * tri->pm3->start_position.x << " ";
+  	f << setprecision(precision) << rescale * tri->pm3->start_position.z << "\"/>" << endl;
   }
 
   f << "</svg>" << endl;

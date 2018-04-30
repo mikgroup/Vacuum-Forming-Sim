@@ -61,6 +61,8 @@ Color TexTri::color(Vector3D p_bary, Vector3D p_dx_bary, Vector3D p_dy_bary, Sam
   // Part 5: Fill this in with bilinear sampling.
   // Part 6: Fill this in with trilinear sampling as well.
   sp.p_uv = p0_uv*p_bary[0] + p1_uv*p_bary[1] + p2_uv*p_bary[2];
+  sp.p_uv[0] -= floor(sp.p_uv[0]);
+  sp.p_uv[1] -= floor(sp.p_uv[1]);
   sp.p_dx_uv = p0_uv*p_dx_bary[0] + p1_uv*p_dx_bary[1] + p2_uv*p_dx_bary[2];
   sp.p_dy_uv = p0_uv*p_dy_bary[0] + p1_uv*p_dy_bary[1] + p2_uv*p_dy_bary[2];
   return tex->sample(sp);
