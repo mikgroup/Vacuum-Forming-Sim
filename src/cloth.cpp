@@ -183,8 +183,11 @@ void Cloth::rotate_uvs(double theta) {
 	Vector2D center = translate_uvs_to_center();
 
 	for (int i = 0; i < point_masses.size(); i++) {
-		point_masses[i].uv.x = point_masses[i].uv.x * cos(theta) - point_masses[i].uv.y * sin(theta);;
-		point_masses[i].uv.y = point_masses[i].uv.y * cos(theta) + point_masses[i].uv.x * sin(theta);;
+		Vector2D rot;
+		rot.x = point_masses[i].uv.x * cos(theta) - point_masses[i].uv.y * sin(theta);
+		rot.y = point_masses[i].uv.y * cos(theta) + point_masses[i].uv.x * sin(theta);
+		point_masses[i].uv.x = rot.x;
+		point_masses[i].uv.y = rot.y;
 	}
 
 	translate_uvs(center.x, center.y);
@@ -230,13 +233,11 @@ void Cloth::remap_uvs() {
 		f >> point_masses[i].uv.x >> point_masses[i].uv.y;
 	}
 
-
-	
-
 	Vector2D new_diag = point_masses[0].uv - point_masses[point_masses.size() - 1].uv;
 	Vector2D start_diag = point_masses[0].start_uv - point_masses[point_masses.size() - 1].start_uv;
 
 	double angle = atan2(new_diag.y, new_diag.x) - atan2(start_diag.y, start_diag.x);
+	cout << "rotating by: " << angle << endl;
 	rotate_uvs(angle);
 
 

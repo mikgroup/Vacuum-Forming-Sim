@@ -822,10 +822,10 @@ void ClothSimulator::initGUI(Screen *screen) {
 		value_scale->setFontSize(14);
 
 		slider_scale->setCallback([value_scale](float val) {
-			value_scale->setValue(std::to_string(2 - val * 2));
+			value_scale->setValue(std::to_string(val * 2));
 		});
 		slider_scale->setFinalCallback([&](float value) {
-			cloth->scale_uvs(value * 2.0);
+			cloth->scale_uvs(2 - value * 2.0);
 		});
 
 		Slider *slider_rotate = new Slider(panel);
