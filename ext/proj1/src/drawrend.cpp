@@ -23,7 +23,7 @@ DrawRend::~DrawRend( void ) {}
 void DrawRend::init() {
   gl = true;
 
-  sample_rate = 1;
+  sample_rate = 16;
   left_clicked = false;
   show_zoom = 0;
 

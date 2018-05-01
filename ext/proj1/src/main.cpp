@@ -135,9 +135,9 @@ int main( int argc, char** argv ) {
   viewer.init();
 
   // start viewer
-  //viewer.start();
+  viewer.start();
 
-  app.write_screenshot();
+  //app.write_screenshot();
 
   exit(EXIT_SUCCESS);
 

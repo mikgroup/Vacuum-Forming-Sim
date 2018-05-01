@@ -644,7 +644,7 @@ void Cloth::write_to_file(const char *filename) {
 void Cloth::write_to_svg(string filename, string pngname) {
 
 	// Rescale width and height to a fixed standard to give proj1
-	double rescale = width > height ? 512.0 / width : 512.0 / height;
+	double rescale = width > height ? 5120.0 / width : 5120.0 / height;
 	double newWidth = width * rescale;
 	double newHeight = height * rescale;
 	int precision = 5;
