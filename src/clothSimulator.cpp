@@ -780,7 +780,7 @@ void ClothSimulator::initGUI(Screen *screen) {
     panel->setLayout(layout);
 				
 		Slider *slider_trans_x = new Slider(panel);
-		slider_trans_x->setValue(0);
+		slider_trans_x->setValue(0.5);
 		slider_trans_x->setFixedWidth(105);
 
 		TextBox *value_x = new TextBox(panel);
@@ -789,10 +789,10 @@ void ClothSimulator::initGUI(Screen *screen) {
 		value_x->setFontSize(14);
 
 		slider_trans_x->setCallback([value_x](float val) {
-			value_x->setValue(std::to_string(val));
+			value_x->setValue(std::to_string(val - 0.5));
 		});
 		slider_trans_x->setFinalCallback([&](float value) {
-			cloth->translate_uvs(value, 0);
+			cloth->translate_uvs(value - 0.5, 0);
 		});
 
 
@@ -806,10 +806,10 @@ void ClothSimulator::initGUI(Screen *screen) {
 		value_y->setFontSize(14);
 
 		slider_trans_y->setCallback([value_y](float val) {
-			value_y->setValue(std::to_string(val));
+			value_y->setValue(std::to_string(val - 0.5));
 		});
 		slider_trans_y->setFinalCallback([&](float value) {
-			cloth->translate_uvs(0, value);
+			cloth->translate_uvs(0, value - 0.5);
 		});
 		
 		Slider *slider_scale = new Slider(panel);
@@ -829,7 +829,7 @@ void ClothSimulator::initGUI(Screen *screen) {
 		});
 
 		Slider *slider_rotate = new Slider(panel);
-		slider_rotate->setValue(0);
+		slider_rotate->setValue(0.5);
 		slider_rotate->setFixedWidth(105);
 
 		TextBox *value_rotate = new TextBox(panel);
@@ -838,10 +838,10 @@ void ClothSimulator::initGUI(Screen *screen) {
 		value_rotate->setFontSize(14);
 
 		slider_rotate->setCallback([value_rotate](float val) {
-			value_rotate->setValue(std::to_string(val));
+			value_rotate->setValue(std::to_string((val - 0.5) * M_PI / 2));
 		});
 		slider_rotate->setFinalCallback([&](float value) {
-			cloth->rotate_uvs(value * 2 * PI);
+			cloth->rotate_uvs((value - 0.5) * M_PI / 2);
 		});
   }
 

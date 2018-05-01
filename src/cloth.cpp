@@ -238,7 +238,7 @@ void Cloth::remap_uvs() {
 
 	double angle = atan2(new_diag.y, new_diag.x) - atan2(start_diag.y, start_diag.x);
 	cout << "rotating by: " << angle << endl;
-	rotate_uvs(angle);
+	rotate_uvs(-angle);
 
 
 	double scale = start_diag.norm() / new_diag.norm();
