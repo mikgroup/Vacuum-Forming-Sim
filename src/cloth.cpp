@@ -641,12 +641,7 @@ void Cloth::write_to_file(const char *filename) {
 	f.close();
 }
 
-void Cloth::write_to_svg(string filename, string pngname) {
-
-	// Rescale width and height to a fixed standard to give proj1
-	double rescale = width > height ? 5120.0 / width : 5120.0 / height;
-	double newWidth = width * rescale;
-	double newHeight = height * rescale;
+void Cloth::write_to_svg(string filename, string pngname, double newWidth, double newHeight, double rescale) {
 	int precision = 5;
 
 	ofstream f(filename);
@@ -655,29 +650,16 @@ void Cloth::write_to_svg(string filename, string pngname) {
 	f << "<?xml version=\"1.0\" encoding=\"utf-8\"?>" << endl;
 	f << "<!DOCTYPE svg PUBLIC \"-//W3C//DTD SVG 1.1//EN\" \"http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd\">" << endl;
 	f << "<svg version=\"1.1\" id=\"Layer_1\" xmlns=\"http://www.w3.org/2000/svg\" xmlns:xlink=\"http://www.w3.org/1999/xlink\" " <<
-	      "x=\"0px\" y=\"0px\" width=\"" << newHeight << "px\" height=\"" << newWidth << "px\" viewBox=\"0 0 " << newHeight <<
-	      " " << newWidth << "\" enable-background=\"new 0 0 " << newHeight << " " <<  newWidth <<"\" " << "xml:space=\"preserve\">" << endl;
+	      "x=\"0px\" y=\"0px\" width=\"" << newWidth << "px\" height=\"" << newHeight << "px\" viewBox=\"0 0 " << newWidth <<
+	      " " << newHeight << "\" enable-background=\"new 0 0 " << newWidth << " " <<  newHeight <<"\" " << "xml:space=\"preserve\">" << endl;
   f << "<texture filename=\"" << pngname << "\" texid=\"map\"/>" << endl;
 
   // Iterate through all triangles
   for (int i = 0; i < clothMesh->triangles.size(); i++) {
   	Triangle *tri = clothMesh->triangles[i];
 
-  	/*if (tri->pm1->uv.x > 1 || tri->pm1->uv.y > 1
-  		  || tri->pm2->uv.x > 1 || tri->pm2->uv.y > 1
-  		  || tri->pm3->uv.x > 1 || tri->pm3->uv.y > 1)
-  		continue;*/
-
   	// UV coordinates
   	f << "<textri texid=\"map\" uvs=\"";
-
-  	// With wrap-around
-  	/*f << setprecision(precision) << tri->pm1->uv.x - floor(tri->pm1->uv.x) << " ";
-  	f << setprecision(precision) << tri->pm1->uv.y - floor(tri->pm1->uv.y) << " ";
-  	f << setprecision(precision) << tri->pm2->uv.x - floor(tri->pm2->uv.x) << " ";
-  	f << setprecision(precision) << tri->pm2->uv.y - floor(tri->pm2->uv.y) << " ";
-  	f << setprecision(precision) << tri->pm3->uv.x - floor(tri->pm3->uv.x) << " ";
-  	f << setprecision(precision) << tri->pm3->uv.y - floor(tri->pm3->uv.y) << "\" ";*/
 
 		// Without wrap-around
   	f << setprecision(precision) << tri->pm1->uv.x << " " << setprecision(precision) << tri->pm1->uv.y << " ";

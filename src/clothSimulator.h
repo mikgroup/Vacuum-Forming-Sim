@@ -115,6 +115,8 @@ private:
   bool is_alive = true;
 
   Vector2i default_window_size = Vector2i(1024, 800);
+
+  double pngWidth = 512;
 };
 
 #endif // CGL_CLOTH_SIM_H

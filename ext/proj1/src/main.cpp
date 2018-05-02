@@ -117,6 +117,15 @@ int main( int argc, char** argv ) {
   // create application
   DrawRend app(svgs);
 
+  // Write to screenshot
+  if (argc < 4) {
+    msg("Not enough arguments. Pass in the desired width and height of the output png.");
+    return 0;
+  }
+
+  //int pngWidth = atoi(argv[2]), pngHeight = atoi(argv[3]);
+  //app.write_to_png(pngWidth, pngHeight);
+
   if (argc > 4 && strcmp(argv[2],"nogl") == 0) {
     app.init();
     app.set_gl(false);
@@ -126,18 +135,19 @@ int main( int argc, char** argv ) {
   }
 
   // create viewer
-  Viewer viewer = Viewer();
+  //Viewer viewer = Viewer();
 
   // set renderer
-  viewer.set_renderer(&app);
+  //viewer.set_renderer(&app);
 
   // init viewer
-  viewer.init();
+  //viewer.init();
 
   // start viewer
-  viewer.start();
+  //viewer.start();
 
-  //app.write_screenshot();
+  int pngWidth = atoi(argv[2]), pngHeight = atoi(argv[3]);
+  app.write_to_png(pngWidth, pngHeight);
 
   exit(EXIT_SUCCESS);
 

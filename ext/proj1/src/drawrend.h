@@ -34,6 +34,7 @@ class DrawRend : public Renderer {
 
   // write current pixel buffer to disk
   void write_screenshot();
+  void write_to_png(int pngWidth, int pngHeight);
 
   // write only framebuffer to disk
   void write_framebuffer();
