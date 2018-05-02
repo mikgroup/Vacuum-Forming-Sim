@@ -70,7 +70,7 @@ void Cloth::buildGrid() {
 			}
 
 			PointMass pm_new(pos, is_pinned);
-			pm_new.uv = Vector2D(pos.x / height, pos.z / width);
+			pm_new.uv = Vector2D(pos.x / width, pos.z / width);
 			pm_new.start_uv = Vector2D(pm_new.uv);
 			pm_new.index = ind;
 

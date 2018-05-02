@@ -792,12 +792,12 @@ void ClothSimulator::initGUI(Screen *screen) {
 			value_x->setValue(std::to_string(val - 0.5));
 		});
 		slider_trans_x->setFinalCallback([&](float value) {
-			cloth->translate_uvs(value - 0.5, 0);
+			cloth->translate_uvs((value - 0.5)/4, 0);
 		});
 
 
 		Slider *slider_trans_y = new Slider(panel);
-		slider_trans_y->setValue(0);
+		slider_trans_y->setValue(0.5);
 		slider_trans_y->setFixedWidth(105);
 
 		TextBox *value_y = new TextBox(panel);
@@ -809,7 +809,7 @@ void ClothSimulator::initGUI(Screen *screen) {
 			value_y->setValue(std::to_string(val - 0.5));
 		});
 		slider_trans_y->setFinalCallback([&](float value) {
-			cloth->translate_uvs(0, value - 0.5);
+			cloth->translate_uvs(0, (value - 0.5)/4);
 		});
 		
 		Slider *slider_scale = new Slider(panel);
@@ -838,10 +838,10 @@ void ClothSimulator::initGUI(Screen *screen) {
 		value_rotate->setFontSize(14);
 
 		slider_rotate->setCallback([value_rotate](float val) {
-			value_rotate->setValue(std::to_string((val - 0.5) * M_PI / 2));
+			value_rotate->setValue(std::to_string((val - 0.5) * M_PI / 8));
 		});
 		slider_rotate->setFinalCallback([&](float value) {
-			cloth->rotate_uvs((value - 0.5) * M_PI / 2);
+			cloth->rotate_uvs((value - 0.5) * M_PI / 8);
 		});
   }
 
