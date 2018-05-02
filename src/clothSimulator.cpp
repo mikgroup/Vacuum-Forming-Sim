@@ -4,6 +4,7 @@
 #include <CGL/vector3D.h>
 #include "CGL/lodepng.h"
 #include <nanogui/nanogui.h>
+#include <sstream>
 
 #include "clothSimulator.h"
 
@@ -557,10 +558,25 @@ bool ClothSimulator::keyCallbackEvent(int key, int scancode, int action,
 			break;
     case 's':
     case 'S':
+      // Figure out needed dimensions
+      // Rescale width and height to a fixed standard to give proj1
+      double newWidth = pngWidth;
+      double rescale = newWidth / cloth->width;
+      double newHeight = cloth->height * rescale;
+
+      // Cast to strings
+      std::ostringstream w;
+      w << newWidth;
+      std::ostringstream h;
+      h << newHeight;
+
+      // Write to svg
       string svgFile = "test_svg.svg";
-      cloth->write_to_svg(svgFile, "../storage/tex.png");
-      system(("../ext/proj1/build/draw " + svgFile).c_str());
+      cloth->write_to_svg(svgFile, "../storage/tex.png", newWidth, newHeight, rescale);
       cout << "Saved svg as " << svgFile << ".\n";
+      cout << "Rasterizing to png...\n";
+      system(("../ext/proj1/build/draw " + svgFile + " " + h.str() + " " + w.str()).c_str());
+      cout << "PNG saved to test.png.\n";
       break;
 		}
   }
@@ -843,6 +859,17 @@ void ClothSimulator::initGUI(Screen *screen) {
 		slider_rotate->setFinalCallback([&](float value) {
 			cloth->rotate_uvs((value - 0.5) * M_PI / 8);
 		});
+
+    new Label(panel, "PNG Height :", "sans-bold");
+
+    FloatBox<double> *fb = new FloatBox<double>(panel);
+    fb->setEditable(true);
+    fb->setFixedSize(Vector2i(100, 20));
+    fb->setFontSize(14);
+    fb->setValue(512);
+    fb->setUnits("px");
+    fb->setSpinnable(true);
+    fb->setCallback([this](float value) { pngWidth = value; });
   }
 
   new Label(window, "Color", "sans-bold");

@@ -273,6 +273,29 @@ void DrawRend::write_framebuffer() {
     cerr << "Succesfully wrote framebuffer" << endl;
 }
 
+/* Directly inputs data into samplebuffer and writes to png. */
+void DrawRend::write_to_png(int pngWidth, int pngHeight) {
+  // Modify the resolution
+  width = pngWidth;
+  height = pngHeight;
+
+  // Clear and resize samplebuffer
+  samplebuffer.clear();
+  vector<SampleBuffer> samplebuffer_row(width, SampleBuffer(sqrt(sample_rate)));
+  for (int i = 0; i < height; ++i)
+    samplebuffer.push_back(samplebuffer_row);
+
+  // Fil in samplebuffer
+  SVG &svg = *svgs[current_svg];
+  svg.draw(this, Matrix3x3::identity());
+
+  // Resize and fill in to framebuffer
+  framebuffer.resize(4 * width * height);
+  resolve();
+
+  // Write to png
+  write_framebuffer();
+}
 
 /**
  * Draws the current SVG tab to the screen. Also draws a
