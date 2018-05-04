@@ -83,6 +83,9 @@ class Matrix3x3 {
 
   // increments by B
   void operator+=( const Matrix3x3& B );
+  //
+  // returns A+B
+  Matrix3x3 operator+( const Matrix3x3& B ) const;
 
   // returns -A
   Matrix3x3 operator-( void ) const;

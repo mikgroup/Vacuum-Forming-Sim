@@ -52,6 +52,16 @@ struct Cloth {
   void simulate(double frames_per_sec, double simulation_steps, ClothParameters *cp,
                 vector<Vector3D> external_accelerations,
                 vector<CollisionObject *> *collision_objects);
+  // Implicit Euler functions
+  void computeJacobians(ClothParameters* cp);
+  void multiplydfdx(vector<Vector3D>& src, vector<Vector3D>& dst);
+  void multiplydfdv(vector<Vector3D>& src, vector<Vector3D>& dst);
+  void multiplyMatrix(vector<Vector3D>& src, vector<Vector3D>& dst);
+  void multiplyMass(ClothParameters* cp, vector<Vector3D>& src, vector<Vector3D>& dst);
+  void multiplyScalar(double scal, vector<Vector3D>& src, vector<Vector3D>& dst);
+  vector<Vector3D> addVecs(vector<Vector3D>& a, vector<Vector3D>& b);
+  void multiplyA(ClothParameters* cp, double dt, vector<Vector3D>& src, vector<Vector3D>& dst);
+  void solveSystem(); // Conjugate gradient
 
   void reset();
 	void write_to_file(const char *filename);

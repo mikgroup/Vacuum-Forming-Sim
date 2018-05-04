@@ -464,6 +464,131 @@ void Cloth::remap_uvs() {
 //	}
 //}
 
+// Compute Jacobian matrices for implicit Euler.
+void Cloth::computeJacobians(ClothParameters* cp) {
+  for (int i = 0; i < springs.size(); i++) {
+    Vector3D dx = springs[i].pm_a->position - springs[i].pm_b->position;
+    Matrix3x3 dxtdx, id;
+    dxtdx = outer(dx,dx);
+    id = id.identity();
+
+    double L = dx.norm();
+    if (L != 0) {
+      L = 1.0 / L;
+    }
+
+    dxtdx = dxtdx * (L * L);
+
+    *springs[i].Jx = (dxtdx + (id - dxtdx) * (1.0 - springs[i].rest_length * L)) *
+      cp->ks;
+    *springs[i].Jv = id.identity();
+    *springs[i].Jv = *springs[i].Jv * cp->damping; // TODO: currently all springs have same Jv
+  }
+}
+
+// For example, to calculate df/dx*v0. dst=(df/dx)*src.
+// df/dx is all the Jacobians Jx per spring.
+void Cloth::multiplydfdx(vector<Vector3D>& src, vector<Vector3D>& dst) {
+  for (int i = 0; i < point_masses.size(); i++) {
+    dst.push_back(Vector3D(0,0,0));
+  }
+  for (int i = 0; i < springs.size(); i++) {
+    Vector3D iminusj = *springs[i].Jx *
+      (src[springs[i].pm_a->index] - src[springs[i].pm_b->index]);
+    dst[springs[i].pm_a->index] -= iminusj;
+    dst[springs[i].pm_b->index] += iminusj;
+  }
+}
+
+// dst = (df/dv) * src
+void Cloth::multiplydfdv(vector<Vector3D>& src, vector<Vector3D>& dst) {
+  for (int i = 0; i < point_masses.size(); i++) {
+    dst.push_back(Vector3D(0,0,0));
+  }
+  for (int i = 0; i < springs.size(); i++) {
+    Vector3D iminusj = *springs[i].Jv *
+      (src[springs[i].pm_a->index] - src[springs[i].pm_b->index]);
+    dst[springs[i].pm_a->index] -= iminusj;
+    dst[springs[i].pm_b->index] += iminusj;
+  }
+}
+
+// dst = M * src
+// Because M consists of only diagonal 3x3 matrix entries (rest are 0 matrices),
+// M = mass * I.
+// This means you can simply do src * mass.
+void Cloth::multiplyMass(ClothParameters* cp, vector<Vector3D>& src, vector<Vector3D>& dst) {
+  double mass = width * height * cp->density / num_width_points / num_height_points;
+  multiplyScalar(mass, src, dst);
+}
+
+// Multiplies vector by a scalar.
+void Cloth::multiplyScalar(double scal, vector<Vector3D>& src, vector<Vector3D>& dst) {
+  for (int i = 0; i < src.size(); i ++) {
+    dst.push_back(src[i] * scal);
+  }
+}
+
+// Adds two vectors (3n x 1) together.
+vector<Vector3D> Cloth::addVecs(vector<Vector3D>& a, vector<Vector3D>& b) {
+  vector<Vector3D> dst;
+  for (int i = 0; i < a.size(); i ++) {
+    dst.push_back(a[i] + b[i]);
+  }
+  return dst;
+}
+
+// Multiplies: dst = A * src.
+// A is a 3n x 3n matrix
+// src, dst are 3n vectors.
+void Cloth::multiplyA(ClothParameters* cp, double dt, vector<Vector3D>& src, vector<Vector3D>& dst) {
+  // A*src (a vector) is the addition of 3 multiplications (matrix additive distribution).
+  vector<Vector3D> dst1;
+
+  // M
+  multiplyMass(cp,src,dst1);
+
+  // -dt * df/dv
+  vector<Vector3D> temp2;
+  vector<Vector3D> dst2;
+  multiplydfdv(src,temp2);
+  multiplyScalar(dt, temp2, dst2);
+
+  // -dt^2 * df/dx
+  vector<Vector3D> temp3;
+  vector<Vector3D> dst3;
+  multiplydfdx(src, temp3);
+  multiplyScalar(dt * dt, temp3, dst3);
+
+  // Get A*src!
+  vector<Vector3D> sum1 = addVecs(dst1, dst2);
+  dst = addVecs(sum1, dst3);
+}
+
+// Conjugate gradient method for solving a linear system of equations.
+// See [Shewchuk 1994 An Introduction to the Conjugate Gradient Method ...].
+// Here we solve b = A*dv given b,A.
+// Once we have the desired dv, it is easy to find dx to move the spring particles.
+void Cloth::solveSystem() { 
+//  dv = 0 // TODO : 3n vector of 0s
+//  int i = 0;
+//  r = b - A * dv; // TODO: 3n vec
+//  d = r; // TODO 3n vec
+//  double espNew = dot(r,r); // TODO dot prod of 3n, 3n: scalar
+//  double esp0 = epsNew;
+//  while (i < iMax && epsNew > eps * eps0) { // TODO: choose iMax (iterations) and eps < 1.
+//    q = A * d; // TODO 3n vec
+//    double alpha = epsNew / dot(d, q); // TODO scalar
+//    dv = dv + alpha * d; // TODO add 3n vec
+//    r = r - alpha * q; // TODO 3n vec
+//    double epsOld = epsNew;
+//    epsNew = dot(r,r); // dot 3n,3n
+//    double beta = epsNew / epsOld;
+//    d = r + beta * d; // TODO: 3n vec
+//    i = i + 1;
+//  }
+}
+
 
 void Cloth::simulate(double frames_per_sec, double simulation_steps, ClothParameters *cp,
                      vector<Vector3D> external_accelerations,

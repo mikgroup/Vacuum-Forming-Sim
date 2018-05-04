@@ -27,6 +27,9 @@ struct Spring {
 
   PointMass *pm_a;
   PointMass *pm_b;
+
+  Matrix3x3* Jx; // Position Jacobian for implicit Euler method.
+  Matrix3x3* Jv; // Velocity Jacobian for implicit Euler method.
 }; // struct Spring
 }
 #endif /* SPRING_H */
