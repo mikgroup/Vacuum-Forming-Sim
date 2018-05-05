@@ -1,3 +1,4 @@
-# Project 4: Cloth Simulation
+# Final project
 
-https://cs184.org/article/25
+Here is the final project website:
+[https://rnlee0054.github.io/cs184-final/](https://rnlee0054.github.io/cs184-final/)
