@@ -64,7 +64,7 @@ void Cloth::buildGrid() {
 			bool is_pinned = pins.count(ind) > 0;
 			Vector3D pos;
 			if (orientation == HORIZONTAL) {
-				pos = Vector3D(curr_x, 0.3, curr_y);
+				pos = Vector3D(curr_x, 0.2, curr_y);
 			} else {
 				pos = Vector3D(curr_x, curr_y, rand_z);
 			}

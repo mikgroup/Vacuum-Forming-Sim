@@ -157,14 +157,14 @@ endif(WIN32)
 #-------------
 # Embree
 #------------
-add_subdirectory(ext/embree2)
+add_subdirectory(ext/embree)
+set(embree_DIR ext/embree)
 find_package(embree 3.0 REQUIRED)
 
 include_directories(${EMBREE_INCLUDE_DIRS})
 
 
 #include_directories(ext/embree2/include)
-option(EMBREE_ISPC_SUPPORT OFF)
 
 #-------------------------------------------------------------------------------
 # nanogui configuration and compilation

@@ -57,6 +57,7 @@ void Mesh::collide(PointMass &pm) {
 		pm.position = pm.last_position_no_vel + sub_norm * ray.ray.tfar;
 		pm.pinned = false;
 		pm.stuck = true;
+    pm.collide_id = embree_geomID;
 		if (platen) {
 			pm.hit_platen = true;
 		}

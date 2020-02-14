@@ -34,12 +34,15 @@ ClothSimulator::ClothSimulator(Screen *screen) {
                             "../shaders/phong.frag");
 	imageShader.initFromFiles("Image", "../shaders/camera.vert",
 														"../shaders/image.frag");
+	objectShader.initFromFiles("Object", "../shaders/camera.vert",
+														"../shaders/object.frag");
 	
 
   shaders.push_back(wireframeShader);
   shaders.push_back(normalShader);
   shaders.push_back(phongShader);
 	shaders.push_back(imageShader);
+  shaders.push_back(objectShader);
 
   glEnable(GL_PROGRAM_POINT_SIZE);
   glEnable(GL_DEPTH_TEST);
@@ -163,6 +166,13 @@ void ClothSimulator::drawContents() {
 		shader.setUniform("model", model);
 		shader.setUniform("viewProjection", viewProjection);
 		break;
+  case OBJECT:
+    drawObject(shader);
+		shader = shaders[NORMALS]; // do not draw image on objects
+		shader.bind();
+		shader.setUniform("model", model);
+		shader.setUniform("viewProjection", viewProjection);
+    break;
   }
 
 	if (!objects_hidden) {
@@ -271,15 +281,14 @@ static GLuint makeTex(string path) {
   // Ratio for power of two version compared to actual version, to render the non power of two image with proper size.
   /*double*/ u3 = (double)width / u2;
   /*double*/ v3 = (double)height / v2;
-
+    std::cout << u3 << std::endl;
+    std::cout << v3 << std::endl;
 	// Make power of 2 version of the image.
 	std::vector<unsigned char> image2(u2 * v2 * 4);
   for(size_t y = 0; y < height; y++)
-  for(size_t x = 0; x < width; x++)
-  for(size_t c = 0; c < 4; c++)
-  {
-    image2[4 * u2 * y + 4 * x + c] = image[4 * width * y + 4 * x + c];
-  }
+    for(size_t x = 0; x < width; x++)
+        for(size_t c = 0; c < 4; c++) 
+            image2[4 * u2 * y + 4 * x + c] = image[4 * width * y + 4 * x + c]; 
 
   GLuint textureID;
 	
@@ -290,9 +299,11 @@ static GLuint makeTex(string path) {
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_BASE_LEVEL, 0);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAX_LEVEL, 0);
 
-  glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, u2, v2, 0, GL_RGBA, GL_UNSIGNED_BYTE, &image2[0]);
 
-  glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
+  //glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, u2, v2, 0, GL_RGBA, GL_UNSIGNED_BYTE, &image2[0]);
+  glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, width, height, 0, GL_RGBA, GL_UNSIGNED_BYTE, &image[0]);
+  
+    glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
   glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
 
   return textureID;
@@ -329,7 +340,7 @@ void ClothSimulator::drawImage(GLShader &shader) {
 		//uvs.col(i * 3 + 1) << tri->pm2->uv.x - floor(tri->pm2->uv.x), tri->pm2->uv.y - floor(tri->pm2->uv.y);
 		//uvs.col(i * 3 + 2) << tri->pm3->uv.x - floor(tri->pm3->uv.x), tri->pm3->uv.y - floor(tri->pm3->uv.y);
 		
-		uvs.col(i * 3) 		 <<	tri->pm1->uv.x, tri->pm1->uv.y;
+		uvs.col(i * 3)     << tri->pm1->uv.x, tri->pm1->uv.y;
 		uvs.col(i * 3 + 1) << tri->pm2->uv.x, tri->pm2->uv.y;
 		uvs.col(i * 3 + 2) << tri->pm3->uv.x, tri->pm3->uv.y;
   }
@@ -349,6 +360,68 @@ void ClothSimulator::drawImage(GLShader &shader) {
 
   shader.drawArray(GL_TRIANGLES, 0, num_tris * 3);
 }
+
+void ClothSimulator::drawObject(GLShader &shader) {
+  int num_tris = cloth->clothMesh->triangles.size();
+
+  MatrixXf positions(3, num_tris * 3);
+  MatrixXf normals(3, num_tris * 3);
+  MatrixXf colors(4, num_tris * 3); 
+
+  for (int i = 0; i < num_tris; i++) {
+    Triangle *tri = cloth->clothMesh->triangles[i];
+    
+    PointMass *p[3];
+    p[0] = tri->pm1;
+    p[1] = tri->pm2;
+    p[2] = tri->pm3;
+
+    Vector3D p1 = tri->pm1->position;
+    Vector3D p2 = tri->pm2->position;
+    Vector3D p3 = tri->pm3->position;
+
+    Vector3D n1 = tri->pm1->normal();
+    Vector3D n2 = tri->pm2->normal();
+    Vector3D n3 = tri->pm3->normal();
+
+    positions.col(i * 3) << p1.x, p1.y, p1.z;
+    positions.col(i * 3 + 1) << p2.x, p2.y, p2.z;
+    positions.col(i * 3 + 2) << p3.x, p3.y, p3.z;
+
+    normals.col(i * 3) << n1.x, n1.y, n1.z;
+    normals.col(i * 3 + 1) << n2.x, n2.y, n2.z;
+    normals.col(i * 3 + 2) << n3.x, n3.y, n3.z;
+    
+    nanogui::Color p_color = color;
+    nanogui::Color rgb[3];
+    rgb[0] = nanogui::Color(255,0,0,1);
+    rgb[1] = nanogui::Color(0,255,0,1);
+    rgb[2] = nanogui::Color(0,0,255,1);
+    
+    int r = 0, g = 0, b = 0;
+    for (int j = 0; j < 3; j++) {
+      if (p[j]->stuck) {
+        p_color = rgb[p[j]->collide_id]; 
+      }
+      
+      colors.col(i * 3 + j) << p_color.r(), p_color.g(), p_color.b(), 1;
+      //colors.col(i * 3 + j) << 255,0,0,1;
+    }
+  }
+
+  Vector3D cp = camera.position();
+
+  shader.setUniform("eye", Vector3f(cp.x, cp.y, cp.z));
+  //shader.setUniform("light", Vector3f(0.5, 2, 2));
+
+  shader.uploadAttrib("in_position", positions);
+  shader.uploadAttrib("in_normal", normals);
+  shader.uploadAttrib("in_color", colors);
+
+  shader.drawArray(GL_TRIANGLES, 0, num_tris * 3);
+
+}
+
 
 void ClothSimulator::drawPhong(GLShader &shader) {
   int num_tris = cloth->clothMesh->triangles.size();
@@ -379,6 +452,7 @@ void ClothSimulator::drawPhong(GLShader &shader) {
   Vector3D cp = camera.position();
 
   shader.setUniform("in_color", color);
+
   shader.setUniform("eye", Vector3f(cp.x, cp.y, cp.z));
   //shader.setUniform("light", Vector3f(0.5, 2, 2));
 
@@ -782,7 +856,7 @@ void ClothSimulator::initGUI(Screen *screen) {
   new Label(window, "Appearance", "sans-bold");
 
   {
-    ComboBox *cb = new ComboBox(window, {"Wireframe", "Normals", "Shaded", "Image"});
+    ComboBox *cb = new ComboBox(window, {"Wireframe", "Normals", "Shaded", "Image", "Objects"});
     cb->setFontSize(14);
 		cb->setSelectedIndex(activeShader);
     cb->setCallback(

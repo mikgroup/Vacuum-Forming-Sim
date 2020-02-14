@@ -37,6 +37,7 @@ private:
   void drawNormals(GLShader &shader);
   void drawPhong(GLShader &shader);
   void drawImage(GLShader &shader);
+  void drawObject(GLShader &shader);
 
   // Camera methods
 
@@ -58,8 +59,8 @@ private:
 
   // OpenGL attributes
 
-  enum e_shader { WIREFRAME = 0, NORMALS = 1, PHONG = 2, IMAGE = 3 };
-  e_shader activeShader = IMAGE;
+  enum e_shader { WIREFRAME = 0, NORMALS = 1, PHONG = 2, IMAGE = 3, OBJECT = 4};
+  e_shader activeShader = OBJECT;
 
   vector<GLShader> shaders;
 
@@ -67,6 +68,7 @@ private:
   GLShader normalShader;
   GLShader phongShader;
 	GLShader imageShader;
+  GLShader objectShader;
 
 	GLuint textureId;
 

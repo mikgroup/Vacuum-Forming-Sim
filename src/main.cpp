@@ -176,7 +176,7 @@ void loadObjectsFromFile(string filename, Cloth *cloth, ClothParameters *cp, vec
       double width, height;
       int num_width_points, num_height_points;
       float thickness;
-			string texture;
+      string texture;
       e_orientation orientation;
       vector<vector<int>> pinned;
 			Vector3D velocity;
@@ -507,6 +507,7 @@ void loadObjectsFromFile(string filename, Cloth *cloth, ClothParameters *cp, vec
 				auto it_m_file = ob.find("filename");
 				if (it_m_file != ob.end()) {
 					mesh_filename = *it_m_file;
+                    std::cout << mesh_filename;
 				} else {
 					incompleteObjectError("mesh", "filename");
 				}

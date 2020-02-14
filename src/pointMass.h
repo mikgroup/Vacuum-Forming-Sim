@@ -27,6 +27,7 @@ struct PointMass {
   bool pinned;
 	bool start_pinned;
 	bool stuck = false;
+  unsigned int collide_id = -1; //Which object the point mass is stuck to. -1 if not stuck.
   Vector3D start_position;
 	bool hit_platen = false;
 

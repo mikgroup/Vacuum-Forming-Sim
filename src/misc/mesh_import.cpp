@@ -88,6 +88,9 @@ void import_mesh(Mesh &mesh, string filename) {
 		// move other objects bottom to top of platen
 		Vector3D v_ob = Vector3D(0, -mesh.min().y, 0);
 		mesh.translate(v_ob);
+		if (mesh.trans.y != 0) {
+      mesh.translate(mesh.trans);
+    }
 	}
 
 
@@ -101,6 +104,7 @@ void import_mesh(Mesh &mesh, string filename) {
  	//rtcReleaseGeometry(geom_0);
 
 	mesh.embree_geomID = geomID;
+  cout << geomID << std::endl;
 	
 	Vertex *vertices = (Vertex *) rtcSetNewGeometryBuffer(geom_0,RTC_BUFFER_TYPE_VERTEX,0,RTC_FORMAT_FLOAT3,4*sizeof(float),mesh.verts.size());
 	int i = 0;
