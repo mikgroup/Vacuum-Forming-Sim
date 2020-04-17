@@ -39,63 +39,51 @@ cmake_force:
 SHELL = /bin/sh
 
 # The CMake executable.
-CMAKE_COMMAND = /opt/local/bin/cmake
+CMAKE_COMMAND = /usr/bin/cmake
 
 # The command to remove a file.
-RM = /opt/local/bin/cmake -E remove -f
+RM = /usr/bin/cmake -E remove -f
 
 # Escaping for special characters.
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /Users/karthikgopalan/Documents/cs184-final
+CMAKE_SOURCE_DIR = /home/jaren/Workspace/miklab/cs184-final
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /Users/karthikgopalan/Documents/cs184-final
+CMAKE_BINARY_DIR = /home/jaren/Workspace/miklab/cs184-final
 
 #=============================================================================
 # Targets provided globally by CMake.
 
-# Special rule for the target install/local
-install/local: preinstall
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Installing only the local directory..."
-	/opt/local/bin/cmake -DCMAKE_INSTALL_LOCAL_ONLY=1 -P cmake_install.cmake
-.PHONY : install/local
-
-# Special rule for the target install/local
-install/local/fast: preinstall/fast
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Installing only the local directory..."
-	/opt/local/bin/cmake -DCMAKE_INSTALL_LOCAL_ONLY=1 -P cmake_install.cmake
-.PHONY : install/local/fast
-
 # Special rule for the target install/strip
 install/strip: preinstall
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Installing the project stripped..."
-	/opt/local/bin/cmake -DCMAKE_INSTALL_DO_STRIP=1 -P cmake_install.cmake
+	/usr/bin/cmake -DCMAKE_INSTALL_DO_STRIP=1 -P cmake_install.cmake
 .PHONY : install/strip
 
 # Special rule for the target install/strip
 install/strip/fast: preinstall/fast
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Installing the project stripped..."
-	/opt/local/bin/cmake -DCMAKE_INSTALL_DO_STRIP=1 -P cmake_install.cmake
+	/usr/bin/cmake -DCMAKE_INSTALL_DO_STRIP=1 -P cmake_install.cmake
 .PHONY : install/strip/fast
 
-# Special rule for the target install
-install: preinstall
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Install the project..."
-	/opt/local/bin/cmake -P cmake_install.cmake
-.PHONY : install
+# Special rule for the target install/local
+install/local: preinstall
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Installing only the local directory..."
+	/usr/bin/cmake -DCMAKE_INSTALL_LOCAL_ONLY=1 -P cmake_install.cmake
+.PHONY : install/local
 
-# Special rule for the target install
-install/fast: preinstall/fast
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Install the project..."
-	/opt/local/bin/cmake -P cmake_install.cmake
-.PHONY : install/fast
+# Special rule for the target install/local
+install/local/fast: preinstall/fast
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Installing only the local directory..."
+	/usr/bin/cmake -DCMAKE_INSTALL_LOCAL_ONLY=1 -P cmake_install.cmake
+.PHONY : install/local/fast
 
 # Special rule for the target package_source
 package_source:
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Run CPack packaging tool for source..."
-	cd /Users/karthikgopalan/Documents/cs184-final && /opt/local/bin/cpack --config ./CPackSourceConfig.cmake /Users/karthikgopalan/Documents/cs184-final/CPackSourceConfig.cmake
+	cd /home/jaren/Workspace/miklab/cs184-final && /usr/bin/cpack --config ./CPackSourceConfig.cmake /home/jaren/Workspace/miklab/cs184-final/CPackSourceConfig.cmake
 .PHONY : package_source
 
 # Special rule for the target package_source
@@ -103,10 +91,32 @@ package_source/fast: package_source
 
 .PHONY : package_source/fast
 
+# Special rule for the target edit_cache
+edit_cache:
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Running CMake cache editor..."
+	/usr/bin/ccmake -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR)
+.PHONY : edit_cache
+
+# Special rule for the target edit_cache
+edit_cache/fast: edit_cache
+
+.PHONY : edit_cache/fast
+
+# Special rule for the target package
+package: preinstall
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Run CPack packaging tool..."
+	cd /home/jaren/Workspace/miklab/cs184-final && /usr/bin/cpack --config ./CPackConfig.cmake
+.PHONY : package
+
+# Special rule for the target package
+package/fast: package
+
+.PHONY : package/fast
+
 # Special rule for the target rebuild_cache
 rebuild_cache:
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Running CMake to regenerate build system..."
-	/opt/local/bin/cmake -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR)
+	/usr/bin/cmake -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR)
 .PHONY : rebuild_cache
 
 # Special rule for the target rebuild_cache
@@ -114,16 +124,17 @@ rebuild_cache/fast: rebuild_cache
 
 .PHONY : rebuild_cache/fast
 
-# Special rule for the target edit_cache
-edit_cache:
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Running CMake cache editor..."
-	/usr/local/Cellar/cmake/3.15.5/bin/ccmake -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR)
-.PHONY : edit_cache
+# Special rule for the target install
+install: preinstall
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Install the project..."
+	/usr/bin/cmake -P cmake_install.cmake
+.PHONY : install
 
-# Special rule for the target edit_cache
-edit_cache/fast: edit_cache
-
-.PHONY : edit_cache/fast
+# Special rule for the target install
+install/fast: preinstall/fast
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Install the project..."
+	/usr/bin/cmake -P cmake_install.cmake
+.PHONY : install/fast
 
 # Special rule for the target list_install_components
 list_install_components:
@@ -135,27 +146,16 @@ list_install_components/fast: list_install_components
 
 .PHONY : list_install_components/fast
 
-# Special rule for the target package
-package: preinstall
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Run CPack packaging tool..."
-	cd /Users/karthikgopalan/Documents/cs184-final && /opt/local/bin/cpack --config ./CPackConfig.cmake
-.PHONY : package
-
-# Special rule for the target package
-package/fast: package
-
-.PHONY : package/fast
-
 # The main all target
 all: cmake_check_build_system
-	cd /Users/karthikgopalan/Documents/cs184-final && $(CMAKE_COMMAND) -E cmake_progress_start /Users/karthikgopalan/Documents/cs184-final/CMakeFiles /Users/karthikgopalan/Documents/cs184-final/ext/nanogui/ext_build/glfw/CMakeFiles/progress.marks
-	cd /Users/karthikgopalan/Documents/cs184-final && $(MAKE) -f CMakeFiles/Makefile2 ext/nanogui/ext_build/glfw/all
-	$(CMAKE_COMMAND) -E cmake_progress_start /Users/karthikgopalan/Documents/cs184-final/CMakeFiles 0
+	cd /home/jaren/Workspace/miklab/cs184-final && $(CMAKE_COMMAND) -E cmake_progress_start /home/jaren/Workspace/miklab/cs184-final/CMakeFiles /home/jaren/Workspace/miklab/cs184-final/ext/nanogui/ext_build/glfw/CMakeFiles/progress.marks
+	cd /home/jaren/Workspace/miklab/cs184-final && $(MAKE) -f CMakeFiles/Makefile2 ext/nanogui/ext_build/glfw/all
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/jaren/Workspace/miklab/cs184-final/CMakeFiles 0
 .PHONY : all
 
 # The main clean target
 clean:
-	cd /Users/karthikgopalan/Documents/cs184-final && $(MAKE) -f CMakeFiles/Makefile2 ext/nanogui/ext_build/glfw/clean
+	cd /home/jaren/Workspace/miklab/cs184-final && $(MAKE) -f CMakeFiles/Makefile2 ext/nanogui/ext_build/glfw/clean
 .PHONY : clean
 
 # The main clean target
@@ -165,17 +165,17 @@ clean/fast: clean
 
 # Prepare targets for installation.
 preinstall: all
-	cd /Users/karthikgopalan/Documents/cs184-final && $(MAKE) -f CMakeFiles/Makefile2 ext/nanogui/ext_build/glfw/preinstall
+	cd /home/jaren/Workspace/miklab/cs184-final && $(MAKE) -f CMakeFiles/Makefile2 ext/nanogui/ext_build/glfw/preinstall
 .PHONY : preinstall
 
 # Prepare targets for installation.
 preinstall/fast:
-	cd /Users/karthikgopalan/Documents/cs184-final && $(MAKE) -f CMakeFiles/Makefile2 ext/nanogui/ext_build/glfw/preinstall
+	cd /home/jaren/Workspace/miklab/cs184-final && $(MAKE) -f CMakeFiles/Makefile2 ext/nanogui/ext_build/glfw/preinstall
 .PHONY : preinstall/fast
 
 # clear depends
 depend:
-	cd /Users/karthikgopalan/Documents/cs184-final && $(CMAKE_COMMAND) -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 1
+	cd /home/jaren/Workspace/miklab/cs184-final && $(CMAKE_COMMAND) -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 1
 .PHONY : depend
 
 # Help Target
@@ -184,14 +184,14 @@ help:
 	@echo "... all (the default if no target is provided)"
 	@echo "... clean"
 	@echo "... depend"
-	@echo "... install/local"
 	@echo "... install/strip"
-	@echo "... install"
+	@echo "... install/local"
 	@echo "... package_source"
-	@echo "... rebuild_cache"
 	@echo "... edit_cache"
-	@echo "... list_install_components"
 	@echo "... package"
+	@echo "... rebuild_cache"
+	@echo "... install"
+	@echo "... list_install_components"
 .PHONY : help
 
 
@@ -203,6 +203,6 @@ help:
 # No rule that depends on this can have commands that come from listfiles
 # because they might be regenerated.
 cmake_check_build_system:
-	cd /Users/karthikgopalan/Documents/cs184-final && $(CMAKE_COMMAND) -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 0
+	cd /home/jaren/Workspace/miklab/cs184-final && $(CMAKE_COMMAND) -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 0
 .PHONY : cmake_check_build_system
 

@@ -13,6 +13,9 @@ option(ENABLE_TESTS    "Enable testing"               OFF)
 # Platform-specific settings
 #-------------------------------------------------------------------------------
 
+set(ISA_LOWEST "ZOOP")
+set(target "host")
+
 ###################
 # Building on OSX #
 ###################
@@ -194,8 +197,8 @@ find_package(Freetype REQUIRED)
 
 # CGL
 if(BUILD_LIBCGL)
-  add_subdirectory(CGL)
-  include_directories(CGL/include)
+  add_subdirectory(ext/CGL)
+  include_directories(ext/CGL/include)
 else(BUILD_LIBCGL)
   find_package(CGL REQUIRED)
 endif(BUILD_LIBCGL)

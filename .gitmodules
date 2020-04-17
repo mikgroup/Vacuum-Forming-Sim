@@ -1,5 +1,5 @@
-[submodule "ext/embree2"]
-	path = ext/embree2
+[submodule "ext/embree"]
+	path = ext/embree
 	url = https://github.com/embree/embree.git/
 [submodule "ext/cgal"]
 	path = ext/cgal

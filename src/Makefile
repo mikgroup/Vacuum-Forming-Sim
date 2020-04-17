@@ -39,57 +39,57 @@ cmake_force:
 SHELL = /bin/sh
 
 # The CMake executable.
-CMAKE_COMMAND = /opt/local/bin/cmake
+CMAKE_COMMAND = /usr/bin/cmake
 
 # The command to remove a file.
-RM = /opt/local/bin/cmake -E remove -f
+RM = /usr/bin/cmake -E remove -f
 
 # Escaping for special characters.
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /Users/karthikgopalan/Documents/cs184-final
+CMAKE_SOURCE_DIR = /home/jaren/Workspace/miklab/cs184-final
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /Users/karthikgopalan/Documents/cs184-final
+CMAKE_BINARY_DIR = /home/jaren/Workspace/miklab/cs184-final
 
 #=============================================================================
 # Targets provided globally by CMake.
 
-# Special rule for the target install/local
-install/local: preinstall
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Installing only the local directory..."
-	/opt/local/bin/cmake -DCMAKE_INSTALL_LOCAL_ONLY=1 -P cmake_install.cmake
-.PHONY : install/local
-
-# Special rule for the target install/local
-install/local/fast: preinstall/fast
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Installing only the local directory..."
-	/opt/local/bin/cmake -DCMAKE_INSTALL_LOCAL_ONLY=1 -P cmake_install.cmake
-.PHONY : install/local/fast
-
 # Special rule for the target install/strip
 install/strip: preinstall
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Installing the project stripped..."
-	/opt/local/bin/cmake -DCMAKE_INSTALL_DO_STRIP=1 -P cmake_install.cmake
+	/usr/bin/cmake -DCMAKE_INSTALL_DO_STRIP=1 -P cmake_install.cmake
 .PHONY : install/strip
 
 # Special rule for the target install/strip
 install/strip/fast: preinstall/fast
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Installing the project stripped..."
-	/opt/local/bin/cmake -DCMAKE_INSTALL_DO_STRIP=1 -P cmake_install.cmake
+	/usr/bin/cmake -DCMAKE_INSTALL_DO_STRIP=1 -P cmake_install.cmake
 .PHONY : install/strip/fast
+
+# Special rule for the target install/local
+install/local: preinstall
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Installing only the local directory..."
+	/usr/bin/cmake -DCMAKE_INSTALL_LOCAL_ONLY=1 -P cmake_install.cmake
+.PHONY : install/local
+
+# Special rule for the target install/local
+install/local/fast: preinstall/fast
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Installing only the local directory..."
+	/usr/bin/cmake -DCMAKE_INSTALL_LOCAL_ONLY=1 -P cmake_install.cmake
+.PHONY : install/local/fast
 
 # Special rule for the target install
 install: preinstall
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Install the project..."
-	/opt/local/bin/cmake -P cmake_install.cmake
+	/usr/bin/cmake -P cmake_install.cmake
 .PHONY : install
 
 # Special rule for the target install
 install/fast: preinstall/fast
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Install the project..."
-	/opt/local/bin/cmake -P cmake_install.cmake
+	/usr/bin/cmake -P cmake_install.cmake
 .PHONY : install/fast
 
 # Special rule for the target list_install_components
@@ -102,43 +102,10 @@ list_install_components/fast: list_install_components
 
 .PHONY : list_install_components/fast
 
-# Special rule for the target package_source
-package_source:
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Run CPack packaging tool for source..."
-	cd /Users/karthikgopalan/Documents/cs184-final && /opt/local/bin/cpack --config ./CPackSourceConfig.cmake /Users/karthikgopalan/Documents/cs184-final/CPackSourceConfig.cmake
-.PHONY : package_source
-
-# Special rule for the target package_source
-package_source/fast: package_source
-
-.PHONY : package_source/fast
-
-# Special rule for the target rebuild_cache
-rebuild_cache:
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Running CMake to regenerate build system..."
-	/opt/local/bin/cmake -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR)
-.PHONY : rebuild_cache
-
-# Special rule for the target rebuild_cache
-rebuild_cache/fast: rebuild_cache
-
-.PHONY : rebuild_cache/fast
-
-# Special rule for the target edit_cache
-edit_cache:
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Running CMake cache editor..."
-	/usr/local/Cellar/cmake/3.15.5/bin/ccmake -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR)
-.PHONY : edit_cache
-
-# Special rule for the target edit_cache
-edit_cache/fast: edit_cache
-
-.PHONY : edit_cache/fast
-
 # Special rule for the target package
 package: preinstall
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Run CPack packaging tool..."
-	cd /Users/karthikgopalan/Documents/cs184-final && /opt/local/bin/cpack --config ./CPackConfig.cmake
+	cd /home/jaren/Workspace/miklab/cs184-final && /usr/bin/cpack --config ./CPackConfig.cmake
 .PHONY : package
 
 # Special rule for the target package
@@ -146,16 +113,49 @@ package/fast: package
 
 .PHONY : package/fast
 
+# Special rule for the target rebuild_cache
+rebuild_cache:
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Running CMake to regenerate build system..."
+	/usr/bin/cmake -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR)
+.PHONY : rebuild_cache
+
+# Special rule for the target rebuild_cache
+rebuild_cache/fast: rebuild_cache
+
+.PHONY : rebuild_cache/fast
+
+# Special rule for the target package_source
+package_source:
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Run CPack packaging tool for source..."
+	cd /home/jaren/Workspace/miklab/cs184-final && /usr/bin/cpack --config ./CPackSourceConfig.cmake /home/jaren/Workspace/miklab/cs184-final/CPackSourceConfig.cmake
+.PHONY : package_source
+
+# Special rule for the target package_source
+package_source/fast: package_source
+
+.PHONY : package_source/fast
+
+# Special rule for the target edit_cache
+edit_cache:
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Running CMake cache editor..."
+	/usr/bin/ccmake -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR)
+.PHONY : edit_cache
+
+# Special rule for the target edit_cache
+edit_cache/fast: edit_cache
+
+.PHONY : edit_cache/fast
+
 # The main all target
 all: cmake_check_build_system
-	cd /Users/karthikgopalan/Documents/cs184-final && $(CMAKE_COMMAND) -E cmake_progress_start /Users/karthikgopalan/Documents/cs184-final/CMakeFiles /Users/karthikgopalan/Documents/cs184-final/src/CMakeFiles/progress.marks
-	cd /Users/karthikgopalan/Documents/cs184-final && $(MAKE) -f CMakeFiles/Makefile2 src/all
-	$(CMAKE_COMMAND) -E cmake_progress_start /Users/karthikgopalan/Documents/cs184-final/CMakeFiles 0
+	cd /home/jaren/Workspace/miklab/cs184-final && $(CMAKE_COMMAND) -E cmake_progress_start /home/jaren/Workspace/miklab/cs184-final/CMakeFiles /home/jaren/Workspace/miklab/cs184-final/src/CMakeFiles/progress.marks
+	cd /home/jaren/Workspace/miklab/cs184-final && $(MAKE) -f CMakeFiles/Makefile2 src/all
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/jaren/Workspace/miklab/cs184-final/CMakeFiles 0
 .PHONY : all
 
 # The main clean target
 clean:
-	cd /Users/karthikgopalan/Documents/cs184-final && $(MAKE) -f CMakeFiles/Makefile2 src/clean
+	cd /home/jaren/Workspace/miklab/cs184-final && $(MAKE) -f CMakeFiles/Makefile2 src/clean
 .PHONY : clean
 
 # The main clean target
@@ -165,22 +165,22 @@ clean/fast: clean
 
 # Prepare targets for installation.
 preinstall: all
-	cd /Users/karthikgopalan/Documents/cs184-final && $(MAKE) -f CMakeFiles/Makefile2 src/preinstall
+	cd /home/jaren/Workspace/miklab/cs184-final && $(MAKE) -f CMakeFiles/Makefile2 src/preinstall
 .PHONY : preinstall
 
 # Prepare targets for installation.
 preinstall/fast:
-	cd /Users/karthikgopalan/Documents/cs184-final && $(MAKE) -f CMakeFiles/Makefile2 src/preinstall
+	cd /home/jaren/Workspace/miklab/cs184-final && $(MAKE) -f CMakeFiles/Makefile2 src/preinstall
 .PHONY : preinstall/fast
 
 # clear depends
 depend:
-	cd /Users/karthikgopalan/Documents/cs184-final && $(CMAKE_COMMAND) -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 1
+	cd /home/jaren/Workspace/miklab/cs184-final && $(CMAKE_COMMAND) -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 1
 .PHONY : depend
 
 # Convenience name for target.
 src/CMakeFiles/clothsim.dir/rule:
-	cd /Users/karthikgopalan/Documents/cs184-final && $(MAKE) -f CMakeFiles/Makefile2 src/CMakeFiles/clothsim.dir/rule
+	cd /home/jaren/Workspace/miklab/cs184-final && $(MAKE) -f CMakeFiles/Makefile2 src/CMakeFiles/clothsim.dir/rule
 .PHONY : src/CMakeFiles/clothsim.dir/rule
 
 # Convenience name for target.
@@ -190,7 +190,7 @@ clothsim: src/CMakeFiles/clothsim.dir/rule
 
 # fast build rule for target.
 clothsim/fast:
-	cd /Users/karthikgopalan/Documents/cs184-final && $(MAKE) -f src/CMakeFiles/clothsim.dir/build.make src/CMakeFiles/clothsim.dir/build
+	cd /home/jaren/Workspace/miklab/cs184-final && $(MAKE) -f src/CMakeFiles/clothsim.dir/build.make src/CMakeFiles/clothsim.dir/build
 .PHONY : clothsim/fast
 
 camera.o: camera.cpp.o
@@ -199,7 +199,7 @@ camera.o: camera.cpp.o
 
 # target to build an object file
 camera.cpp.o:
-	cd /Users/karthikgopalan/Documents/cs184-final && $(MAKE) -f src/CMakeFiles/clothsim.dir/build.make src/CMakeFiles/clothsim.dir/camera.cpp.o
+	cd /home/jaren/Workspace/miklab/cs184-final && $(MAKE) -f src/CMakeFiles/clothsim.dir/build.make src/CMakeFiles/clothsim.dir/camera.cpp.o
 .PHONY : camera.cpp.o
 
 camera.i: camera.cpp.i
@@ -208,7 +208,7 @@ camera.i: camera.cpp.i
 
 # target to preprocess a source file
 camera.cpp.i:
-	cd /Users/karthikgopalan/Documents/cs184-final && $(MAKE) -f src/CMakeFiles/clothsim.dir/build.make src/CMakeFiles/clothsim.dir/camera.cpp.i
+	cd /home/jaren/Workspace/miklab/cs184-final && $(MAKE) -f src/CMakeFiles/clothsim.dir/build.make src/CMakeFiles/clothsim.dir/camera.cpp.i
 .PHONY : camera.cpp.i
 
 camera.s: camera.cpp.s
@@ -217,7 +217,7 @@ camera.s: camera.cpp.s
 
 # target to generate assembly for a file
 camera.cpp.s:
-	cd /Users/karthikgopalan/Documents/cs184-final && $(MAKE) -f src/CMakeFiles/clothsim.dir/build.make src/CMakeFiles/clothsim.dir/camera.cpp.s
+	cd /home/jaren/Workspace/miklab/cs184-final && $(MAKE) -f src/CMakeFiles/clothsim.dir/build.make src/CMakeFiles/clothsim.dir/camera.cpp.s
 .PHONY : camera.cpp.s
 
 cloth.o: cloth.cpp.o
@@ -226,7 +226,7 @@ cloth.o: cloth.cpp.o
 
 # target to build an object file
 cloth.cpp.o:
-	cd /Users/karthikgopalan/Documents/cs184-final && $(MAKE) -f src/CMakeFiles/clothsim.dir/build.make src/CMakeFiles/clothsim.dir/cloth.cpp.o
+	cd /home/jaren/Workspace/miklab/cs184-final && $(MAKE) -f src/CMakeFiles/clothsim.dir/build.make src/CMakeFiles/clothsim.dir/cloth.cpp.o
 .PHONY : cloth.cpp.o
 
 cloth.i: cloth.cpp.i
@@ -235,7 +235,7 @@ cloth.i: cloth.cpp.i
 
 # target to preprocess a source file
 cloth.cpp.i:
-	cd /Users/karthikgopalan/Documents/cs184-final && $(MAKE) -f src/CMakeFiles/clothsim.dir/build.make src/CMakeFiles/clothsim.dir/cloth.cpp.i
+	cd /home/jaren/Workspace/miklab/cs184-final && $(MAKE) -f src/CMakeFiles/clothsim.dir/build.make src/CMakeFiles/clothsim.dir/cloth.cpp.i
 .PHONY : cloth.cpp.i
 
 cloth.s: cloth.cpp.s
@@ -244,7 +244,7 @@ cloth.s: cloth.cpp.s
 
 # target to generate assembly for a file
 cloth.cpp.s:
-	cd /Users/karthikgopalan/Documents/cs184-final && $(MAKE) -f src/CMakeFiles/clothsim.dir/build.make src/CMakeFiles/clothsim.dir/cloth.cpp.s
+	cd /home/jaren/Workspace/miklab/cs184-final && $(MAKE) -f src/CMakeFiles/clothsim.dir/build.make src/CMakeFiles/clothsim.dir/cloth.cpp.s
 .PHONY : cloth.cpp.s
 
 clothMesh.o: clothMesh.cpp.o
@@ -253,7 +253,7 @@ clothMesh.o: clothMesh.cpp.o
 
 # target to build an object file
 clothMesh.cpp.o:
-	cd /Users/karthikgopalan/Documents/cs184-final && $(MAKE) -f src/CMakeFiles/clothsim.dir/build.make src/CMakeFiles/clothsim.dir/clothMesh.cpp.o
+	cd /home/jaren/Workspace/miklab/cs184-final && $(MAKE) -f src/CMakeFiles/clothsim.dir/build.make src/CMakeFiles/clothsim.dir/clothMesh.cpp.o
 .PHONY : clothMesh.cpp.o
 
 clothMesh.i: clothMesh.cpp.i
@@ -262,7 +262,7 @@ clothMesh.i: clothMesh.cpp.i
 
 # target to preprocess a source file
 clothMesh.cpp.i:
-	cd /Users/karthikgopalan/Documents/cs184-final && $(MAKE) -f src/CMakeFiles/clothsim.dir/build.make src/CMakeFiles/clothsim.dir/clothMesh.cpp.i
+	cd /home/jaren/Workspace/miklab/cs184-final && $(MAKE) -f src/CMakeFiles/clothsim.dir/build.make src/CMakeFiles/clothsim.dir/clothMesh.cpp.i
 .PHONY : clothMesh.cpp.i
 
 clothMesh.s: clothMesh.cpp.s
@@ -271,7 +271,7 @@ clothMesh.s: clothMesh.cpp.s
 
 # target to generate assembly for a file
 clothMesh.cpp.s:
-	cd /Users/karthikgopalan/Documents/cs184-final && $(MAKE) -f src/CMakeFiles/clothsim.dir/build.make src/CMakeFiles/clothsim.dir/clothMesh.cpp.s
+	cd /home/jaren/Workspace/miklab/cs184-final && $(MAKE) -f src/CMakeFiles/clothsim.dir/build.make src/CMakeFiles/clothsim.dir/clothMesh.cpp.s
 .PHONY : clothMesh.cpp.s
 
 clothSimulator.o: clothSimulator.cpp.o
@@ -280,7 +280,7 @@ clothSimulator.o: clothSimulator.cpp.o
 
 # target to build an object file
 clothSimulator.cpp.o:
-	cd /Users/karthikgopalan/Documents/cs184-final && $(MAKE) -f src/CMakeFiles/clothsim.dir/build.make src/CMakeFiles/clothsim.dir/clothSimulator.cpp.o
+	cd /home/jaren/Workspace/miklab/cs184-final && $(MAKE) -f src/CMakeFiles/clothsim.dir/build.make src/CMakeFiles/clothsim.dir/clothSimulator.cpp.o
 .PHONY : clothSimulator.cpp.o
 
 clothSimulator.i: clothSimulator.cpp.i
@@ -289,7 +289,7 @@ clothSimulator.i: clothSimulator.cpp.i
 
 # target to preprocess a source file
 clothSimulator.cpp.i:
-	cd /Users/karthikgopalan/Documents/cs184-final && $(MAKE) -f src/CMakeFiles/clothsim.dir/build.make src/CMakeFiles/clothsim.dir/clothSimulator.cpp.i
+	cd /home/jaren/Workspace/miklab/cs184-final && $(MAKE) -f src/CMakeFiles/clothsim.dir/build.make src/CMakeFiles/clothsim.dir/clothSimulator.cpp.i
 .PHONY : clothSimulator.cpp.i
 
 clothSimulator.s: clothSimulator.cpp.s
@@ -298,7 +298,7 @@ clothSimulator.s: clothSimulator.cpp.s
 
 # target to generate assembly for a file
 clothSimulator.cpp.s:
-	cd /Users/karthikgopalan/Documents/cs184-final && $(MAKE) -f src/CMakeFiles/clothsim.dir/build.make src/CMakeFiles/clothsim.dir/clothSimulator.cpp.s
+	cd /home/jaren/Workspace/miklab/cs184-final && $(MAKE) -f src/CMakeFiles/clothsim.dir/build.make src/CMakeFiles/clothsim.dir/clothSimulator.cpp.s
 .PHONY : clothSimulator.cpp.s
 
 collision/mesh.o: collision/mesh.cpp.o
@@ -307,7 +307,7 @@ collision/mesh.o: collision/mesh.cpp.o
 
 # target to build an object file
 collision/mesh.cpp.o:
-	cd /Users/karthikgopalan/Documents/cs184-final && $(MAKE) -f src/CMakeFiles/clothsim.dir/build.make src/CMakeFiles/clothsim.dir/collision/mesh.cpp.o
+	cd /home/jaren/Workspace/miklab/cs184-final && $(MAKE) -f src/CMakeFiles/clothsim.dir/build.make src/CMakeFiles/clothsim.dir/collision/mesh.cpp.o
 .PHONY : collision/mesh.cpp.o
 
 collision/mesh.i: collision/mesh.cpp.i
@@ -316,7 +316,7 @@ collision/mesh.i: collision/mesh.cpp.i
 
 # target to preprocess a source file
 collision/mesh.cpp.i:
-	cd /Users/karthikgopalan/Documents/cs184-final && $(MAKE) -f src/CMakeFiles/clothsim.dir/build.make src/CMakeFiles/clothsim.dir/collision/mesh.cpp.i
+	cd /home/jaren/Workspace/miklab/cs184-final && $(MAKE) -f src/CMakeFiles/clothsim.dir/build.make src/CMakeFiles/clothsim.dir/collision/mesh.cpp.i
 .PHONY : collision/mesh.cpp.i
 
 collision/mesh.s: collision/mesh.cpp.s
@@ -325,7 +325,7 @@ collision/mesh.s: collision/mesh.cpp.s
 
 # target to generate assembly for a file
 collision/mesh.cpp.s:
-	cd /Users/karthikgopalan/Documents/cs184-final && $(MAKE) -f src/CMakeFiles/clothsim.dir/build.make src/CMakeFiles/clothsim.dir/collision/mesh.cpp.s
+	cd /home/jaren/Workspace/miklab/cs184-final && $(MAKE) -f src/CMakeFiles/clothsim.dir/build.make src/CMakeFiles/clothsim.dir/collision/mesh.cpp.s
 .PHONY : collision/mesh.cpp.s
 
 collision/plane.o: collision/plane.cpp.o
@@ -334,7 +334,7 @@ collision/plane.o: collision/plane.cpp.o
 
 # target to build an object file
 collision/plane.cpp.o:
-	cd /Users/karthikgopalan/Documents/cs184-final && $(MAKE) -f src/CMakeFiles/clothsim.dir/build.make src/CMakeFiles/clothsim.dir/collision/plane.cpp.o
+	cd /home/jaren/Workspace/miklab/cs184-final && $(MAKE) -f src/CMakeFiles/clothsim.dir/build.make src/CMakeFiles/clothsim.dir/collision/plane.cpp.o
 .PHONY : collision/plane.cpp.o
 
 collision/plane.i: collision/plane.cpp.i
@@ -343,7 +343,7 @@ collision/plane.i: collision/plane.cpp.i
 
 # target to preprocess a source file
 collision/plane.cpp.i:
-	cd /Users/karthikgopalan/Documents/cs184-final && $(MAKE) -f src/CMakeFiles/clothsim.dir/build.make src/CMakeFiles/clothsim.dir/collision/plane.cpp.i
+	cd /home/jaren/Workspace/miklab/cs184-final && $(MAKE) -f src/CMakeFiles/clothsim.dir/build.make src/CMakeFiles/clothsim.dir/collision/plane.cpp.i
 .PHONY : collision/plane.cpp.i
 
 collision/plane.s: collision/plane.cpp.s
@@ -352,7 +352,7 @@ collision/plane.s: collision/plane.cpp.s
 
 # target to generate assembly for a file
 collision/plane.cpp.s:
-	cd /Users/karthikgopalan/Documents/cs184-final && $(MAKE) -f src/CMakeFiles/clothsim.dir/build.make src/CMakeFiles/clothsim.dir/collision/plane.cpp.s
+	cd /home/jaren/Workspace/miklab/cs184-final && $(MAKE) -f src/CMakeFiles/clothsim.dir/build.make src/CMakeFiles/clothsim.dir/collision/plane.cpp.s
 .PHONY : collision/plane.cpp.s
 
 collision/sphere.o: collision/sphere.cpp.o
@@ -361,7 +361,7 @@ collision/sphere.o: collision/sphere.cpp.o
 
 # target to build an object file
 collision/sphere.cpp.o:
-	cd /Users/karthikgopalan/Documents/cs184-final && $(MAKE) -f src/CMakeFiles/clothsim.dir/build.make src/CMakeFiles/clothsim.dir/collision/sphere.cpp.o
+	cd /home/jaren/Workspace/miklab/cs184-final && $(MAKE) -f src/CMakeFiles/clothsim.dir/build.make src/CMakeFiles/clothsim.dir/collision/sphere.cpp.o
 .PHONY : collision/sphere.cpp.o
 
 collision/sphere.i: collision/sphere.cpp.i
@@ -370,7 +370,7 @@ collision/sphere.i: collision/sphere.cpp.i
 
 # target to preprocess a source file
 collision/sphere.cpp.i:
-	cd /Users/karthikgopalan/Documents/cs184-final && $(MAKE) -f src/CMakeFiles/clothsim.dir/build.make src/CMakeFiles/clothsim.dir/collision/sphere.cpp.i
+	cd /home/jaren/Workspace/miklab/cs184-final && $(MAKE) -f src/CMakeFiles/clothsim.dir/build.make src/CMakeFiles/clothsim.dir/collision/sphere.cpp.i
 .PHONY : collision/sphere.cpp.i
 
 collision/sphere.s: collision/sphere.cpp.s
@@ -379,7 +379,7 @@ collision/sphere.s: collision/sphere.cpp.s
 
 # target to generate assembly for a file
 collision/sphere.cpp.s:
-	cd /Users/karthikgopalan/Documents/cs184-final && $(MAKE) -f src/CMakeFiles/clothsim.dir/build.make src/CMakeFiles/clothsim.dir/collision/sphere.cpp.s
+	cd /home/jaren/Workspace/miklab/cs184-final && $(MAKE) -f src/CMakeFiles/clothsim.dir/build.make src/CMakeFiles/clothsim.dir/collision/sphere.cpp.s
 .PHONY : collision/sphere.cpp.s
 
 main.o: main.cpp.o
@@ -388,7 +388,7 @@ main.o: main.cpp.o
 
 # target to build an object file
 main.cpp.o:
-	cd /Users/karthikgopalan/Documents/cs184-final && $(MAKE) -f src/CMakeFiles/clothsim.dir/build.make src/CMakeFiles/clothsim.dir/main.cpp.o
+	cd /home/jaren/Workspace/miklab/cs184-final && $(MAKE) -f src/CMakeFiles/clothsim.dir/build.make src/CMakeFiles/clothsim.dir/main.cpp.o
 .PHONY : main.cpp.o
 
 main.i: main.cpp.i
@@ -397,7 +397,7 @@ main.i: main.cpp.i
 
 # target to preprocess a source file
 main.cpp.i:
-	cd /Users/karthikgopalan/Documents/cs184-final && $(MAKE) -f src/CMakeFiles/clothsim.dir/build.make src/CMakeFiles/clothsim.dir/main.cpp.i
+	cd /home/jaren/Workspace/miklab/cs184-final && $(MAKE) -f src/CMakeFiles/clothsim.dir/build.make src/CMakeFiles/clothsim.dir/main.cpp.i
 .PHONY : main.cpp.i
 
 main.s: main.cpp.s
@@ -406,7 +406,7 @@ main.s: main.cpp.s
 
 # target to generate assembly for a file
 main.cpp.s:
-	cd /Users/karthikgopalan/Documents/cs184-final && $(MAKE) -f src/CMakeFiles/clothsim.dir/build.make src/CMakeFiles/clothsim.dir/main.cpp.s
+	cd /home/jaren/Workspace/miklab/cs184-final && $(MAKE) -f src/CMakeFiles/clothsim.dir/build.make src/CMakeFiles/clothsim.dir/main.cpp.s
 .PHONY : main.cpp.s
 
 misc/mesh_drawing.o: misc/mesh_drawing.cpp.o
@@ -415,7 +415,7 @@ misc/mesh_drawing.o: misc/mesh_drawing.cpp.o
 
 # target to build an object file
 misc/mesh_drawing.cpp.o:
-	cd /Users/karthikgopalan/Documents/cs184-final && $(MAKE) -f src/CMakeFiles/clothsim.dir/build.make src/CMakeFiles/clothsim.dir/misc/mesh_drawing.cpp.o
+	cd /home/jaren/Workspace/miklab/cs184-final && $(MAKE) -f src/CMakeFiles/clothsim.dir/build.make src/CMakeFiles/clothsim.dir/misc/mesh_drawing.cpp.o
 .PHONY : misc/mesh_drawing.cpp.o
 
 misc/mesh_drawing.i: misc/mesh_drawing.cpp.i
@@ -424,7 +424,7 @@ misc/mesh_drawing.i: misc/mesh_drawing.cpp.i
 
 # target to preprocess a source file
 misc/mesh_drawing.cpp.i:
-	cd /Users/karthikgopalan/Documents/cs184-final && $(MAKE) -f src/CMakeFiles/clothsim.dir/build.make src/CMakeFiles/clothsim.dir/misc/mesh_drawing.cpp.i
+	cd /home/jaren/Workspace/miklab/cs184-final && $(MAKE) -f src/CMakeFiles/clothsim.dir/build.make src/CMakeFiles/clothsim.dir/misc/mesh_drawing.cpp.i
 .PHONY : misc/mesh_drawing.cpp.i
 
 misc/mesh_drawing.s: misc/mesh_drawing.cpp.s
@@ -433,7 +433,7 @@ misc/mesh_drawing.s: misc/mesh_drawing.cpp.s
 
 # target to generate assembly for a file
 misc/mesh_drawing.cpp.s:
-	cd /Users/karthikgopalan/Documents/cs184-final && $(MAKE) -f src/CMakeFiles/clothsim.dir/build.make src/CMakeFiles/clothsim.dir/misc/mesh_drawing.cpp.s
+	cd /home/jaren/Workspace/miklab/cs184-final && $(MAKE) -f src/CMakeFiles/clothsim.dir/build.make src/CMakeFiles/clothsim.dir/misc/mesh_drawing.cpp.s
 .PHONY : misc/mesh_drawing.cpp.s
 
 misc/mesh_import.o: misc/mesh_import.cpp.o
@@ -442,7 +442,7 @@ misc/mesh_import.o: misc/mesh_import.cpp.o
 
 # target to build an object file
 misc/mesh_import.cpp.o:
-	cd /Users/karthikgopalan/Documents/cs184-final && $(MAKE) -f src/CMakeFiles/clothsim.dir/build.make src/CMakeFiles/clothsim.dir/misc/mesh_import.cpp.o
+	cd /home/jaren/Workspace/miklab/cs184-final && $(MAKE) -f src/CMakeFiles/clothsim.dir/build.make src/CMakeFiles/clothsim.dir/misc/mesh_import.cpp.o
 .PHONY : misc/mesh_import.cpp.o
 
 misc/mesh_import.i: misc/mesh_import.cpp.i
@@ -451,7 +451,7 @@ misc/mesh_import.i: misc/mesh_import.cpp.i
 
 # target to preprocess a source file
 misc/mesh_import.cpp.i:
-	cd /Users/karthikgopalan/Documents/cs184-final && $(MAKE) -f src/CMakeFiles/clothsim.dir/build.make src/CMakeFiles/clothsim.dir/misc/mesh_import.cpp.i
+	cd /home/jaren/Workspace/miklab/cs184-final && $(MAKE) -f src/CMakeFiles/clothsim.dir/build.make src/CMakeFiles/clothsim.dir/misc/mesh_import.cpp.i
 .PHONY : misc/mesh_import.cpp.i
 
 misc/mesh_import.s: misc/mesh_import.cpp.s
@@ -460,7 +460,7 @@ misc/mesh_import.s: misc/mesh_import.cpp.s
 
 # target to generate assembly for a file
 misc/mesh_import.cpp.s:
-	cd /Users/karthikgopalan/Documents/cs184-final && $(MAKE) -f src/CMakeFiles/clothsim.dir/build.make src/CMakeFiles/clothsim.dir/misc/mesh_import.cpp.s
+	cd /home/jaren/Workspace/miklab/cs184-final && $(MAKE) -f src/CMakeFiles/clothsim.dir/build.make src/CMakeFiles/clothsim.dir/misc/mesh_import.cpp.s
 .PHONY : misc/mesh_import.cpp.s
 
 misc/sphere_drawing.o: misc/sphere_drawing.cpp.o
@@ -469,7 +469,7 @@ misc/sphere_drawing.o: misc/sphere_drawing.cpp.o
 
 # target to build an object file
 misc/sphere_drawing.cpp.o:
-	cd /Users/karthikgopalan/Documents/cs184-final && $(MAKE) -f src/CMakeFiles/clothsim.dir/build.make src/CMakeFiles/clothsim.dir/misc/sphere_drawing.cpp.o
+	cd /home/jaren/Workspace/miklab/cs184-final && $(MAKE) -f src/CMakeFiles/clothsim.dir/build.make src/CMakeFiles/clothsim.dir/misc/sphere_drawing.cpp.o
 .PHONY : misc/sphere_drawing.cpp.o
 
 misc/sphere_drawing.i: misc/sphere_drawing.cpp.i
@@ -478,7 +478,7 @@ misc/sphere_drawing.i: misc/sphere_drawing.cpp.i
 
 # target to preprocess a source file
 misc/sphere_drawing.cpp.i:
-	cd /Users/karthikgopalan/Documents/cs184-final && $(MAKE) -f src/CMakeFiles/clothsim.dir/build.make src/CMakeFiles/clothsim.dir/misc/sphere_drawing.cpp.i
+	cd /home/jaren/Workspace/miklab/cs184-final && $(MAKE) -f src/CMakeFiles/clothsim.dir/build.make src/CMakeFiles/clothsim.dir/misc/sphere_drawing.cpp.i
 .PHONY : misc/sphere_drawing.cpp.i
 
 misc/sphere_drawing.s: misc/sphere_drawing.cpp.s
@@ -487,7 +487,7 @@ misc/sphere_drawing.s: misc/sphere_drawing.cpp.s
 
 # target to generate assembly for a file
 misc/sphere_drawing.cpp.s:
-	cd /Users/karthikgopalan/Documents/cs184-final && $(MAKE) -f src/CMakeFiles/clothsim.dir/build.make src/CMakeFiles/clothsim.dir/misc/sphere_drawing.cpp.s
+	cd /home/jaren/Workspace/miklab/cs184-final && $(MAKE) -f src/CMakeFiles/clothsim.dir/build.make src/CMakeFiles/clothsim.dir/misc/sphere_drawing.cpp.s
 .PHONY : misc/sphere_drawing.cpp.s
 
 png.o: png.cpp.o
@@ -496,7 +496,7 @@ png.o: png.cpp.o
 
 # target to build an object file
 png.cpp.o:
-	cd /Users/karthikgopalan/Documents/cs184-final && $(MAKE) -f src/CMakeFiles/clothsim.dir/build.make src/CMakeFiles/clothsim.dir/png.cpp.o
+	cd /home/jaren/Workspace/miklab/cs184-final && $(MAKE) -f src/CMakeFiles/clothsim.dir/build.make src/CMakeFiles/clothsim.dir/png.cpp.o
 .PHONY : png.cpp.o
 
 png.i: png.cpp.i
@@ -505,7 +505,7 @@ png.i: png.cpp.i
 
 # target to preprocess a source file
 png.cpp.i:
-	cd /Users/karthikgopalan/Documents/cs184-final && $(MAKE) -f src/CMakeFiles/clothsim.dir/build.make src/CMakeFiles/clothsim.dir/png.cpp.i
+	cd /home/jaren/Workspace/miklab/cs184-final && $(MAKE) -f src/CMakeFiles/clothsim.dir/build.make src/CMakeFiles/clothsim.dir/png.cpp.i
 .PHONY : png.cpp.i
 
 png.s: png.cpp.s
@@ -514,7 +514,7 @@ png.s: png.cpp.s
 
 # target to generate assembly for a file
 png.cpp.s:
-	cd /Users/karthikgopalan/Documents/cs184-final && $(MAKE) -f src/CMakeFiles/clothsim.dir/build.make src/CMakeFiles/clothsim.dir/png.cpp.s
+	cd /home/jaren/Workspace/miklab/cs184-final && $(MAKE) -f src/CMakeFiles/clothsim.dir/build.make src/CMakeFiles/clothsim.dir/png.cpp.s
 .PHONY : png.cpp.s
 
 # Help Target
@@ -523,15 +523,15 @@ help:
 	@echo "... all (the default if no target is provided)"
 	@echo "... clean"
 	@echo "... depend"
-	@echo "... install/local"
 	@echo "... install/strip"
+	@echo "... install/local"
 	@echo "... install"
 	@echo "... list_install_components"
-	@echo "... package_source"
-	@echo "... rebuild_cache"
-	@echo "... edit_cache"
 	@echo "... package"
 	@echo "... clothsim"
+	@echo "... rebuild_cache"
+	@echo "... package_source"
+	@echo "... edit_cache"
 	@echo "... camera.o"
 	@echo "... camera.i"
 	@echo "... camera.s"
@@ -579,6 +579,6 @@ help:
 # No rule that depends on this can have commands that come from listfiles
 # because they might be regenerated.
 cmake_check_build_system:
-	cd /Users/karthikgopalan/Documents/cs184-final && $(CMAKE_COMMAND) -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 0
+	cd /home/jaren/Workspace/miklab/cs184-final && $(CMAKE_COMMAND) -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 0
 .PHONY : cmake_check_build_system
 
