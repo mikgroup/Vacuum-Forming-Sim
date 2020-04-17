@@ -2,7 +2,7 @@
   "mesh": [{
     "translate": [0,0.019,0],
 		"scale": 0.001,
-		"filename": "../meshes/knee.obj",
+		"filename": "../meshes/knee_decimated.obj",
 		"rotate": [{
 			"axis": [0, 1, 0],
 			"angle": -90
