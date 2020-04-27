@@ -156,6 +156,7 @@ void loadObjectsFromFile(string filename, Cloth *cloth, ClothParameters *cp, vec
   json j;
   i >> j;
 
+
   // Loop over objects in scene
   for (json::iterator it = j.begin(); it != j.end(); ++it) {
     string key = it.key();
@@ -201,6 +202,7 @@ void loadObjectsFromFile(string filename, Cloth *cloth, ClothParameters *cp, vec
       auto it_num_width_points = object.find("num_width_points");
       if (it_num_width_points != object.end()) {
         num_width_points = *it_num_width_points;
+        cout << "in num width " << num_width_points << endl;
       } else {
         incompleteObjectError("cloth", "num_width_points");
       }
@@ -507,7 +509,7 @@ void loadObjectsFromFile(string filename, Cloth *cloth, ClothParameters *cp, vec
 				auto it_m_file = ob.find("filename");
 				if (it_m_file != ob.end()) {
 					mesh_filename = *it_m_file;
-                    std::cout << mesh_filename;
+          std::cout << mesh_filename << endl;
 				} else {
 					incompleteObjectError("mesh", "filename");
 				}

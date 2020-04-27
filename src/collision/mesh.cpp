@@ -33,7 +33,11 @@ void Mesh::collide(PointMass &pm) {
 	Vector3D sub = pm.last_position_no_vel - pm.last_position; // this seems wrong
 	Vector3D sub_norm = Vector3D(sub);
 	sub_norm.normalize();
-	
+
+  //std::cout << " in collide" << std::endl;  
+  if (sub.norm() < 1.0e-07)
+    return; //no velocity
+  	
 	buildRay(&ray.ray, pm.last_position_no_vel, sub_norm);
 	
 	ray.ray.tnear = 0;

@@ -65,6 +65,7 @@ struct Cloth {
 
   void reset();
 	void write_to_file(const char *filename);
+  void write_obj(const char *filename);
   void write_to_svg(string filename, string pngname, double newWidth, double newHeight, double rescale);
   void buildClothMesh();
 	void remap_uvs();

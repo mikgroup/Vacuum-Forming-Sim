@@ -20,6 +20,8 @@ c81bcb1233e3fad53e24fefc2dc4caeb bvh/bvh_builder_subdiv.cpp.avx.cpp
 c6c6ab88993c2faecd75667ba4cd9181 bvh/bvh_builder_subdiv.cpp.avx2.cpp
 18be386ef7066fb10acccb3ed678d393 bvh/bvh_builder_twolevel.cpp.avx.cpp
 440fc85557f0d23aa8d98e3918e30220 bvh/bvh_builder_twolevel.cpp.avx2.cpp
+26a86f1e9be78eeffa7bde45477cbe59 bvh/bvh_collider.cpp.avx.cpp
+1abcc0db8876df53d6fbc897c3d28cbf bvh/bvh_collider.cpp.avx2.cpp
 dd139b72e9a66ecb50c385b1334ef7e0 bvh/bvh_intersector1_bvh4.cpp.avx.cpp
 cc4087901feccaa34f74db9c078d331a bvh/bvh_intersector1_bvh4.cpp.avx2.cpp
 5af27edd8ef4283de86d408a96653f87 bvh/bvh_intersector1_bvh4.cpp.sse42.cpp

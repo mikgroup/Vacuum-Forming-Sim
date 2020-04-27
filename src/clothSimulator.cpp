@@ -400,7 +400,8 @@ void ClothSimulator::drawObject(GLShader &shader) {
     
     int r = 0, g = 0, b = 0;
     for (int j = 0; j < 3; j++) {
-      if (p[j]->stuck) {
+      //if (p[j]->stuck) {
+      if (p[j]->collide_id != -1) {
         p_color = rgb[p[j]->collide_id]; 
       }
       
@@ -630,6 +631,10 @@ bool ClothSimulator::keyCallbackEvent(int key, int scancode, int action,
 			system("./arap cloth.off");
 			cloth->remap_uvs();
 			break;
+    case 'o':
+    case 'O': // Write to obj
+      cloth->write_obj("cloth.obj");
+      break;
     case 's':
     case 'S':
       // Figure out needed dimensions

@@ -31,7 +31,7 @@
  "cloth": {
     "damping": 0.03,
     "density": 15,
-    "ks": 100.0,
+    "ks": 150.0,
     "enable_structural": true,
     "enable_shearing": true,
     "enable_bending": true,
@@ -44,7 +44,8 @@
 		"texture": "../storage/tex.png",
 		"pin_edges": true,
 		"motion": {
-			"velocity": [0, -0.5, 0]
+			"velocity": [0, -0.5, 0],
+      "delay": 0.1
 		},
 		"vacuum": {
 			"magnitude": 25000,

@@ -55,6 +55,8 @@ void Cloth::buildGrid() {
 	for (int i = 0; i < pinned.size(); i++) {
 		pins.insert(index(pinned[i][0], pinned[i][1], num_width_points));
 	}
+  cout << "here " << num_height_points << ", " << num_width_points <<endl;
+  
 
 	// Build plane
 	for (int x = 0; x < num_height_points; x++) {
@@ -733,12 +735,31 @@ void Cloth::self_collide(PointMass &pm, double simulation_steps) {
 }
 
 float Cloth::hash_position(Vector3D pos) {
-  // TODO (Part 4): Hash a 3D position into a unique float identifier that represents
-  // membership in some uniquely identified 3D box volume.
+  // TODO (Part 4): Hash a 3D position into a unique float identifier that represents membership in some 3D box volume.
 
   return 0.f;
 }
 
+
+void Cloth::write_obj(const char *filename) {
+  ofstream f(filename);
+  //std::map<PointMass, int> m;	
+
+  // Write all vertex positions
+  for (int ind = 0; ind < point_masses.size(); ind++) {
+    f << "v " << point_masses[ind].position.x << " " << point_masses[ind].position.y << " " << point_masses[ind].position.z << endl;
+    //m[point_masses[ind]] = ind + 1;
+  }
+  
+  f << endl;
+
+	for (auto tri : clothMesh->triangles) {
+		f << "f" << " " << tri->pm1->index + 1 << " " << tri->pm2->index + 1 << " " << tri->pm3->index + 1 << endl;	
+	}
+
+	f.close();
+  
+}
 
 void Cloth::write_to_file(const char *filename) {
 	ofstream f(filename);

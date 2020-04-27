@@ -972,6 +972,19 @@ buildbench/fast:
 .PHONY : buildbench/fast
 
 #=============================================================================
+# Target rules for targets named collide
+
+# Build rule for target.
+collide: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 collide
+.PHONY : collide
+
+# fast build rule for target.
+collide/fast:
+	$(MAKE) -f ext/embree/tutorials/collide/CMakeFiles/collide.dir/build.make ext/embree/tutorials/collide/CMakeFiles/collide.dir/build
+.PHONY : collide/fast
+
+#=============================================================================
 # Target rules for targets named closest_point_ispc
 
 # Build rule for target.
@@ -1280,6 +1293,7 @@ help:
 	@echo "... point_geometry_ispc"
 	@echo "... point_geometry"
 	@echo "... buildbench"
+	@echo "... collide"
 	@echo "... closest_point_ispc"
 	@echo "... closest_point"
 	@echo "... voronoi_ispc"

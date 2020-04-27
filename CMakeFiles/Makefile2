@@ -329,6 +329,7 @@ ext/embree/tutorials/all: ext/embree/tutorials/convert/all
 ext/embree/tutorials/all: ext/embree/tutorials/curve_geometry/all
 ext/embree/tutorials/all: ext/embree/tutorials/point_geometry/all
 ext/embree/tutorials/all: ext/embree/tutorials/buildbench/all
+ext/embree/tutorials/all: ext/embree/tutorials/collide/all
 ext/embree/tutorials/all: ext/embree/tutorials/closest_point/all
 ext/embree/tutorials/all: ext/embree/tutorials/voronoi/all
 ext/embree/tutorials/all: ext/embree/tutorials/next_hit/all
@@ -363,6 +364,7 @@ ext/embree/tutorials/preinstall: ext/embree/tutorials/convert/preinstall
 ext/embree/tutorials/preinstall: ext/embree/tutorials/curve_geometry/preinstall
 ext/embree/tutorials/preinstall: ext/embree/tutorials/point_geometry/preinstall
 ext/embree/tutorials/preinstall: ext/embree/tutorials/buildbench/preinstall
+ext/embree/tutorials/preinstall: ext/embree/tutorials/collide/preinstall
 ext/embree/tutorials/preinstall: ext/embree/tutorials/closest_point/preinstall
 ext/embree/tutorials/preinstall: ext/embree/tutorials/voronoi/preinstall
 ext/embree/tutorials/preinstall: ext/embree/tutorials/next_hit/preinstall
@@ -397,6 +399,7 @@ ext/embree/tutorials/clean: ext/embree/tutorials/convert/clean
 ext/embree/tutorials/clean: ext/embree/tutorials/curve_geometry/clean
 ext/embree/tutorials/clean: ext/embree/tutorials/point_geometry/clean
 ext/embree/tutorials/clean: ext/embree/tutorials/buildbench/clean
+ext/embree/tutorials/clean: ext/embree/tutorials/collide/clean
 ext/embree/tutorials/clean: ext/embree/tutorials/closest_point/clean
 ext/embree/tutorials/clean: ext/embree/tutorials/voronoi/clean
 ext/embree/tutorials/clean: ext/embree/tutorials/next_hit/clean
@@ -480,6 +483,24 @@ ext/embree/tutorials/closest_point/clean: ext/embree/tutorials/closest_point/CMa
 ext/embree/tutorials/closest_point/clean: ext/embree/tutorials/closest_point/CMakeFiles/closest_point.dir/clean
 
 .PHONY : ext/embree/tutorials/closest_point/clean
+
+#=============================================================================
+# Directory level rules for directory ext/embree/tutorials/collide
+
+# Recursive "all" directory target.
+ext/embree/tutorials/collide/all: ext/embree/tutorials/collide/CMakeFiles/collide.dir/all
+
+.PHONY : ext/embree/tutorials/collide/all
+
+# Recursive "preinstall" directory target.
+ext/embree/tutorials/collide/preinstall:
+
+.PHONY : ext/embree/tutorials/collide/preinstall
+
+# Recursive "clean" directory target.
+ext/embree/tutorials/collide/clean: ext/embree/tutorials/collide/CMakeFiles/collide.dir/clean
+
+.PHONY : ext/embree/tutorials/collide/clean
 
 #=============================================================================
 # Directory level rules for directory ext/embree/tutorials/common
@@ -1318,12 +1339,12 @@ ext/embree/common/lexers/CMakeFiles/lexers.dir/all: ext/embree/common/sys/CMakeF
 ext/embree/common/lexers/CMakeFiles/lexers.dir/all: ext/embree/common/math/CMakeFiles/math.dir/all
 	$(MAKE) -f ext/embree/common/lexers/CMakeFiles/lexers.dir/build.make ext/embree/common/lexers/CMakeFiles/lexers.dir/depend
 	$(MAKE) -f ext/embree/common/lexers/CMakeFiles/lexers.dir/build.make ext/embree/common/lexers/CMakeFiles/lexers.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/Users/karthikgopalan/Documents/cs184-final/CMakeFiles --progress-num= "Built target lexers"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/Users/karthikgopalan/Documents/cs184-final/CMakeFiles --progress-num=67 "Built target lexers"
 .PHONY : ext/embree/common/lexers/CMakeFiles/lexers.dir/all
 
 # Build rule for subdir invocation for target.
 ext/embree/common/lexers/CMakeFiles/lexers.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /Users/karthikgopalan/Documents/cs184-final/CMakeFiles 2
+	$(CMAKE_COMMAND) -E cmake_progress_start /Users/karthikgopalan/Documents/cs184-final/CMakeFiles 3
 	$(MAKE) -f CMakeFiles/Makefile2 ext/embree/common/lexers/CMakeFiles/lexers.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /Users/karthikgopalan/Documents/cs184-final/CMakeFiles 0
 .PHONY : ext/embree/common/lexers/CMakeFiles/lexers.dir/rule
@@ -1400,12 +1421,12 @@ ext/embree/common/algorithms/CMakeFiles/algorithms.dir/clean:
 ext/embree/kernels/CMakeFiles/embree_avx.dir/all:
 	$(MAKE) -f ext/embree/kernels/CMakeFiles/embree_avx.dir/build.make ext/embree/kernels/CMakeFiles/embree_avx.dir/depend
 	$(MAKE) -f ext/embree/kernels/CMakeFiles/embree_avx.dir/build.make ext/embree/kernels/CMakeFiles/embree_avx.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/Users/karthikgopalan/Documents/cs184-final/CMakeFiles --progress-num=24,25,26,27,28,29,30,31,32,33,34,35,36,37,38 "Built target embree_avx"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/Users/karthikgopalan/Documents/cs184-final/CMakeFiles --progress-num=25,26,27,28,29,30,31,32,33,34,35,36,37,38 "Built target embree_avx"
 .PHONY : ext/embree/kernels/CMakeFiles/embree_avx.dir/all
 
 # Build rule for subdir invocation for target.
 ext/embree/kernels/CMakeFiles/embree_avx.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /Users/karthikgopalan/Documents/cs184-final/CMakeFiles 15
+	$(CMAKE_COMMAND) -E cmake_progress_start /Users/karthikgopalan/Documents/cs184-final/CMakeFiles 14
 	$(MAKE) -f CMakeFiles/Makefile2 ext/embree/kernels/CMakeFiles/embree_avx.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /Users/karthikgopalan/Documents/cs184-final/CMakeFiles 0
 .PHONY : ext/embree/kernels/CMakeFiles/embree_avx.dir/rule
@@ -1427,12 +1448,12 @@ ext/embree/kernels/CMakeFiles/embree_avx.dir/clean:
 ext/embree/kernels/CMakeFiles/embree_sse42.dir/all:
 	$(MAKE) -f ext/embree/kernels/CMakeFiles/embree_sse42.dir/build.make ext/embree/kernels/CMakeFiles/embree_sse42.dir/depend
 	$(MAKE) -f ext/embree/kernels/CMakeFiles/embree_sse42.dir/build.make ext/embree/kernels/CMakeFiles/embree_sse42.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/Users/karthikgopalan/Documents/cs184-final/CMakeFiles --progress-num=52,53,54 "Built target embree_sse42"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/Users/karthikgopalan/Documents/cs184-final/CMakeFiles --progress-num=52,53,54,55 "Built target embree_sse42"
 .PHONY : ext/embree/kernels/CMakeFiles/embree_sse42.dir/all
 
 # Build rule for subdir invocation for target.
 ext/embree/kernels/CMakeFiles/embree_sse42.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /Users/karthikgopalan/Documents/cs184-final/CMakeFiles 3
+	$(CMAKE_COMMAND) -E cmake_progress_start /Users/karthikgopalan/Documents/cs184-final/CMakeFiles 4
 	$(MAKE) -f CMakeFiles/Makefile2 ext/embree/kernels/CMakeFiles/embree_sse42.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /Users/karthikgopalan/Documents/cs184-final/CMakeFiles 0
 .PHONY : ext/embree/kernels/CMakeFiles/embree_sse42.dir/rule
@@ -1489,12 +1510,12 @@ ext/embree/kernels/CMakeFiles/embree.dir/all: ext/embree/kernels/CMakeFiles/embr
 ext/embree/kernels/CMakeFiles/embree.dir/all: ext/embree/kernels/CMakeFiles/embree_avx2.dir/all
 	$(MAKE) -f ext/embree/kernels/CMakeFiles/embree.dir/build.make ext/embree/kernels/CMakeFiles/embree.dir/depend
 	$(MAKE) -f ext/embree/kernels/CMakeFiles/embree.dir/build.make ext/embree/kernels/CMakeFiles/embree.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/Users/karthikgopalan/Documents/cs184-final/CMakeFiles --progress-num=15,16,17,18,19,20,21,22,23 "Built target embree"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/Users/karthikgopalan/Documents/cs184-final/CMakeFiles --progress-num=15,16,17,18,19,20,21,22,23,24 "Built target embree"
 .PHONY : ext/embree/kernels/CMakeFiles/embree.dir/all
 
 # Build rule for subdir invocation for target.
 ext/embree/kernels/CMakeFiles/embree.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /Users/karthikgopalan/Documents/cs184-final/CMakeFiles 45
+	$(CMAKE_COMMAND) -E cmake_progress_start /Users/karthikgopalan/Documents/cs184-final/CMakeFiles 47
 	$(MAKE) -f CMakeFiles/Makefile2 ext/embree/kernels/CMakeFiles/embree.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /Users/karthikgopalan/Documents/cs184-final/CMakeFiles 0
 .PHONY : ext/embree/kernels/CMakeFiles/embree.dir/rule
@@ -1517,12 +1538,12 @@ ext/embree/tutorials/common/image/CMakeFiles/image.dir/all: ext/embree/common/sy
 ext/embree/tutorials/common/image/CMakeFiles/image.dir/all: ext/embree/common/math/CMakeFiles/math.dir/all
 	$(MAKE) -f ext/embree/tutorials/common/image/CMakeFiles/image.dir/build.make ext/embree/tutorials/common/image/CMakeFiles/image.dir/depend
 	$(MAKE) -f ext/embree/tutorials/common/image/CMakeFiles/image.dir/build.make ext/embree/tutorials/common/image/CMakeFiles/image.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/Users/karthikgopalan/Documents/cs184-final/CMakeFiles --progress-num=60,61 "Built target image"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/Users/karthikgopalan/Documents/cs184-final/CMakeFiles --progress-num=61 "Built target image"
 .PHONY : ext/embree/tutorials/common/image/CMakeFiles/image.dir/all
 
 # Build rule for subdir invocation for target.
 ext/embree/tutorials/common/image/CMakeFiles/image.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /Users/karthikgopalan/Documents/cs184-final/CMakeFiles 4
+	$(CMAKE_COMMAND) -E cmake_progress_start /Users/karthikgopalan/Documents/cs184-final/CMakeFiles 3
 	$(MAKE) -f CMakeFiles/Makefile2 ext/embree/tutorials/common/image/CMakeFiles/image.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /Users/karthikgopalan/Documents/cs184-final/CMakeFiles 0
 .PHONY : ext/embree/tutorials/common/image/CMakeFiles/image.dir/rule
@@ -1544,12 +1565,12 @@ ext/embree/tutorials/common/image/CMakeFiles/image.dir/clean:
 ext/embree/tutorials/common/tutorial/CMakeFiles/noise_ispc.dir/all:
 	$(MAKE) -f ext/embree/tutorials/common/tutorial/CMakeFiles/noise_ispc.dir/build.make ext/embree/tutorials/common/tutorial/CMakeFiles/noise_ispc.dir/depend
 	$(MAKE) -f ext/embree/tutorials/common/tutorial/CMakeFiles/noise_ispc.dir/build.make ext/embree/tutorials/common/tutorial/CMakeFiles/noise_ispc.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/Users/karthikgopalan/Documents/cs184-final/CMakeFiles --progress-num= "Built target noise_ispc"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/Users/karthikgopalan/Documents/cs184-final/CMakeFiles --progress-num=80 "Built target noise_ispc"
 .PHONY : ext/embree/tutorials/common/tutorial/CMakeFiles/noise_ispc.dir/all
 
 # Build rule for subdir invocation for target.
 ext/embree/tutorials/common/tutorial/CMakeFiles/noise_ispc.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /Users/karthikgopalan/Documents/cs184-final/CMakeFiles 0
+	$(CMAKE_COMMAND) -E cmake_progress_start /Users/karthikgopalan/Documents/cs184-final/CMakeFiles 1
 	$(MAKE) -f CMakeFiles/Makefile2 ext/embree/tutorials/common/tutorial/CMakeFiles/noise_ispc.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /Users/karthikgopalan/Documents/cs184-final/CMakeFiles 0
 .PHONY : ext/embree/tutorials/common/tutorial/CMakeFiles/noise_ispc.dir/rule
@@ -1585,7 +1606,7 @@ ext/embree/tutorials/common/tutorial/CMakeFiles/tutorial_ispc.dir/all: ext/nanog
 
 # Build rule for subdir invocation for target.
 ext/embree/tutorials/common/tutorial/CMakeFiles/tutorial_ispc.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /Users/karthikgopalan/Documents/cs184-final/CMakeFiles 54
+	$(CMAKE_COMMAND) -E cmake_progress_start /Users/karthikgopalan/Documents/cs184-final/CMakeFiles 57
 	$(MAKE) -f CMakeFiles/Makefile2 ext/embree/tutorials/common/tutorial/CMakeFiles/tutorial_ispc.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /Users/karthikgopalan/Documents/cs184-final/CMakeFiles 0
 .PHONY : ext/embree/tutorials/common/tutorial/CMakeFiles/tutorial_ispc.dir/rule
@@ -1648,7 +1669,7 @@ ext/embree/tutorials/common/tutorial/CMakeFiles/tutorial.dir/all: ext/nanogui/ex
 
 # Build rule for subdir invocation for target.
 ext/embree/tutorials/common/tutorial/CMakeFiles/tutorial.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /Users/karthikgopalan/Documents/cs184-final/CMakeFiles 55
+	$(CMAKE_COMMAND) -E cmake_progress_start /Users/karthikgopalan/Documents/cs184-final/CMakeFiles 56
 	$(MAKE) -f CMakeFiles/Makefile2 ext/embree/tutorials/common/tutorial/CMakeFiles/tutorial.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /Users/karthikgopalan/Documents/cs184-final/CMakeFiles 0
 .PHONY : ext/embree/tutorials/common/tutorial/CMakeFiles/tutorial.dir/rule
@@ -1680,7 +1701,7 @@ ext/embree/tutorials/common/scenegraph/CMakeFiles/scenegraph.dir/all: ext/embree
 
 # Build rule for subdir invocation for target.
 ext/embree/tutorials/common/scenegraph/CMakeFiles/scenegraph.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /Users/karthikgopalan/Documents/cs184-final/CMakeFiles 49
+	$(CMAKE_COMMAND) -E cmake_progress_start /Users/karthikgopalan/Documents/cs184-final/CMakeFiles 50
 	$(MAKE) -f CMakeFiles/Makefile2 ext/embree/tutorials/common/scenegraph/CMakeFiles/scenegraph.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /Users/karthikgopalan/Documents/cs184-final/CMakeFiles 0
 .PHONY : ext/embree/tutorials/common/scenegraph/CMakeFiles/scenegraph.dir/rule
@@ -1703,12 +1724,12 @@ ext/embree/tutorials/common/lights/CMakeFiles/lights_ispc.dir/all: ext/embree/co
 ext/embree/tutorials/common/lights/CMakeFiles/lights_ispc.dir/all: ext/embree/common/math/CMakeFiles/math.dir/all
 	$(MAKE) -f ext/embree/tutorials/common/lights/CMakeFiles/lights_ispc.dir/build.make ext/embree/tutorials/common/lights/CMakeFiles/lights_ispc.dir/depend
 	$(MAKE) -f ext/embree/tutorials/common/lights/CMakeFiles/lights_ispc.dir/build.make ext/embree/tutorials/common/lights/CMakeFiles/lights_ispc.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/Users/karthikgopalan/Documents/cs184-final/CMakeFiles --progress-num=69 "Built target lights_ispc"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/Users/karthikgopalan/Documents/cs184-final/CMakeFiles --progress-num=69,70 "Built target lights_ispc"
 .PHONY : ext/embree/tutorials/common/lights/CMakeFiles/lights_ispc.dir/all
 
 # Build rule for subdir invocation for target.
 ext/embree/tutorials/common/lights/CMakeFiles/lights_ispc.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /Users/karthikgopalan/Documents/cs184-final/CMakeFiles 3
+	$(CMAKE_COMMAND) -E cmake_progress_start /Users/karthikgopalan/Documents/cs184-final/CMakeFiles 4
 	$(MAKE) -f CMakeFiles/Makefile2 ext/embree/tutorials/common/lights/CMakeFiles/lights_ispc.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /Users/karthikgopalan/Documents/cs184-final/CMakeFiles 0
 .PHONY : ext/embree/tutorials/common/lights/CMakeFiles/lights_ispc.dir/rule
@@ -1731,12 +1752,12 @@ ext/embree/tutorials/common/lights/CMakeFiles/lights.dir/all: ext/embree/common/
 ext/embree/tutorials/common/lights/CMakeFiles/lights.dir/all: ext/embree/common/math/CMakeFiles/math.dir/all
 	$(MAKE) -f ext/embree/tutorials/common/lights/CMakeFiles/lights.dir/build.make ext/embree/tutorials/common/lights/CMakeFiles/lights.dir/depend
 	$(MAKE) -f ext/embree/tutorials/common/lights/CMakeFiles/lights.dir/build.make ext/embree/tutorials/common/lights/CMakeFiles/lights.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/Users/karthikgopalan/Documents/cs184-final/CMakeFiles --progress-num=67,68 "Built target lights"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/Users/karthikgopalan/Documents/cs184-final/CMakeFiles --progress-num=68 "Built target lights"
 .PHONY : ext/embree/tutorials/common/lights/CMakeFiles/lights.dir/all
 
 # Build rule for subdir invocation for target.
 ext/embree/tutorials/common/lights/CMakeFiles/lights.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /Users/karthikgopalan/Documents/cs184-final/CMakeFiles 4
+	$(CMAKE_COMMAND) -E cmake_progress_start /Users/karthikgopalan/Documents/cs184-final/CMakeFiles 3
 	$(MAKE) -f CMakeFiles/Makefile2 ext/embree/tutorials/common/lights/CMakeFiles/lights.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /Users/karthikgopalan/Documents/cs184-final/CMakeFiles 0
 .PHONY : ext/embree/tutorials/common/lights/CMakeFiles/lights.dir/rule
@@ -1759,12 +1780,12 @@ ext/embree/tutorials/common/texture/CMakeFiles/texture_ispc.dir/all: ext/embree/
 ext/embree/tutorials/common/texture/CMakeFiles/texture_ispc.dir/all: ext/embree/common/math/CMakeFiles/math.dir/all
 	$(MAKE) -f ext/embree/tutorials/common/texture/CMakeFiles/texture_ispc.dir/build.make ext/embree/tutorials/common/texture/CMakeFiles/texture_ispc.dir/depend
 	$(MAKE) -f ext/embree/tutorials/common/texture/CMakeFiles/texture_ispc.dir/build.make ext/embree/tutorials/common/texture/CMakeFiles/texture_ispc.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/Users/karthikgopalan/Documents/cs184-final/CMakeFiles --progress-num= "Built target texture_ispc"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/Users/karthikgopalan/Documents/cs184-final/CMakeFiles --progress-num=90 "Built target texture_ispc"
 .PHONY : ext/embree/tutorials/common/texture/CMakeFiles/texture_ispc.dir/all
 
 # Build rule for subdir invocation for target.
 ext/embree/tutorials/common/texture/CMakeFiles/texture_ispc.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /Users/karthikgopalan/Documents/cs184-final/CMakeFiles 2
+	$(CMAKE_COMMAND) -E cmake_progress_start /Users/karthikgopalan/Documents/cs184-final/CMakeFiles 3
 	$(MAKE) -f CMakeFiles/Makefile2 ext/embree/tutorials/common/texture/CMakeFiles/texture_ispc.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /Users/karthikgopalan/Documents/cs184-final/CMakeFiles 0
 .PHONY : ext/embree/tutorials/common/texture/CMakeFiles/texture_ispc.dir/rule
@@ -1814,12 +1835,12 @@ ext/embree/tutorials/common/texture/CMakeFiles/texture.dir/clean:
 ext/embree/tutorials/common/imgui/CMakeFiles/imgui.dir/all:
 	$(MAKE) -f ext/embree/tutorials/common/imgui/CMakeFiles/imgui.dir/build.make ext/embree/tutorials/common/imgui/CMakeFiles/imgui.dir/depend
 	$(MAKE) -f ext/embree/tutorials/common/imgui/CMakeFiles/imgui.dir/build.make ext/embree/tutorials/common/imgui/CMakeFiles/imgui.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/Users/karthikgopalan/Documents/cs184-final/CMakeFiles --progress-num= "Built target imgui"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/Users/karthikgopalan/Documents/cs184-final/CMakeFiles --progress-num=62 "Built target imgui"
 .PHONY : ext/embree/tutorials/common/imgui/CMakeFiles/imgui.dir/all
 
 # Build rule for subdir invocation for target.
 ext/embree/tutorials/common/imgui/CMakeFiles/imgui.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /Users/karthikgopalan/Documents/cs184-final/CMakeFiles 0
+	$(CMAKE_COMMAND) -E cmake_progress_start /Users/karthikgopalan/Documents/cs184-final/CMakeFiles 1
 	$(MAKE) -f CMakeFiles/Makefile2 ext/embree/tutorials/common/imgui/CMakeFiles/imgui.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /Users/karthikgopalan/Documents/cs184-final/CMakeFiles 0
 .PHONY : ext/embree/tutorials/common/imgui/CMakeFiles/imgui.dir/rule
@@ -1852,7 +1873,7 @@ ext/embree/tutorials/verify/CMakeFiles/verify.dir/all: ext/embree/tutorials/comm
 
 # Build rule for subdir invocation for target.
 ext/embree/tutorials/verify/CMakeFiles/verify.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /Users/karthikgopalan/Documents/cs184-final/CMakeFiles 50
+	$(CMAKE_COMMAND) -E cmake_progress_start /Users/karthikgopalan/Documents/cs184-final/CMakeFiles 51
 	$(MAKE) -f CMakeFiles/Makefile2 ext/embree/tutorials/verify/CMakeFiles/verify.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /Users/karthikgopalan/Documents/cs184-final/CMakeFiles 0
 .PHONY : ext/embree/tutorials/verify/CMakeFiles/verify.dir/rule
@@ -1918,7 +1939,7 @@ ext/embree/tutorials/triangle_geometry/CMakeFiles/triangle_geometry_ispc.dir/all
 
 # Build rule for subdir invocation for target.
 ext/embree/tutorials/triangle_geometry/CMakeFiles/triangle_geometry_ispc.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /Users/karthikgopalan/Documents/cs184-final/CMakeFiles 55
+	$(CMAKE_COMMAND) -E cmake_progress_start /Users/karthikgopalan/Documents/cs184-final/CMakeFiles 59
 	$(MAKE) -f CMakeFiles/Makefile2 ext/embree/tutorials/triangle_geometry/CMakeFiles/triangle_geometry_ispc.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /Users/karthikgopalan/Documents/cs184-final/CMakeFiles 0
 .PHONY : ext/embree/tutorials/triangle_geometry/CMakeFiles/triangle_geometry_ispc.dir/rule
@@ -1951,7 +1972,7 @@ ext/embree/tutorials/triangle_geometry/CMakeFiles/triangle_geometry.dir/all: ext
 ext/embree/tutorials/triangle_geometry/CMakeFiles/triangle_geometry.dir/all: ext/nanogui/ext_build/glfw/src/CMakeFiles/glfw.dir/all
 	$(MAKE) -f ext/embree/tutorials/triangle_geometry/CMakeFiles/triangle_geometry.dir/build.make ext/embree/tutorials/triangle_geometry/CMakeFiles/triangle_geometry.dir/depend
 	$(MAKE) -f ext/embree/tutorials/triangle_geometry/CMakeFiles/triangle_geometry.dir/build.make ext/embree/tutorials/triangle_geometry/CMakeFiles/triangle_geometry.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/Users/karthikgopalan/Documents/cs184-final/CMakeFiles --progress-num=90 "Built target triangle_geometry"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/Users/karthikgopalan/Documents/cs184-final/CMakeFiles --progress-num= "Built target triangle_geometry"
 .PHONY : ext/embree/tutorials/triangle_geometry/CMakeFiles/triangle_geometry.dir/all
 
 # Build rule for subdir invocation for target.
@@ -1990,12 +2011,12 @@ ext/embree/tutorials/dynamic_scene/CMakeFiles/dynamic_scene_ispc.dir/all: ext/em
 ext/embree/tutorials/dynamic_scene/CMakeFiles/dynamic_scene_ispc.dir/all: ext/nanogui/ext_build/glfw/src/CMakeFiles/glfw.dir/all
 	$(MAKE) -f ext/embree/tutorials/dynamic_scene/CMakeFiles/dynamic_scene_ispc.dir/build.make ext/embree/tutorials/dynamic_scene/CMakeFiles/dynamic_scene_ispc.dir/depend
 	$(MAKE) -f ext/embree/tutorials/dynamic_scene/CMakeFiles/dynamic_scene_ispc.dir/build.make ext/embree/tutorials/dynamic_scene/CMakeFiles/dynamic_scene_ispc.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/Users/karthikgopalan/Documents/cs184-final/CMakeFiles --progress-num=14 "Built target dynamic_scene_ispc"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/Users/karthikgopalan/Documents/cs184-final/CMakeFiles --progress-num= "Built target dynamic_scene_ispc"
 .PHONY : ext/embree/tutorials/dynamic_scene/CMakeFiles/dynamic_scene_ispc.dir/all
 
 # Build rule for subdir invocation for target.
 ext/embree/tutorials/dynamic_scene/CMakeFiles/dynamic_scene_ispc.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /Users/karthikgopalan/Documents/cs184-final/CMakeFiles 55
+	$(CMAKE_COMMAND) -E cmake_progress_start /Users/karthikgopalan/Documents/cs184-final/CMakeFiles 58
 	$(MAKE) -f CMakeFiles/Makefile2 ext/embree/tutorials/dynamic_scene/CMakeFiles/dynamic_scene_ispc.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /Users/karthikgopalan/Documents/cs184-final/CMakeFiles 0
 .PHONY : ext/embree/tutorials/dynamic_scene/CMakeFiles/dynamic_scene_ispc.dir/rule
@@ -2028,12 +2049,12 @@ ext/embree/tutorials/dynamic_scene/CMakeFiles/dynamic_scene.dir/all: ext/embree/
 ext/embree/tutorials/dynamic_scene/CMakeFiles/dynamic_scene.dir/all: ext/nanogui/ext_build/glfw/src/CMakeFiles/glfw.dir/all
 	$(MAKE) -f ext/embree/tutorials/dynamic_scene/CMakeFiles/dynamic_scene.dir/build.make ext/embree/tutorials/dynamic_scene/CMakeFiles/dynamic_scene.dir/depend
 	$(MAKE) -f ext/embree/tutorials/dynamic_scene/CMakeFiles/dynamic_scene.dir/build.make ext/embree/tutorials/dynamic_scene/CMakeFiles/dynamic_scene.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/Users/karthikgopalan/Documents/cs184-final/CMakeFiles --progress-num=13 "Built target dynamic_scene"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/Users/karthikgopalan/Documents/cs184-final/CMakeFiles --progress-num=14 "Built target dynamic_scene"
 .PHONY : ext/embree/tutorials/dynamic_scene/CMakeFiles/dynamic_scene.dir/all
 
 # Build rule for subdir invocation for target.
 ext/embree/tutorials/dynamic_scene/CMakeFiles/dynamic_scene.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /Users/karthikgopalan/Documents/cs184-final/CMakeFiles 56
+	$(CMAKE_COMMAND) -E cmake_progress_start /Users/karthikgopalan/Documents/cs184-final/CMakeFiles 57
 	$(MAKE) -f CMakeFiles/Makefile2 ext/embree/tutorials/dynamic_scene/CMakeFiles/dynamic_scene.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /Users/karthikgopalan/Documents/cs184-final/CMakeFiles 0
 .PHONY : ext/embree/tutorials/dynamic_scene/CMakeFiles/dynamic_scene.dir/rule
@@ -2072,7 +2093,7 @@ ext/embree/tutorials/user_geometry/CMakeFiles/user_geometry_ispc.dir/all: ext/na
 
 # Build rule for subdir invocation for target.
 ext/embree/tutorials/user_geometry/CMakeFiles/user_geometry_ispc.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /Users/karthikgopalan/Documents/cs184-final/CMakeFiles 54
+	$(CMAKE_COMMAND) -E cmake_progress_start /Users/karthikgopalan/Documents/cs184-final/CMakeFiles 58
 	$(MAKE) -f CMakeFiles/Makefile2 ext/embree/tutorials/user_geometry/CMakeFiles/user_geometry_ispc.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /Users/karthikgopalan/Documents/cs184-final/CMakeFiles 0
 .PHONY : ext/embree/tutorials/user_geometry/CMakeFiles/user_geometry_ispc.dir/rule
@@ -2110,7 +2131,7 @@ ext/embree/tutorials/user_geometry/CMakeFiles/user_geometry.dir/all: ext/nanogui
 
 # Build rule for subdir invocation for target.
 ext/embree/tutorials/user_geometry/CMakeFiles/user_geometry.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /Users/karthikgopalan/Documents/cs184-final/CMakeFiles 56
+	$(CMAKE_COMMAND) -E cmake_progress_start /Users/karthikgopalan/Documents/cs184-final/CMakeFiles 57
 	$(MAKE) -f CMakeFiles/Makefile2 ext/embree/tutorials/user_geometry/CMakeFiles/user_geometry.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /Users/karthikgopalan/Documents/cs184-final/CMakeFiles 0
 .PHONY : ext/embree/tutorials/user_geometry/CMakeFiles/user_geometry.dir/rule
@@ -2149,7 +2170,7 @@ ext/embree/tutorials/viewer/CMakeFiles/viewer_ispc.dir/all: ext/nanogui/ext_buil
 
 # Build rule for subdir invocation for target.
 ext/embree/tutorials/viewer/CMakeFiles/viewer_ispc.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /Users/karthikgopalan/Documents/cs184-final/CMakeFiles 54
+	$(CMAKE_COMMAND) -E cmake_progress_start /Users/karthikgopalan/Documents/cs184-final/CMakeFiles 58
 	$(MAKE) -f CMakeFiles/Makefile2 ext/embree/tutorials/viewer/CMakeFiles/viewer_ispc.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /Users/karthikgopalan/Documents/cs184-final/CMakeFiles 0
 .PHONY : ext/embree/tutorials/viewer/CMakeFiles/viewer_ispc.dir/rule
@@ -2187,7 +2208,7 @@ ext/embree/tutorials/viewer/CMakeFiles/viewer.dir/all: ext/nanogui/ext_build/glf
 
 # Build rule for subdir invocation for target.
 ext/embree/tutorials/viewer/CMakeFiles/viewer.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /Users/karthikgopalan/Documents/cs184-final/CMakeFiles 56
+	$(CMAKE_COMMAND) -E cmake_progress_start /Users/karthikgopalan/Documents/cs184-final/CMakeFiles 57
 	$(MAKE) -f CMakeFiles/Makefile2 ext/embree/tutorials/viewer/CMakeFiles/viewer.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /Users/karthikgopalan/Documents/cs184-final/CMakeFiles 0
 .PHONY : ext/embree/tutorials/viewer/CMakeFiles/viewer.dir/rule
@@ -2220,7 +2241,7 @@ ext/embree/tutorials/instanced_geometry/CMakeFiles/instanced_geometry.dir/all: e
 ext/embree/tutorials/instanced_geometry/CMakeFiles/instanced_geometry.dir/all: ext/nanogui/ext_build/glfw/src/CMakeFiles/glfw.dir/all
 	$(MAKE) -f ext/embree/tutorials/instanced_geometry/CMakeFiles/instanced_geometry.dir/build.make ext/embree/tutorials/instanced_geometry/CMakeFiles/instanced_geometry.dir/depend
 	$(MAKE) -f ext/embree/tutorials/instanced_geometry/CMakeFiles/instanced_geometry.dir/build.make ext/embree/tutorials/instanced_geometry/CMakeFiles/instanced_geometry.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/Users/karthikgopalan/Documents/cs184-final/CMakeFiles --progress-num=62 "Built target instanced_geometry"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/Users/karthikgopalan/Documents/cs184-final/CMakeFiles --progress-num= "Built target instanced_geometry"
 .PHONY : ext/embree/tutorials/instanced_geometry/CMakeFiles/instanced_geometry.dir/all
 
 # Build rule for subdir invocation for target.
@@ -2259,12 +2280,12 @@ ext/embree/tutorials/instanced_geometry/CMakeFiles/instanced_geometry_ispc.dir/a
 ext/embree/tutorials/instanced_geometry/CMakeFiles/instanced_geometry_ispc.dir/all: ext/nanogui/ext_build/glfw/src/CMakeFiles/glfw.dir/all
 	$(MAKE) -f ext/embree/tutorials/instanced_geometry/CMakeFiles/instanced_geometry_ispc.dir/build.make ext/embree/tutorials/instanced_geometry/CMakeFiles/instanced_geometry_ispc.dir/depend
 	$(MAKE) -f ext/embree/tutorials/instanced_geometry/CMakeFiles/instanced_geometry_ispc.dir/build.make ext/embree/tutorials/instanced_geometry/CMakeFiles/instanced_geometry_ispc.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/Users/karthikgopalan/Documents/cs184-final/CMakeFiles --progress-num= "Built target instanced_geometry_ispc"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/Users/karthikgopalan/Documents/cs184-final/CMakeFiles --progress-num=63 "Built target instanced_geometry_ispc"
 .PHONY : ext/embree/tutorials/instanced_geometry/CMakeFiles/instanced_geometry_ispc.dir/all
 
 # Build rule for subdir invocation for target.
 ext/embree/tutorials/instanced_geometry/CMakeFiles/instanced_geometry_ispc.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /Users/karthikgopalan/Documents/cs184-final/CMakeFiles 54
+	$(CMAKE_COMMAND) -E cmake_progress_start /Users/karthikgopalan/Documents/cs184-final/CMakeFiles 59
 	$(MAKE) -f CMakeFiles/Makefile2 ext/embree/tutorials/instanced_geometry/CMakeFiles/instanced_geometry_ispc.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /Users/karthikgopalan/Documents/cs184-final/CMakeFiles 0
 .PHONY : ext/embree/tutorials/instanced_geometry/CMakeFiles/instanced_geometry_ispc.dir/rule
@@ -2298,12 +2319,12 @@ ext/embree/tutorials/intersection_filter/CMakeFiles/intersection_filter_ispc.dir
 ext/embree/tutorials/intersection_filter/CMakeFiles/intersection_filter_ispc.dir/all: ext/nanogui/ext_build/glfw/src/CMakeFiles/glfw.dir/all
 	$(MAKE) -f ext/embree/tutorials/intersection_filter/CMakeFiles/intersection_filter_ispc.dir/build.make ext/embree/tutorials/intersection_filter/CMakeFiles/intersection_filter_ispc.dir/depend
 	$(MAKE) -f ext/embree/tutorials/intersection_filter/CMakeFiles/intersection_filter_ispc.dir/build.make ext/embree/tutorials/intersection_filter/CMakeFiles/intersection_filter_ispc.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/Users/karthikgopalan/Documents/cs184-final/CMakeFiles --progress-num=65 "Built target intersection_filter_ispc"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/Users/karthikgopalan/Documents/cs184-final/CMakeFiles --progress-num= "Built target intersection_filter_ispc"
 .PHONY : ext/embree/tutorials/intersection_filter/CMakeFiles/intersection_filter_ispc.dir/all
 
 # Build rule for subdir invocation for target.
 ext/embree/tutorials/intersection_filter/CMakeFiles/intersection_filter_ispc.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /Users/karthikgopalan/Documents/cs184-final/CMakeFiles 55
+	$(CMAKE_COMMAND) -E cmake_progress_start /Users/karthikgopalan/Documents/cs184-final/CMakeFiles 58
 	$(MAKE) -f CMakeFiles/Makefile2 ext/embree/tutorials/intersection_filter/CMakeFiles/intersection_filter_ispc.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /Users/karthikgopalan/Documents/cs184-final/CMakeFiles 0
 .PHONY : ext/embree/tutorials/intersection_filter/CMakeFiles/intersection_filter_ispc.dir/rule
@@ -2336,12 +2357,12 @@ ext/embree/tutorials/intersection_filter/CMakeFiles/intersection_filter.dir/all:
 ext/embree/tutorials/intersection_filter/CMakeFiles/intersection_filter.dir/all: ext/nanogui/ext_build/glfw/src/CMakeFiles/glfw.dir/all
 	$(MAKE) -f ext/embree/tutorials/intersection_filter/CMakeFiles/intersection_filter.dir/build.make ext/embree/tutorials/intersection_filter/CMakeFiles/intersection_filter.dir/depend
 	$(MAKE) -f ext/embree/tutorials/intersection_filter/CMakeFiles/intersection_filter.dir/build.make ext/embree/tutorials/intersection_filter/CMakeFiles/intersection_filter.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/Users/karthikgopalan/Documents/cs184-final/CMakeFiles --progress-num= "Built target intersection_filter"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/Users/karthikgopalan/Documents/cs184-final/CMakeFiles --progress-num=65 "Built target intersection_filter"
 .PHONY : ext/embree/tutorials/intersection_filter/CMakeFiles/intersection_filter.dir/all
 
 # Build rule for subdir invocation for target.
 ext/embree/tutorials/intersection_filter/CMakeFiles/intersection_filter.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /Users/karthikgopalan/Documents/cs184-final/CMakeFiles 55
+	$(CMAKE_COMMAND) -E cmake_progress_start /Users/karthikgopalan/Documents/cs184-final/CMakeFiles 57
 	$(MAKE) -f CMakeFiles/Makefile2 ext/embree/tutorials/intersection_filter/CMakeFiles/intersection_filter.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /Users/karthikgopalan/Documents/cs184-final/CMakeFiles 0
 .PHONY : ext/embree/tutorials/intersection_filter/CMakeFiles/intersection_filter.dir/rule
@@ -2374,7 +2395,7 @@ ext/embree/tutorials/pathtracer/CMakeFiles/pathtracer.dir/all: ext/embree/tutori
 ext/embree/tutorials/pathtracer/CMakeFiles/pathtracer.dir/all: ext/nanogui/ext_build/glfw/src/CMakeFiles/glfw.dir/all
 	$(MAKE) -f ext/embree/tutorials/pathtracer/CMakeFiles/pathtracer.dir/build.make ext/embree/tutorials/pathtracer/CMakeFiles/pathtracer.dir/depend
 	$(MAKE) -f ext/embree/tutorials/pathtracer/CMakeFiles/pathtracer.dir/build.make ext/embree/tutorials/pathtracer/CMakeFiles/pathtracer.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/Users/karthikgopalan/Documents/cs184-final/CMakeFiles --progress-num=80 "Built target pathtracer"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/Users/karthikgopalan/Documents/cs184-final/CMakeFiles --progress-num= "Built target pathtracer"
 .PHONY : ext/embree/tutorials/pathtracer/CMakeFiles/pathtracer.dir/all
 
 # Build rule for subdir invocation for target.
@@ -2413,12 +2434,12 @@ ext/embree/tutorials/pathtracer/CMakeFiles/pathtracer_ispc.dir/all: ext/embree/t
 ext/embree/tutorials/pathtracer/CMakeFiles/pathtracer_ispc.dir/all: ext/nanogui/ext_build/glfw/src/CMakeFiles/glfw.dir/all
 	$(MAKE) -f ext/embree/tutorials/pathtracer/CMakeFiles/pathtracer_ispc.dir/build.make ext/embree/tutorials/pathtracer/CMakeFiles/pathtracer_ispc.dir/depend
 	$(MAKE) -f ext/embree/tutorials/pathtracer/CMakeFiles/pathtracer_ispc.dir/build.make ext/embree/tutorials/pathtracer/CMakeFiles/pathtracer_ispc.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/Users/karthikgopalan/Documents/cs184-final/CMakeFiles --progress-num= "Built target pathtracer_ispc"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/Users/karthikgopalan/Documents/cs184-final/CMakeFiles --progress-num=81 "Built target pathtracer_ispc"
 .PHONY : ext/embree/tutorials/pathtracer/CMakeFiles/pathtracer_ispc.dir/all
 
 # Build rule for subdir invocation for target.
 ext/embree/tutorials/pathtracer/CMakeFiles/pathtracer_ispc.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /Users/karthikgopalan/Documents/cs184-final/CMakeFiles 54
+	$(CMAKE_COMMAND) -E cmake_progress_start /Users/karthikgopalan/Documents/cs184-final/CMakeFiles 59
 	$(MAKE) -f CMakeFiles/Makefile2 ext/embree/tutorials/pathtracer/CMakeFiles/pathtracer_ispc.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /Users/karthikgopalan/Documents/cs184-final/CMakeFiles 0
 .PHONY : ext/embree/tutorials/pathtracer/CMakeFiles/pathtracer_ispc.dir/rule
@@ -2452,12 +2473,12 @@ ext/embree/tutorials/hair_geometry/CMakeFiles/hair_geometry_ispc.dir/all: ext/em
 ext/embree/tutorials/hair_geometry/CMakeFiles/hair_geometry_ispc.dir/all: ext/nanogui/ext_build/glfw/src/CMakeFiles/glfw.dir/all
 	$(MAKE) -f ext/embree/tutorials/hair_geometry/CMakeFiles/hair_geometry_ispc.dir/build.make ext/embree/tutorials/hair_geometry/CMakeFiles/hair_geometry_ispc.dir/depend
 	$(MAKE) -f ext/embree/tutorials/hair_geometry/CMakeFiles/hair_geometry_ispc.dir/build.make ext/embree/tutorials/hair_geometry/CMakeFiles/hair_geometry_ispc.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/Users/karthikgopalan/Documents/cs184-final/CMakeFiles --progress-num= "Built target hair_geometry_ispc"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/Users/karthikgopalan/Documents/cs184-final/CMakeFiles --progress-num=60 "Built target hair_geometry_ispc"
 .PHONY : ext/embree/tutorials/hair_geometry/CMakeFiles/hair_geometry_ispc.dir/all
 
 # Build rule for subdir invocation for target.
 ext/embree/tutorials/hair_geometry/CMakeFiles/hair_geometry_ispc.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /Users/karthikgopalan/Documents/cs184-final/CMakeFiles 54
+	$(CMAKE_COMMAND) -E cmake_progress_start /Users/karthikgopalan/Documents/cs184-final/CMakeFiles 59
 	$(MAKE) -f CMakeFiles/Makefile2 ext/embree/tutorials/hair_geometry/CMakeFiles/hair_geometry_ispc.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /Users/karthikgopalan/Documents/cs184-final/CMakeFiles 0
 .PHONY : ext/embree/tutorials/hair_geometry/CMakeFiles/hair_geometry_ispc.dir/rule
@@ -2490,7 +2511,7 @@ ext/embree/tutorials/hair_geometry/CMakeFiles/hair_geometry.dir/all: ext/embree/
 ext/embree/tutorials/hair_geometry/CMakeFiles/hair_geometry.dir/all: ext/nanogui/ext_build/glfw/src/CMakeFiles/glfw.dir/all
 	$(MAKE) -f ext/embree/tutorials/hair_geometry/CMakeFiles/hair_geometry.dir/build.make ext/embree/tutorials/hair_geometry/CMakeFiles/hair_geometry.dir/depend
 	$(MAKE) -f ext/embree/tutorials/hair_geometry/CMakeFiles/hair_geometry.dir/build.make ext/embree/tutorials/hair_geometry/CMakeFiles/hair_geometry.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/Users/karthikgopalan/Documents/cs184-final/CMakeFiles --progress-num=59 "Built target hair_geometry"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/Users/karthikgopalan/Documents/cs184-final/CMakeFiles --progress-num= "Built target hair_geometry"
 .PHONY : ext/embree/tutorials/hair_geometry/CMakeFiles/hair_geometry.dir/all
 
 # Build rule for subdir invocation for target.
@@ -2534,7 +2555,7 @@ ext/embree/tutorials/subdivision_geometry/CMakeFiles/subdivision_geometry_ispc.d
 
 # Build rule for subdir invocation for target.
 ext/embree/tutorials/subdivision_geometry/CMakeFiles/subdivision_geometry_ispc.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /Users/karthikgopalan/Documents/cs184-final/CMakeFiles 54
+	$(CMAKE_COMMAND) -E cmake_progress_start /Users/karthikgopalan/Documents/cs184-final/CMakeFiles 58
 	$(MAKE) -f CMakeFiles/Makefile2 ext/embree/tutorials/subdivision_geometry/CMakeFiles/subdivision_geometry_ispc.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /Users/karthikgopalan/Documents/cs184-final/CMakeFiles 0
 .PHONY : ext/embree/tutorials/subdivision_geometry/CMakeFiles/subdivision_geometry_ispc.dir/rule
@@ -2572,7 +2593,7 @@ ext/embree/tutorials/subdivision_geometry/CMakeFiles/subdivision_geometry.dir/al
 
 # Build rule for subdir invocation for target.
 ext/embree/tutorials/subdivision_geometry/CMakeFiles/subdivision_geometry.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /Users/karthikgopalan/Documents/cs184-final/CMakeFiles 56
+	$(CMAKE_COMMAND) -E cmake_progress_start /Users/karthikgopalan/Documents/cs184-final/CMakeFiles 57
 	$(MAKE) -f CMakeFiles/Makefile2 ext/embree/tutorials/subdivision_geometry/CMakeFiles/subdivision_geometry.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /Users/karthikgopalan/Documents/cs184-final/CMakeFiles 0
 .PHONY : ext/embree/tutorials/subdivision_geometry/CMakeFiles/subdivision_geometry.dir/rule
@@ -2606,12 +2627,12 @@ ext/embree/tutorials/displacement_geometry/CMakeFiles/displacement_geometry_ispc
 ext/embree/tutorials/displacement_geometry/CMakeFiles/displacement_geometry_ispc.dir/all: ext/nanogui/ext_build/glfw/src/CMakeFiles/glfw.dir/all
 	$(MAKE) -f ext/embree/tutorials/displacement_geometry/CMakeFiles/displacement_geometry_ispc.dir/build.make ext/embree/tutorials/displacement_geometry/CMakeFiles/displacement_geometry_ispc.dir/depend
 	$(MAKE) -f ext/embree/tutorials/displacement_geometry/CMakeFiles/displacement_geometry_ispc.dir/build.make ext/embree/tutorials/displacement_geometry/CMakeFiles/displacement_geometry_ispc.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/Users/karthikgopalan/Documents/cs184-final/CMakeFiles --progress-num= "Built target displacement_geometry_ispc"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/Users/karthikgopalan/Documents/cs184-final/CMakeFiles --progress-num=13 "Built target displacement_geometry_ispc"
 .PHONY : ext/embree/tutorials/displacement_geometry/CMakeFiles/displacement_geometry_ispc.dir/all
 
 # Build rule for subdir invocation for target.
 ext/embree/tutorials/displacement_geometry/CMakeFiles/displacement_geometry_ispc.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /Users/karthikgopalan/Documents/cs184-final/CMakeFiles 54
+	$(CMAKE_COMMAND) -E cmake_progress_start /Users/karthikgopalan/Documents/cs184-final/CMakeFiles 59
 	$(MAKE) -f CMakeFiles/Makefile2 ext/embree/tutorials/displacement_geometry/CMakeFiles/displacement_geometry_ispc.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /Users/karthikgopalan/Documents/cs184-final/CMakeFiles 0
 .PHONY : ext/embree/tutorials/displacement_geometry/CMakeFiles/displacement_geometry_ispc.dir/rule
@@ -2644,7 +2665,7 @@ ext/embree/tutorials/displacement_geometry/CMakeFiles/displacement_geometry.dir/
 ext/embree/tutorials/displacement_geometry/CMakeFiles/displacement_geometry.dir/all: ext/nanogui/ext_build/glfw/src/CMakeFiles/glfw.dir/all
 	$(MAKE) -f ext/embree/tutorials/displacement_geometry/CMakeFiles/displacement_geometry.dir/build.make ext/embree/tutorials/displacement_geometry/CMakeFiles/displacement_geometry.dir/depend
 	$(MAKE) -f ext/embree/tutorials/displacement_geometry/CMakeFiles/displacement_geometry.dir/build.make ext/embree/tutorials/displacement_geometry/CMakeFiles/displacement_geometry.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/Users/karthikgopalan/Documents/cs184-final/CMakeFiles --progress-num=12 "Built target displacement_geometry"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/Users/karthikgopalan/Documents/cs184-final/CMakeFiles --progress-num= "Built target displacement_geometry"
 .PHONY : ext/embree/tutorials/displacement_geometry/CMakeFiles/displacement_geometry.dir/all
 
 # Build rule for subdir invocation for target.
@@ -2687,7 +2708,7 @@ ext/embree/tutorials/grid_geometry/CMakeFiles/grid_geometry.dir/all: ext/nanogui
 
 # Build rule for subdir invocation for target.
 ext/embree/tutorials/grid_geometry/CMakeFiles/grid_geometry.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /Users/karthikgopalan/Documents/cs184-final/CMakeFiles 55
+	$(CMAKE_COMMAND) -E cmake_progress_start /Users/karthikgopalan/Documents/cs184-final/CMakeFiles 56
 	$(MAKE) -f CMakeFiles/Makefile2 ext/embree/tutorials/grid_geometry/CMakeFiles/grid_geometry.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /Users/karthikgopalan/Documents/cs184-final/CMakeFiles 0
 .PHONY : ext/embree/tutorials/grid_geometry/CMakeFiles/grid_geometry.dir/rule
@@ -2721,12 +2742,12 @@ ext/embree/tutorials/grid_geometry/CMakeFiles/grid_geometry_ispc.dir/all: ext/em
 ext/embree/tutorials/grid_geometry/CMakeFiles/grid_geometry_ispc.dir/all: ext/nanogui/ext_build/glfw/src/CMakeFiles/glfw.dir/all
 	$(MAKE) -f ext/embree/tutorials/grid_geometry/CMakeFiles/grid_geometry_ispc.dir/build.make ext/embree/tutorials/grid_geometry/CMakeFiles/grid_geometry_ispc.dir/depend
 	$(MAKE) -f ext/embree/tutorials/grid_geometry/CMakeFiles/grid_geometry_ispc.dir/build.make ext/embree/tutorials/grid_geometry/CMakeFiles/grid_geometry_ispc.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/Users/karthikgopalan/Documents/cs184-final/CMakeFiles --progress-num=58 "Built target grid_geometry_ispc"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/Users/karthikgopalan/Documents/cs184-final/CMakeFiles --progress-num=59 "Built target grid_geometry_ispc"
 .PHONY : ext/embree/tutorials/grid_geometry/CMakeFiles/grid_geometry_ispc.dir/all
 
 # Build rule for subdir invocation for target.
 ext/embree/tutorials/grid_geometry/CMakeFiles/grid_geometry_ispc.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /Users/karthikgopalan/Documents/cs184-final/CMakeFiles 55
+	$(CMAKE_COMMAND) -E cmake_progress_start /Users/karthikgopalan/Documents/cs184-final/CMakeFiles 59
 	$(MAKE) -f CMakeFiles/Makefile2 ext/embree/tutorials/grid_geometry/CMakeFiles/grid_geometry_ispc.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /Users/karthikgopalan/Documents/cs184-final/CMakeFiles 0
 .PHONY : ext/embree/tutorials/grid_geometry/CMakeFiles/grid_geometry_ispc.dir/rule
@@ -2764,7 +2785,7 @@ ext/embree/tutorials/bvh_builder/CMakeFiles/bvh_builder.dir/all: ext/nanogui/ext
 
 # Build rule for subdir invocation for target.
 ext/embree/tutorials/bvh_builder/CMakeFiles/bvh_builder.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /Users/karthikgopalan/Documents/cs184-final/CMakeFiles 55
+	$(CMAKE_COMMAND) -E cmake_progress_start /Users/karthikgopalan/Documents/cs184-final/CMakeFiles 56
 	$(MAKE) -f CMakeFiles/Makefile2 ext/embree/tutorials/bvh_builder/CMakeFiles/bvh_builder.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /Users/karthikgopalan/Documents/cs184-final/CMakeFiles 0
 .PHONY : ext/embree/tutorials/bvh_builder/CMakeFiles/bvh_builder.dir/rule
@@ -2798,12 +2819,12 @@ ext/embree/tutorials/lazy_geometry/CMakeFiles/lazy_geometry_ispc.dir/all: ext/em
 ext/embree/tutorials/lazy_geometry/CMakeFiles/lazy_geometry_ispc.dir/all: ext/nanogui/ext_build/glfw/src/CMakeFiles/glfw.dir/all
 	$(MAKE) -f ext/embree/tutorials/lazy_geometry/CMakeFiles/lazy_geometry_ispc.dir/build.make ext/embree/tutorials/lazy_geometry/CMakeFiles/lazy_geometry_ispc.dir/depend
 	$(MAKE) -f ext/embree/tutorials/lazy_geometry/CMakeFiles/lazy_geometry_ispc.dir/build.make ext/embree/tutorials/lazy_geometry/CMakeFiles/lazy_geometry_ispc.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/Users/karthikgopalan/Documents/cs184-final/CMakeFiles --progress-num=66 "Built target lazy_geometry_ispc"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/Users/karthikgopalan/Documents/cs184-final/CMakeFiles --progress-num= "Built target lazy_geometry_ispc"
 .PHONY : ext/embree/tutorials/lazy_geometry/CMakeFiles/lazy_geometry_ispc.dir/all
 
 # Build rule for subdir invocation for target.
 ext/embree/tutorials/lazy_geometry/CMakeFiles/lazy_geometry_ispc.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /Users/karthikgopalan/Documents/cs184-final/CMakeFiles 55
+	$(CMAKE_COMMAND) -E cmake_progress_start /Users/karthikgopalan/Documents/cs184-final/CMakeFiles 58
 	$(MAKE) -f CMakeFiles/Makefile2 ext/embree/tutorials/lazy_geometry/CMakeFiles/lazy_geometry_ispc.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /Users/karthikgopalan/Documents/cs184-final/CMakeFiles 0
 .PHONY : ext/embree/tutorials/lazy_geometry/CMakeFiles/lazy_geometry_ispc.dir/rule
@@ -2836,12 +2857,12 @@ ext/embree/tutorials/lazy_geometry/CMakeFiles/lazy_geometry.dir/all: ext/embree/
 ext/embree/tutorials/lazy_geometry/CMakeFiles/lazy_geometry.dir/all: ext/nanogui/ext_build/glfw/src/CMakeFiles/glfw.dir/all
 	$(MAKE) -f ext/embree/tutorials/lazy_geometry/CMakeFiles/lazy_geometry.dir/build.make ext/embree/tutorials/lazy_geometry/CMakeFiles/lazy_geometry.dir/depend
 	$(MAKE) -f ext/embree/tutorials/lazy_geometry/CMakeFiles/lazy_geometry.dir/build.make ext/embree/tutorials/lazy_geometry/CMakeFiles/lazy_geometry.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/Users/karthikgopalan/Documents/cs184-final/CMakeFiles --progress-num= "Built target lazy_geometry"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/Users/karthikgopalan/Documents/cs184-final/CMakeFiles --progress-num=66 "Built target lazy_geometry"
 .PHONY : ext/embree/tutorials/lazy_geometry/CMakeFiles/lazy_geometry.dir/all
 
 # Build rule for subdir invocation for target.
 ext/embree/tutorials/lazy_geometry/CMakeFiles/lazy_geometry.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /Users/karthikgopalan/Documents/cs184-final/CMakeFiles 55
+	$(CMAKE_COMMAND) -E cmake_progress_start /Users/karthikgopalan/Documents/cs184-final/CMakeFiles 57
 	$(MAKE) -f CMakeFiles/Makefile2 ext/embree/tutorials/lazy_geometry/CMakeFiles/lazy_geometry.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /Users/karthikgopalan/Documents/cs184-final/CMakeFiles 0
 .PHONY : ext/embree/tutorials/lazy_geometry/CMakeFiles/lazy_geometry.dir/rule
@@ -2871,7 +2892,7 @@ ext/embree/tutorials/bvh_access/CMakeFiles/bvh_access.dir/all: ext/embree/kernel
 
 # Build rule for subdir invocation for target.
 ext/embree/tutorials/bvh_access/CMakeFiles/bvh_access.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /Users/karthikgopalan/Documents/cs184-final/CMakeFiles 46
+	$(CMAKE_COMMAND) -E cmake_progress_start /Users/karthikgopalan/Documents/cs184-final/CMakeFiles 48
 	$(MAKE) -f CMakeFiles/Makefile2 ext/embree/tutorials/bvh_access/CMakeFiles/bvh_access.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /Users/karthikgopalan/Documents/cs184-final/CMakeFiles 0
 .PHONY : ext/embree/tutorials/bvh_access/CMakeFiles/bvh_access.dir/rule
@@ -2896,12 +2917,12 @@ ext/embree/tutorials/minimal/CMakeFiles/minimal.dir/all: ext/embree/common/taski
 ext/embree/tutorials/minimal/CMakeFiles/minimal.dir/all: ext/embree/kernels/CMakeFiles/embree.dir/all
 	$(MAKE) -f ext/embree/tutorials/minimal/CMakeFiles/minimal.dir/build.make ext/embree/tutorials/minimal/CMakeFiles/minimal.dir/depend
 	$(MAKE) -f ext/embree/tutorials/minimal/CMakeFiles/minimal.dir/build.make ext/embree/tutorials/minimal/CMakeFiles/minimal.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/Users/karthikgopalan/Documents/cs184-final/CMakeFiles --progress-num=70 "Built target minimal"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/Users/karthikgopalan/Documents/cs184-final/CMakeFiles --progress-num= "Built target minimal"
 .PHONY : ext/embree/tutorials/minimal/CMakeFiles/minimal.dir/all
 
 # Build rule for subdir invocation for target.
 ext/embree/tutorials/minimal/CMakeFiles/minimal.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /Users/karthikgopalan/Documents/cs184-final/CMakeFiles 46
+	$(CMAKE_COMMAND) -E cmake_progress_start /Users/karthikgopalan/Documents/cs184-final/CMakeFiles 47
 	$(MAKE) -f CMakeFiles/Makefile2 ext/embree/tutorials/minimal/CMakeFiles/minimal.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /Users/karthikgopalan/Documents/cs184-final/CMakeFiles 0
 .PHONY : ext/embree/tutorials/minimal/CMakeFiles/minimal.dir/rule
@@ -2935,12 +2956,12 @@ ext/embree/tutorials/motion_blur_geometry/CMakeFiles/motion_blur_geometry_ispc.d
 ext/embree/tutorials/motion_blur_geometry/CMakeFiles/motion_blur_geometry_ispc.dir/all: ext/nanogui/ext_build/glfw/src/CMakeFiles/glfw.dir/all
 	$(MAKE) -f ext/embree/tutorials/motion_blur_geometry/CMakeFiles/motion_blur_geometry_ispc.dir/build.make ext/embree/tutorials/motion_blur_geometry/CMakeFiles/motion_blur_geometry_ispc.dir/depend
 	$(MAKE) -f ext/embree/tutorials/motion_blur_geometry/CMakeFiles/motion_blur_geometry_ispc.dir/build.make ext/embree/tutorials/motion_blur_geometry/CMakeFiles/motion_blur_geometry_ispc.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/Users/karthikgopalan/Documents/cs184-final/CMakeFiles --progress-num=71 "Built target motion_blur_geometry_ispc"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/Users/karthikgopalan/Documents/cs184-final/CMakeFiles --progress-num= "Built target motion_blur_geometry_ispc"
 .PHONY : ext/embree/tutorials/motion_blur_geometry/CMakeFiles/motion_blur_geometry_ispc.dir/all
 
 # Build rule for subdir invocation for target.
 ext/embree/tutorials/motion_blur_geometry/CMakeFiles/motion_blur_geometry_ispc.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /Users/karthikgopalan/Documents/cs184-final/CMakeFiles 55
+	$(CMAKE_COMMAND) -E cmake_progress_start /Users/karthikgopalan/Documents/cs184-final/CMakeFiles 58
 	$(MAKE) -f CMakeFiles/Makefile2 ext/embree/tutorials/motion_blur_geometry/CMakeFiles/motion_blur_geometry_ispc.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /Users/karthikgopalan/Documents/cs184-final/CMakeFiles 0
 .PHONY : ext/embree/tutorials/motion_blur_geometry/CMakeFiles/motion_blur_geometry_ispc.dir/rule
@@ -2973,12 +2994,12 @@ ext/embree/tutorials/motion_blur_geometry/CMakeFiles/motion_blur_geometry.dir/al
 ext/embree/tutorials/motion_blur_geometry/CMakeFiles/motion_blur_geometry.dir/all: ext/nanogui/ext_build/glfw/src/CMakeFiles/glfw.dir/all
 	$(MAKE) -f ext/embree/tutorials/motion_blur_geometry/CMakeFiles/motion_blur_geometry.dir/build.make ext/embree/tutorials/motion_blur_geometry/CMakeFiles/motion_blur_geometry.dir/depend
 	$(MAKE) -f ext/embree/tutorials/motion_blur_geometry/CMakeFiles/motion_blur_geometry.dir/build.make ext/embree/tutorials/motion_blur_geometry/CMakeFiles/motion_blur_geometry.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/Users/karthikgopalan/Documents/cs184-final/CMakeFiles --progress-num= "Built target motion_blur_geometry"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/Users/karthikgopalan/Documents/cs184-final/CMakeFiles --progress-num=71 "Built target motion_blur_geometry"
 .PHONY : ext/embree/tutorials/motion_blur_geometry/CMakeFiles/motion_blur_geometry.dir/all
 
 # Build rule for subdir invocation for target.
 ext/embree/tutorials/motion_blur_geometry/CMakeFiles/motion_blur_geometry.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /Users/karthikgopalan/Documents/cs184-final/CMakeFiles 55
+	$(CMAKE_COMMAND) -E cmake_progress_start /Users/karthikgopalan/Documents/cs184-final/CMakeFiles 57
 	$(MAKE) -f CMakeFiles/Makefile2 ext/embree/tutorials/motion_blur_geometry/CMakeFiles/motion_blur_geometry.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /Users/karthikgopalan/Documents/cs184-final/CMakeFiles 0
 .PHONY : ext/embree/tutorials/motion_blur_geometry/CMakeFiles/motion_blur_geometry.dir/rule
@@ -3011,12 +3032,12 @@ ext/embree/tutorials/interpolation/CMakeFiles/interpolation.dir/all: ext/embree/
 ext/embree/tutorials/interpolation/CMakeFiles/interpolation.dir/all: ext/nanogui/ext_build/glfw/src/CMakeFiles/glfw.dir/all
 	$(MAKE) -f ext/embree/tutorials/interpolation/CMakeFiles/interpolation.dir/build.make ext/embree/tutorials/interpolation/CMakeFiles/interpolation.dir/depend
 	$(MAKE) -f ext/embree/tutorials/interpolation/CMakeFiles/interpolation.dir/build.make ext/embree/tutorials/interpolation/CMakeFiles/interpolation.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/Users/karthikgopalan/Documents/cs184-final/CMakeFiles --progress-num=63 "Built target interpolation"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/Users/karthikgopalan/Documents/cs184-final/CMakeFiles --progress-num=64 "Built target interpolation"
 .PHONY : ext/embree/tutorials/interpolation/CMakeFiles/interpolation.dir/all
 
 # Build rule for subdir invocation for target.
 ext/embree/tutorials/interpolation/CMakeFiles/interpolation.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /Users/karthikgopalan/Documents/cs184-final/CMakeFiles 56
+	$(CMAKE_COMMAND) -E cmake_progress_start /Users/karthikgopalan/Documents/cs184-final/CMakeFiles 57
 	$(MAKE) -f CMakeFiles/Makefile2 ext/embree/tutorials/interpolation/CMakeFiles/interpolation.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /Users/karthikgopalan/Documents/cs184-final/CMakeFiles 0
 .PHONY : ext/embree/tutorials/interpolation/CMakeFiles/interpolation.dir/rule
@@ -3050,12 +3071,12 @@ ext/embree/tutorials/interpolation/CMakeFiles/interpolation_ispc.dir/all: ext/em
 ext/embree/tutorials/interpolation/CMakeFiles/interpolation_ispc.dir/all: ext/nanogui/ext_build/glfw/src/CMakeFiles/glfw.dir/all
 	$(MAKE) -f ext/embree/tutorials/interpolation/CMakeFiles/interpolation_ispc.dir/build.make ext/embree/tutorials/interpolation/CMakeFiles/interpolation_ispc.dir/depend
 	$(MAKE) -f ext/embree/tutorials/interpolation/CMakeFiles/interpolation_ispc.dir/build.make ext/embree/tutorials/interpolation/CMakeFiles/interpolation_ispc.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/Users/karthikgopalan/Documents/cs184-final/CMakeFiles --progress-num=64 "Built target interpolation_ispc"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/Users/karthikgopalan/Documents/cs184-final/CMakeFiles --progress-num= "Built target interpolation_ispc"
 .PHONY : ext/embree/tutorials/interpolation/CMakeFiles/interpolation_ispc.dir/all
 
 # Build rule for subdir invocation for target.
 ext/embree/tutorials/interpolation/CMakeFiles/interpolation_ispc.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /Users/karthikgopalan/Documents/cs184-final/CMakeFiles 55
+	$(CMAKE_COMMAND) -E cmake_progress_start /Users/karthikgopalan/Documents/cs184-final/CMakeFiles 58
 	$(MAKE) -f CMakeFiles/Makefile2 ext/embree/tutorials/interpolation/CMakeFiles/interpolation_ispc.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /Users/karthikgopalan/Documents/cs184-final/CMakeFiles 0
 .PHONY : ext/embree/tutorials/interpolation/CMakeFiles/interpolation_ispc.dir/rule
@@ -3083,12 +3104,12 @@ ext/embree/tutorials/convert/CMakeFiles/convert.dir/all: ext/embree/tutorials/co
 ext/embree/tutorials/convert/CMakeFiles/convert.dir/all: ext/embree/tutorials/common/scenegraph/CMakeFiles/scenegraph.dir/all
 	$(MAKE) -f ext/embree/tutorials/convert/CMakeFiles/convert.dir/build.make ext/embree/tutorials/convert/CMakeFiles/convert.dir/depend
 	$(MAKE) -f ext/embree/tutorials/convert/CMakeFiles/convert.dir/build.make ext/embree/tutorials/convert/CMakeFiles/convert.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/Users/karthikgopalan/Documents/cs184-final/CMakeFiles --progress-num=10 "Built target convert"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/Users/karthikgopalan/Documents/cs184-final/CMakeFiles --progress-num=11 "Built target convert"
 .PHONY : ext/embree/tutorials/convert/CMakeFiles/convert.dir/all
 
 # Build rule for subdir invocation for target.
 ext/embree/tutorials/convert/CMakeFiles/convert.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /Users/karthikgopalan/Documents/cs184-final/CMakeFiles 50
+	$(CMAKE_COMMAND) -E cmake_progress_start /Users/karthikgopalan/Documents/cs184-final/CMakeFiles 51
 	$(MAKE) -f CMakeFiles/Makefile2 ext/embree/tutorials/convert/CMakeFiles/convert.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /Users/karthikgopalan/Documents/cs184-final/CMakeFiles 0
 .PHONY : ext/embree/tutorials/convert/CMakeFiles/convert.dir/rule
@@ -3122,12 +3143,12 @@ ext/embree/tutorials/curve_geometry/CMakeFiles/curve_geometry_ispc.dir/all: ext/
 ext/embree/tutorials/curve_geometry/CMakeFiles/curve_geometry_ispc.dir/all: ext/nanogui/ext_build/glfw/src/CMakeFiles/glfw.dir/all
 	$(MAKE) -f ext/embree/tutorials/curve_geometry/CMakeFiles/curve_geometry_ispc.dir/build.make ext/embree/tutorials/curve_geometry/CMakeFiles/curve_geometry_ispc.dir/depend
 	$(MAKE) -f ext/embree/tutorials/curve_geometry/CMakeFiles/curve_geometry_ispc.dir/build.make ext/embree/tutorials/curve_geometry/CMakeFiles/curve_geometry_ispc.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/Users/karthikgopalan/Documents/cs184-final/CMakeFiles --progress-num= "Built target curve_geometry_ispc"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/Users/karthikgopalan/Documents/cs184-final/CMakeFiles --progress-num=12 "Built target curve_geometry_ispc"
 .PHONY : ext/embree/tutorials/curve_geometry/CMakeFiles/curve_geometry_ispc.dir/all
 
 # Build rule for subdir invocation for target.
 ext/embree/tutorials/curve_geometry/CMakeFiles/curve_geometry_ispc.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /Users/karthikgopalan/Documents/cs184-final/CMakeFiles 54
+	$(CMAKE_COMMAND) -E cmake_progress_start /Users/karthikgopalan/Documents/cs184-final/CMakeFiles 59
 	$(MAKE) -f CMakeFiles/Makefile2 ext/embree/tutorials/curve_geometry/CMakeFiles/curve_geometry_ispc.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /Users/karthikgopalan/Documents/cs184-final/CMakeFiles 0
 .PHONY : ext/embree/tutorials/curve_geometry/CMakeFiles/curve_geometry_ispc.dir/rule
@@ -3160,7 +3181,7 @@ ext/embree/tutorials/curve_geometry/CMakeFiles/curve_geometry.dir/all: ext/embre
 ext/embree/tutorials/curve_geometry/CMakeFiles/curve_geometry.dir/all: ext/nanogui/ext_build/glfw/src/CMakeFiles/glfw.dir/all
 	$(MAKE) -f ext/embree/tutorials/curve_geometry/CMakeFiles/curve_geometry.dir/build.make ext/embree/tutorials/curve_geometry/CMakeFiles/curve_geometry.dir/depend
 	$(MAKE) -f ext/embree/tutorials/curve_geometry/CMakeFiles/curve_geometry.dir/build.make ext/embree/tutorials/curve_geometry/CMakeFiles/curve_geometry.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/Users/karthikgopalan/Documents/cs184-final/CMakeFiles --progress-num=11 "Built target curve_geometry"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/Users/karthikgopalan/Documents/cs184-final/CMakeFiles --progress-num= "Built target curve_geometry"
 .PHONY : ext/embree/tutorials/curve_geometry/CMakeFiles/curve_geometry.dir/all
 
 # Build rule for subdir invocation for target.
@@ -3204,7 +3225,7 @@ ext/embree/tutorials/point_geometry/CMakeFiles/point_geometry_ispc.dir/all: ext/
 
 # Build rule for subdir invocation for target.
 ext/embree/tutorials/point_geometry/CMakeFiles/point_geometry_ispc.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /Users/karthikgopalan/Documents/cs184-final/CMakeFiles 55
+	$(CMAKE_COMMAND) -E cmake_progress_start /Users/karthikgopalan/Documents/cs184-final/CMakeFiles 59
 	$(MAKE) -f CMakeFiles/Makefile2 ext/embree/tutorials/point_geometry/CMakeFiles/point_geometry_ispc.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /Users/karthikgopalan/Documents/cs184-final/CMakeFiles 0
 .PHONY : ext/embree/tutorials/point_geometry/CMakeFiles/point_geometry_ispc.dir/rule
@@ -3237,7 +3258,7 @@ ext/embree/tutorials/point_geometry/CMakeFiles/point_geometry.dir/all: ext/embre
 ext/embree/tutorials/point_geometry/CMakeFiles/point_geometry.dir/all: ext/nanogui/ext_build/glfw/src/CMakeFiles/glfw.dir/all
 	$(MAKE) -f ext/embree/tutorials/point_geometry/CMakeFiles/point_geometry.dir/build.make ext/embree/tutorials/point_geometry/CMakeFiles/point_geometry.dir/depend
 	$(MAKE) -f ext/embree/tutorials/point_geometry/CMakeFiles/point_geometry.dir/build.make ext/embree/tutorials/point_geometry/CMakeFiles/point_geometry.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/Users/karthikgopalan/Documents/cs184-final/CMakeFiles --progress-num=81 "Built target point_geometry"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/Users/karthikgopalan/Documents/cs184-final/CMakeFiles --progress-num= "Built target point_geometry"
 .PHONY : ext/embree/tutorials/point_geometry/CMakeFiles/point_geometry.dir/all
 
 # Build rule for subdir invocation for target.
@@ -3280,7 +3301,7 @@ ext/embree/tutorials/buildbench/CMakeFiles/buildbench.dir/all: ext/nanogui/ext_b
 
 # Build rule for subdir invocation for target.
 ext/embree/tutorials/buildbench/CMakeFiles/buildbench.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /Users/karthikgopalan/Documents/cs184-final/CMakeFiles 55
+	$(CMAKE_COMMAND) -E cmake_progress_start /Users/karthikgopalan/Documents/cs184-final/CMakeFiles 56
 	$(MAKE) -f CMakeFiles/Makefile2 ext/embree/tutorials/buildbench/CMakeFiles/buildbench.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /Users/karthikgopalan/Documents/cs184-final/CMakeFiles 0
 .PHONY : ext/embree/tutorials/buildbench/CMakeFiles/buildbench.dir/rule
@@ -3294,6 +3315,44 @@ buildbench: ext/embree/tutorials/buildbench/CMakeFiles/buildbench.dir/rule
 ext/embree/tutorials/buildbench/CMakeFiles/buildbench.dir/clean:
 	$(MAKE) -f ext/embree/tutorials/buildbench/CMakeFiles/buildbench.dir/build.make ext/embree/tutorials/buildbench/CMakeFiles/buildbench.dir/clean
 .PHONY : ext/embree/tutorials/buildbench/CMakeFiles/buildbench.dir/clean
+
+#=============================================================================
+# Target rules for target ext/embree/tutorials/collide/CMakeFiles/collide.dir
+
+# All Build rule for target.
+ext/embree/tutorials/collide/CMakeFiles/collide.dir/all: ext/embree/common/sys/CMakeFiles/sys.dir/all
+ext/embree/tutorials/collide/CMakeFiles/collide.dir/all: ext/embree/common/math/CMakeFiles/math.dir/all
+ext/embree/tutorials/collide/CMakeFiles/collide.dir/all: ext/embree/common/lexers/CMakeFiles/lexers.dir/all
+ext/embree/tutorials/collide/CMakeFiles/collide.dir/all: ext/embree/common/tasking/CMakeFiles/tasking.dir/all
+ext/embree/tutorials/collide/CMakeFiles/collide.dir/all: ext/embree/kernels/CMakeFiles/embree.dir/all
+ext/embree/tutorials/collide/CMakeFiles/collide.dir/all: ext/embree/tutorials/common/image/CMakeFiles/image.dir/all
+ext/embree/tutorials/collide/CMakeFiles/collide.dir/all: ext/embree/tutorials/common/tutorial/CMakeFiles/noise.dir/all
+ext/embree/tutorials/collide/CMakeFiles/collide.dir/all: ext/embree/tutorials/common/tutorial/CMakeFiles/tutorial.dir/all
+ext/embree/tutorials/collide/CMakeFiles/collide.dir/all: ext/embree/tutorials/common/scenegraph/CMakeFiles/scenegraph.dir/all
+ext/embree/tutorials/collide/CMakeFiles/collide.dir/all: ext/embree/tutorials/common/lights/CMakeFiles/lights.dir/all
+ext/embree/tutorials/collide/CMakeFiles/collide.dir/all: ext/embree/tutorials/common/imgui/CMakeFiles/imgui.dir/all
+ext/embree/tutorials/collide/CMakeFiles/collide.dir/all: ext/nanogui/ext_build/glfw/src/CMakeFiles/glfw.dir/all
+	$(MAKE) -f ext/embree/tutorials/collide/CMakeFiles/collide.dir/build.make ext/embree/tutorials/collide/CMakeFiles/collide.dir/depend
+	$(MAKE) -f ext/embree/tutorials/collide/CMakeFiles/collide.dir/build.make ext/embree/tutorials/collide/CMakeFiles/collide.dir/build
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/Users/karthikgopalan/Documents/cs184-final/CMakeFiles --progress-num=10 "Built target collide"
+.PHONY : ext/embree/tutorials/collide/CMakeFiles/collide.dir/all
+
+# Build rule for subdir invocation for target.
+ext/embree/tutorials/collide/CMakeFiles/collide.dir/rule: cmake_check_build_system
+	$(CMAKE_COMMAND) -E cmake_progress_start /Users/karthikgopalan/Documents/cs184-final/CMakeFiles 57
+	$(MAKE) -f CMakeFiles/Makefile2 ext/embree/tutorials/collide/CMakeFiles/collide.dir/all
+	$(CMAKE_COMMAND) -E cmake_progress_start /Users/karthikgopalan/Documents/cs184-final/CMakeFiles 0
+.PHONY : ext/embree/tutorials/collide/CMakeFiles/collide.dir/rule
+
+# Convenience name for target.
+collide: ext/embree/tutorials/collide/CMakeFiles/collide.dir/rule
+
+.PHONY : collide
+
+# clean rule for target.
+ext/embree/tutorials/collide/CMakeFiles/collide.dir/clean:
+	$(MAKE) -f ext/embree/tutorials/collide/CMakeFiles/collide.dir/build.make ext/embree/tutorials/collide/CMakeFiles/collide.dir/clean
+.PHONY : ext/embree/tutorials/collide/CMakeFiles/collide.dir/clean
 
 #=============================================================================
 # Target rules for target ext/embree/tutorials/closest_point/CMakeFiles/closest_point_ispc.dir
@@ -3319,7 +3378,7 @@ ext/embree/tutorials/closest_point/CMakeFiles/closest_point_ispc.dir/all: ext/na
 
 # Build rule for subdir invocation for target.
 ext/embree/tutorials/closest_point/CMakeFiles/closest_point_ispc.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /Users/karthikgopalan/Documents/cs184-final/CMakeFiles 55
+	$(CMAKE_COMMAND) -E cmake_progress_start /Users/karthikgopalan/Documents/cs184-final/CMakeFiles 59
 	$(MAKE) -f CMakeFiles/Makefile2 ext/embree/tutorials/closest_point/CMakeFiles/closest_point_ispc.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /Users/karthikgopalan/Documents/cs184-final/CMakeFiles 0
 .PHONY : ext/embree/tutorials/closest_point/CMakeFiles/closest_point_ispc.dir/rule
@@ -3357,7 +3416,7 @@ ext/embree/tutorials/closest_point/CMakeFiles/closest_point.dir/all: ext/nanogui
 
 # Build rule for subdir invocation for target.
 ext/embree/tutorials/closest_point/CMakeFiles/closest_point.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /Users/karthikgopalan/Documents/cs184-final/CMakeFiles 55
+	$(CMAKE_COMMAND) -E cmake_progress_start /Users/karthikgopalan/Documents/cs184-final/CMakeFiles 56
 	$(MAKE) -f CMakeFiles/Makefile2 ext/embree/tutorials/closest_point/CMakeFiles/closest_point.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /Users/karthikgopalan/Documents/cs184-final/CMakeFiles 0
 .PHONY : ext/embree/tutorials/closest_point/CMakeFiles/closest_point.dir/rule
@@ -3396,7 +3455,7 @@ ext/embree/tutorials/voronoi/CMakeFiles/voronoi_ispc.dir/all: ext/nanogui/ext_bu
 
 # Build rule for subdir invocation for target.
 ext/embree/tutorials/voronoi/CMakeFiles/voronoi_ispc.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /Users/karthikgopalan/Documents/cs184-final/CMakeFiles 55
+	$(CMAKE_COMMAND) -E cmake_progress_start /Users/karthikgopalan/Documents/cs184-final/CMakeFiles 59
 	$(MAKE) -f CMakeFiles/Makefile2 ext/embree/tutorials/voronoi/CMakeFiles/voronoi_ispc.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /Users/karthikgopalan/Documents/cs184-final/CMakeFiles 0
 .PHONY : ext/embree/tutorials/voronoi/CMakeFiles/voronoi_ispc.dir/rule
@@ -3434,7 +3493,7 @@ ext/embree/tutorials/voronoi/CMakeFiles/voronoi.dir/all: ext/nanogui/ext_build/g
 
 # Build rule for subdir invocation for target.
 ext/embree/tutorials/voronoi/CMakeFiles/voronoi.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /Users/karthikgopalan/Documents/cs184-final/CMakeFiles 56
+	$(CMAKE_COMMAND) -E cmake_progress_start /Users/karthikgopalan/Documents/cs184-final/CMakeFiles 57
 	$(MAKE) -f CMakeFiles/Makefile2 ext/embree/tutorials/voronoi/CMakeFiles/voronoi.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /Users/karthikgopalan/Documents/cs184-final/CMakeFiles 0
 .PHONY : ext/embree/tutorials/voronoi/CMakeFiles/voronoi.dir/rule
@@ -3472,7 +3531,7 @@ ext/embree/tutorials/next_hit/CMakeFiles/next_hit.dir/all: ext/nanogui/ext_build
 
 # Build rule for subdir invocation for target.
 ext/embree/tutorials/next_hit/CMakeFiles/next_hit.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /Users/karthikgopalan/Documents/cs184-final/CMakeFiles 56
+	$(CMAKE_COMMAND) -E cmake_progress_start /Users/karthikgopalan/Documents/cs184-final/CMakeFiles 57
 	$(MAKE) -f CMakeFiles/Makefile2 ext/embree/tutorials/next_hit/CMakeFiles/next_hit.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /Users/karthikgopalan/Documents/cs184-final/CMakeFiles 0
 .PHONY : ext/embree/tutorials/next_hit/CMakeFiles/next_hit.dir/rule
@@ -3510,7 +3569,7 @@ ext/embree/tutorials/multiscene_geometry/CMakeFiles/multiscene_geometry.dir/all:
 
 # Build rule for subdir invocation for target.
 ext/embree/tutorials/multiscene_geometry/CMakeFiles/multiscene_geometry.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /Users/karthikgopalan/Documents/cs184-final/CMakeFiles 56
+	$(CMAKE_COMMAND) -E cmake_progress_start /Users/karthikgopalan/Documents/cs184-final/CMakeFiles 57
 	$(MAKE) -f CMakeFiles/Makefile2 ext/embree/tutorials/multiscene_geometry/CMakeFiles/multiscene_geometry.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /Users/karthikgopalan/Documents/cs184-final/CMakeFiles 0
 .PHONY : ext/embree/tutorials/multiscene_geometry/CMakeFiles/multiscene_geometry.dir/rule
@@ -3548,7 +3607,7 @@ ext/embree/tutorials/quaternion_motion_blur/CMakeFiles/quaternion_motion_blur.di
 
 # Build rule for subdir invocation for target.
 ext/embree/tutorials/quaternion_motion_blur/CMakeFiles/quaternion_motion_blur.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /Users/karthikgopalan/Documents/cs184-final/CMakeFiles 55
+	$(CMAKE_COMMAND) -E cmake_progress_start /Users/karthikgopalan/Documents/cs184-final/CMakeFiles 56
 	$(MAKE) -f CMakeFiles/Makefile2 ext/embree/tutorials/quaternion_motion_blur/CMakeFiles/quaternion_motion_blur.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /Users/karthikgopalan/Documents/cs184-final/CMakeFiles 0
 .PHONY : ext/embree/tutorials/quaternion_motion_blur/CMakeFiles/quaternion_motion_blur.dir/rule
@@ -3587,7 +3646,7 @@ ext/embree/tutorials/quaternion_motion_blur/CMakeFiles/quaternion_motion_blur_is
 
 # Build rule for subdir invocation for target.
 ext/embree/tutorials/quaternion_motion_blur/CMakeFiles/quaternion_motion_blur_ispc.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /Users/karthikgopalan/Documents/cs184-final/CMakeFiles 55
+	$(CMAKE_COMMAND) -E cmake_progress_start /Users/karthikgopalan/Documents/cs184-final/CMakeFiles 59
 	$(MAKE) -f CMakeFiles/Makefile2 ext/embree/tutorials/quaternion_motion_blur/CMakeFiles/quaternion_motion_blur_ispc.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /Users/karthikgopalan/Documents/cs184-final/CMakeFiles 0
 .PHONY : ext/embree/tutorials/quaternion_motion_blur/CMakeFiles/quaternion_motion_blur_ispc.dir/rule
@@ -3626,7 +3685,7 @@ ext/embree/tutorials/viewer_stream/CMakeFiles/viewer_stream_ispc.dir/all: ext/na
 
 # Build rule for subdir invocation for target.
 ext/embree/tutorials/viewer_stream/CMakeFiles/viewer_stream_ispc.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /Users/karthikgopalan/Documents/cs184-final/CMakeFiles 54
+	$(CMAKE_COMMAND) -E cmake_progress_start /Users/karthikgopalan/Documents/cs184-final/CMakeFiles 58
 	$(MAKE) -f CMakeFiles/Makefile2 ext/embree/tutorials/viewer_stream/CMakeFiles/viewer_stream_ispc.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /Users/karthikgopalan/Documents/cs184-final/CMakeFiles 0
 .PHONY : ext/embree/tutorials/viewer_stream/CMakeFiles/viewer_stream_ispc.dir/rule
@@ -3664,7 +3723,7 @@ ext/embree/tutorials/viewer_stream/CMakeFiles/viewer_stream.dir/all: ext/nanogui
 
 # Build rule for subdir invocation for target.
 ext/embree/tutorials/viewer_stream/CMakeFiles/viewer_stream.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /Users/karthikgopalan/Documents/cs184-final/CMakeFiles 56
+	$(CMAKE_COMMAND) -E cmake_progress_start /Users/karthikgopalan/Documents/cs184-final/CMakeFiles 57
 	$(MAKE) -f CMakeFiles/Makefile2 ext/embree/tutorials/viewer_stream/CMakeFiles/viewer_stream.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /Users/karthikgopalan/Documents/cs184-final/CMakeFiles 0
 .PHONY : ext/embree/tutorials/viewer_stream/CMakeFiles/viewer_stream.dir/rule
@@ -3703,7 +3762,7 @@ ext/embree/tutorials/viewer_anim/CMakeFiles/viewer_anim_ispc.dir/all: ext/nanogu
 
 # Build rule for subdir invocation for target.
 ext/embree/tutorials/viewer_anim/CMakeFiles/viewer_anim_ispc.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /Users/karthikgopalan/Documents/cs184-final/CMakeFiles 55
+	$(CMAKE_COMMAND) -E cmake_progress_start /Users/karthikgopalan/Documents/cs184-final/CMakeFiles 59
 	$(MAKE) -f CMakeFiles/Makefile2 ext/embree/tutorials/viewer_anim/CMakeFiles/viewer_anim_ispc.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /Users/karthikgopalan/Documents/cs184-final/CMakeFiles 0
 .PHONY : ext/embree/tutorials/viewer_anim/CMakeFiles/viewer_anim_ispc.dir/rule
@@ -3741,7 +3800,7 @@ ext/embree/tutorials/viewer_anim/CMakeFiles/viewer_anim.dir/all: ext/nanogui/ext
 
 # Build rule for subdir invocation for target.
 ext/embree/tutorials/viewer_anim/CMakeFiles/viewer_anim.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /Users/karthikgopalan/Documents/cs184-final/CMakeFiles 55
+	$(CMAKE_COMMAND) -E cmake_progress_start /Users/karthikgopalan/Documents/cs184-final/CMakeFiles 56
 	$(MAKE) -f CMakeFiles/Makefile2 ext/embree/tutorials/viewer_anim/CMakeFiles/viewer_anim.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /Users/karthikgopalan/Documents/cs184-final/CMakeFiles 0
 .PHONY : ext/embree/tutorials/viewer_anim/CMakeFiles/viewer_anim.dir/rule
@@ -3818,7 +3877,7 @@ ext/nanogui/CMakeFiles/nanogui-obj.dir/clean:
 ext/nanogui/ext_build/glfw/src/CMakeFiles/glfw_objects.dir/all:
 	$(MAKE) -f ext/nanogui/ext_build/glfw/src/CMakeFiles/glfw_objects.dir/build.make ext/nanogui/ext_build/glfw/src/CMakeFiles/glfw_objects.dir/depend
 	$(MAKE) -f ext/nanogui/ext_build/glfw/src/CMakeFiles/glfw_objects.dir/build.make ext/nanogui/ext_build/glfw/src/CMakeFiles/glfw_objects.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/Users/karthikgopalan/Documents/cs184-final/CMakeFiles --progress-num=55,56,57 "Built target glfw_objects"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/Users/karthikgopalan/Documents/cs184-final/CMakeFiles --progress-num=56,57,58 "Built target glfw_objects"
 .PHONY : ext/nanogui/ext_build/glfw/src/CMakeFiles/glfw_objects.dir/all
 
 # Build rule for subdir invocation for target.

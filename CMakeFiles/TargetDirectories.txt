@@ -379,6 +379,15 @@
 /Users/karthikgopalan/Documents/cs184-final/ext/embree/tutorials/buildbench/CMakeFiles/package_source.dir
 /Users/karthikgopalan/Documents/cs184-final/ext/embree/tutorials/buildbench/CMakeFiles/rebuild_cache.dir
 /Users/karthikgopalan/Documents/cs184-final/ext/embree/tutorials/buildbench/CMakeFiles/edit_cache.dir
+/Users/karthikgopalan/Documents/cs184-final/ext/embree/tutorials/collide/CMakeFiles/install/local.dir
+/Users/karthikgopalan/Documents/cs184-final/ext/embree/tutorials/collide/CMakeFiles/install/strip.dir
+/Users/karthikgopalan/Documents/cs184-final/ext/embree/tutorials/collide/CMakeFiles/install.dir
+/Users/karthikgopalan/Documents/cs184-final/ext/embree/tutorials/collide/CMakeFiles/list_install_components.dir
+/Users/karthikgopalan/Documents/cs184-final/ext/embree/tutorials/collide/CMakeFiles/package_source.dir
+/Users/karthikgopalan/Documents/cs184-final/ext/embree/tutorials/collide/CMakeFiles/rebuild_cache.dir
+/Users/karthikgopalan/Documents/cs184-final/ext/embree/tutorials/collide/CMakeFiles/edit_cache.dir
+/Users/karthikgopalan/Documents/cs184-final/ext/embree/tutorials/collide/CMakeFiles/package.dir
+/Users/karthikgopalan/Documents/cs184-final/ext/embree/tutorials/collide/CMakeFiles/collide.dir
 /Users/karthikgopalan/Documents/cs184-final/ext/embree/tutorials/closest_point/CMakeFiles/install/local.dir
 /Users/karthikgopalan/Documents/cs184-final/ext/embree/tutorials/closest_point/CMakeFiles/install/strip.dir
 /Users/karthikgopalan/Documents/cs184-final/ext/embree/tutorials/closest_point/CMakeFiles/install.dir

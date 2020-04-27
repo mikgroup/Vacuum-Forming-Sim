@@ -428,6 +428,33 @@ EMBREE_STAT_COUNTERS:BOOL=OFF
 //Selects tasking system
 EMBREE_TASKING_SYSTEM:STRING=TBB
 
+//Path to a library.
+EMBREE_TBBMALLOC_DEBUG_LIBRARY:FILEPATH=EMBREE_TBBMALLOC_DEBUG_LIBRARY-NOTFOUND
+
+//Path to a library.
+EMBREE_TBBMALLOC_LIBRARY:FILEPATH=/opt/local/lib/libtbbmalloc.dylib
+
+//Path to a file.
+EMBREE_TBB_DEBUG_INCLUDE_DIR:PATH=/opt/local/include
+
+//Path to a library.
+EMBREE_TBB_DEBUG_LIBRARY:FILEPATH=EMBREE_TBB_DEBUG_LIBRARY-NOTFOUND
+
+//Link to tbb<EMBREE_TBB_DEBUG_POSTFIX>.(dll,lib,so) in debug mode.
+EMBREE_TBB_DEBUG_POSTFIX:STRING=_debug
+
+//Sets the root path of the debug version of TBB.
+EMBREE_TBB_DEBUG_ROOT:PATH=
+
+//Path to a file.
+EMBREE_TBB_INCLUDE_DIR:PATH=/opt/local/include
+
+//Path to a library.
+EMBREE_TBB_LIBRARY:FILEPATH=/opt/local/lib/libtbb.dylib
+
+//Link to tbb<EMBREE_TBB_POSTFIX>.(dll,lib,so) in release mode.
+EMBREE_TBB_POSTFIX:STRING=
+
 //Root of TBB installation
 EMBREE_TBB_ROOT:PATH=/opt/local
 
@@ -628,7 +655,7 @@ pkgcfg_lib_GLFW_glfw:FILEPATH=/usr/local/Cellar/glfw/3.3.1/lib/libglfw.dylib
 scenegraph_LIB_DEPENDS:STATIC=general;sys;general;math;general;lexers;general;image;general;embree;
 
 //Dependencies for the target
-tasking_LIB_DEPENDS:STATIC=general;sys;general;math;general;/opt/local/lib/libtbb.dylib;general;/opt/local/lib/libtbbmalloc.dylib;
+tasking_LIB_DEPENDS:STATIC=general;sys;general;math;general;TBB::tbbmalloc;general;TBB::tbb;
 
 //Dependencies for the target
 texture_LIB_DEPENDS:STATIC=general;sys;general;math;
@@ -775,7 +802,7 @@ CMAKE_MODULE_LINKER_FLAGS_RELWITHDEBINFO-ADVANCED:INTERNAL=1
 //ADVANCED property for variable: CMAKE_NM
 CMAKE_NM-ADVANCED:INTERNAL=1
 //number of local generators
-CMAKE_NUMBER_OF_MAKEFILES:INTERNAL=53
+CMAKE_NUMBER_OF_MAKEFILES:INTERNAL=54
 //ADVANCED property for variable: CMAKE_OBJCOPY
 CMAKE_OBJCOPY-ADVANCED:INTERNAL=1
 //ADVANCED property for variable: CMAKE_OBJDUMP
@@ -862,6 +889,18 @@ EMBREE_MAX_ISA-STRINGS:INTERNAL=NONE;SSE2;SSE4.2;AVX;AVX2;AVX512KNL;AVX512SKX;DE
 EMBREE_STATIC_LIB-ADVANCED:INTERNAL=0
 //STRINGS property for variable: EMBREE_TASKING_SYSTEM
 EMBREE_TASKING_SYSTEM-STRINGS:INTERNAL=TBB;INTERNAL
+//ADVANCED property for variable: EMBREE_TBBMALLOC_DEBUG_LIBRARY
+EMBREE_TBBMALLOC_DEBUG_LIBRARY-ADVANCED:INTERNAL=1
+//ADVANCED property for variable: EMBREE_TBBMALLOC_LIBRARY
+EMBREE_TBBMALLOC_LIBRARY-ADVANCED:INTERNAL=1
+//ADVANCED property for variable: EMBREE_TBB_DEBUG_INCLUDE_DIR
+EMBREE_TBB_DEBUG_INCLUDE_DIR-ADVANCED:INTERNAL=1
+//ADVANCED property for variable: EMBREE_TBB_DEBUG_LIBRARY
+EMBREE_TBB_DEBUG_LIBRARY-ADVANCED:INTERNAL=1
+//ADVANCED property for variable: EMBREE_TBB_INCLUDE_DIR
+EMBREE_TBB_INCLUDE_DIR-ADVANCED:INTERNAL=1
+//ADVANCED property for variable: EMBREE_TBB_LIBRARY
+EMBREE_TBB_LIBRARY-ADVANCED:INTERNAL=1
 //Details about finding Freetype
 FIND_PACKAGE_MESSAGE_DETAILS_Freetype:INTERNAL=[/usr/local/lib/libfreetype.dylib][/usr/local/include/freetype2][v2.10.1()]
 //Details about finding Git

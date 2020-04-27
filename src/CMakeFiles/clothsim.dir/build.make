@@ -247,7 +247,7 @@ clothsim: src/CMakeFiles/clothsim.dir/build.make
 clothsim: CGL/src/libCGL.a
 clothsim: ext/nanogui/libnanogui.dylib
 clothsim: /usr/local/lib/libfreetype.dylib
-clothsim: ext/embree/libembree3.3.7.0.dylib
+clothsim: ext/embree/libembree3.3.8.0.dylib
 clothsim: src/CMakeFiles/clothsim.dir/link.txt
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/Users/karthikgopalan/Documents/cs184-final/CMakeFiles --progress-num=$(CMAKE_PROGRESS_13) "Linking CXX executable ../clothsim"
 	cd /Users/karthikgopalan/Documents/cs184-final/src && $(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/clothsim.dir/link.txt --verbose=$(VERBOSE)
