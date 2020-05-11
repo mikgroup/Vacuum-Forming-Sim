@@ -90,6 +90,8 @@ void ClothSimulator::init() {
   }
 	
 	textureId = makeTex(cloth->texture);
+  cloth->write_to_file("cloth_original.off");
+  cout << "Wrote original to file" << endl;
 
   CGL::Vector3D target(avg_pm_position.x, avg_pm_position.y / 2,
                        avg_pm_position.z);

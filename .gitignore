@@ -5,6 +5,14 @@ CMakeScripts
 Makefile
 cmake_install.cmake
 
+# Different systems have different binary formats
+scene/arap
+scene/cloth.off
+scene/cloth_original.off
+scene/result.off
+scene/result2.off
+scene/knee_tmp.json
+
 # Cruft
 .DS_Store
 
