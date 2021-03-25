@@ -47,6 +47,9 @@ file(INSTALL DESTINATION "/Users/karthikgopalan/Documents/cs184-final" TYPE EXEC
     execute_process(COMMAND /opt/local/bin/install_name_tool
       -delete_rpath "/Users/karthikgopalan/Documents/cs184-final/ext/nanogui"
       "$ENV{DESTDIR}/Users/karthikgopalan/Documents/cs184-final/clothsim")
+    execute_process(COMMAND /opt/local/bin/install_name_tool
+      -delete_rpath "/Users/karthikgopalan/Documents/cs184-final/ext/embree"
+      "$ENV{DESTDIR}/Users/karthikgopalan/Documents/cs184-final/clothsim")
     if(CMAKE_INSTALL_DO_STRIP)
       execute_process(COMMAND "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/strip" -u -r "$ENV{DESTDIR}/Users/karthikgopalan/Documents/cs184-final/clothsim")
     endif()

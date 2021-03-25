@@ -743,11 +743,14 @@ float Cloth::hash_position(Vector3D pos) {
 
 void Cloth::write_obj(const char *filename) {
   ofstream f(filename);
-  //std::map<PointMass, int> m;	
+  //std::map<PointMass, int> m;
+  //
+  f << "mtllib cloth.mtl" << endl;	
 
   // Write all vertex positions
   for (int ind = 0; ind < point_masses.size(); ind++) {
     f << "v " << point_masses[ind].position.x << " " << point_masses[ind].position.y << " " << point_masses[ind].position.z << endl;
+    f << "vt " << point_masses[ind].uv.x << " " << point_masses[ind].uv.y << endl;
     //m[point_masses[ind]] = ind + 1;
   }
   

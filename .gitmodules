@@ -4,3 +4,6 @@
 [submodule "ext/cgal"]
 	path = ext/cgal
 	url = https://github.com/CGAL/cgal.git
+[submodule "ext/nanogui"]
+	path = ext/nanogui
+	url = https://github.com/wjakob/nanogui.git

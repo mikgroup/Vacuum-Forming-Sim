@@ -1,6 +1,6 @@
 {
   "mesh": [{
-    "translate": [0,0.019,0],
+    "translate": [0,0.019,0.01],
 		"scale": 0.001,
 		"filename": "../meshes/knee.obj",
 		"rotate": [{
