@@ -1,0 +1,55 @@
+{
+  "mesh": [{
+    "translate": [0.005,0.019,0.00],
+		"scale": 0.0001,
+		"filename": "../meshes/miki_head_back_v2.obj",
+		"rotate": [{
+			"axis": [0, 0, 1],
+			"angle": -0
+		}, {
+			"axis": [0,1,0],
+			"angle": 90
+		}]
+		},{
+		"translate": [-0.2, 0.38, 0.3],
+		"scale": 0.03937,
+		"filename": "../meshes/platen.obj",
+		"platen": true
+		},{
+    "translate": [0,0,0],
+		"scale": 0.001,
+		"filename": "../meshes/miki_head_plate_v2.obj",
+		"rotate": [{
+			"axis": [0, 0, 1],
+			"angle": 0
+		}, {
+			"axis": [0,1,0],
+			"angle": 90
+		}]
+	}],
+    
+ "cloth": {
+    "damping": 0.03,
+    "density": 15,
+    "ks": 150.0,
+    "enable_structural": true,
+    "enable_shearing": true,
+    "enable_bending": true,
+    "orientation": 0,
+    "width": 0.279,
+    "height": 0.43,
+    "num_width_points": 88,
+    "num_height_points": 132,
+    "thickness": 0.0095,
+		"texture": "../storage/tex.png",
+		"pin_edges": true,
+		"motion": {
+			"velocity": [0, -0.5, 0],
+      "delay": 0.1
+		},
+		"vacuum": {
+			"magnitude": 25000,
+			"delay": 0.1
+		}
+  }
+}
