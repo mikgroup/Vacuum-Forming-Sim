@@ -754,7 +754,7 @@ void Cloth::write_obj(const char *filename) {
     //m[point_masses[ind]] = ind + 1;
   }
   
-  f << endl;
+  f << "usemtl Material_0" << endl;
 
 	for (auto tri : clothMesh->triangles) {
 		f << "f" << " " << tri->pm1->index + 1 << " " << tri->pm2->index + 1 << " " << tri->pm3->index + 1 << endl;	
